@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "skills": [
+    {
+      "slug": "design-frontend-dev",
+      "version": "3.1.1",
+      "checksum": "sha256:8622f4d9885f0f6ad0f140010e4fc7faecf0c1f44fa5c856994c257e637edb84"
+    },
+    {
+      "slug": "review-code-dev",
+      "version": "1.0.7",
+      "checksum": "sha256:ee857b250960d0c0430eaa07ee409a6175ef1f59ebef8d17e330efee0ff1c574"
+    }
+  ]
+}

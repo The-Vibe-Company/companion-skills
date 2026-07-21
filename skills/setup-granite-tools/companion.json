@@ -1,0 +1,122 @@
+{
+  "$schema": "https://thecompanion.sh/schemas/companion-manifest.v2.schema.json",
+  "name": "setup-granite-tools",
+  "version": "1.0.7",
+  "title": "Setup Granite Tools",
+  "description": "Install and safely update Granite as an MCP-first knowledge system, keep its web dashboard healthy on port 4321, and prevent file-dump ingestion.",
+  "notes": "## What it does\n\nGranite Setup takes a user from zero to a useful agent-native Granite vault. It detects the local environment, installs `granite-mem` when needed, preserves or initializes `~/.granite`, starts a persistent Granite daemon with the normal local web URL `http://127.0.0.1:4321`, connects the Granite MCP to Claude Code, Codex, and Cursor, and maintains Granite operating instructions in `AGENTS.md` and `CLAUDE.md`. It can also compare the installed version with `granite-mem@latest`, update only when needed, restart the daemon after an actual update, and recover a matching dashboard that stops responding.\n\n## Core usage model\n\nGranite is an MCP-first, LLM-operated knowledge compiler, not a file dump. The connected harness must use MCP for every knowledge operation because Granite's intention-first MCP surface enforces type contracts, validation, provenance, recommendations, and editorial lifecycle. CLI is limited to installation, initialization, daemon lifecycle, and diagnostics while repairing MCP. Agents must not use CLI search/create/edit/import commands or edit vault Markdown directly.\n\nRaw files are source material: through MCP, the harness extracts them, analyzes their meaning, researches and deduplicates existing knowledge, then writes structured notes with provenance. Original files are attached only when they are useful evidence or durable artifacts. Direct upload, copy, or drag-and-drop must never be presented as completed ingestion.\n\n## Safety model\n\n- Dry-run first; `--apply` performs the reviewed plan.\n- Existing vaults are never reinitialized.\n- Granite's web UI has no authentication. Current releases may listen on more than loopback even when they report `127.0.0.1`, so use it only on a trusted machine/network and never expose port 4321 publicly.\n- Port conflicts are blocked rather than replacing unrelated services.\n- Conflicting MCP or daemon entries require explicit replacement approval.\n- MCP changes are reread after writing and configuration files are restored when the host does not retain the canonical entry.\n- Managed instruction blocks are idempotent and symlink-aware.\n- Broad personal-data scans are forbidden without exact source selection.\n- Initial agent-created knowledge is imported as reviewable, provenance-aware drafts through MCP.\n\n## Requirements\n\nThe bundled setup script requires Python 3.10+. Installing Granite requires Node.js/npm. The workflow is tested on macOS and Linux; Windows path handling is best-effort.\n\n## Onboarding\n\nAfter technical setup, the skill interviews the user about projects, people, meetings, documents, Markdown folders, and external sources. It inventories only selected inputs, proposes an MCP-mediated ingestion plan, prototypes on 3–10 items, and finishes with a real MCP retrieval test.",
+  "metadata": {
+    "companionSkillId": "717f44ed-8da1-4aca-83c5-58eae8931476",
+    "changelog": [
+      {
+        "version": "1.0.7",
+        "date": "2026-07-17",
+        "changes": [
+          "Add --skip-mcp for package and dashboard maintenance that must leave agent registrations unchanged.",
+          "Document maintenance-only update and dashboard recovery commands with --skip-mcp and --skip-guidance.",
+          "Extend the update eval and tests to enforce isolation from host MCP configuration."
+        ]
+      },
+      {
+        "version": "1.0.6",
+        "date": "2026-07-17",
+        "changes": [
+          "Treat a planned fresh granite-mem@latest install as already current instead of executing a not-yet-created binary during dry-run.",
+          "Compare semantic versions before updating and never downgrade an installation that is ahead of npm latest.",
+          "Add regression coverage for fresh-machine update planning and downgrade prevention."
+        ]
+      },
+      {
+        "version": "1.0.5",
+        "date": "2026-07-17",
+        "changes": [
+          "Add a version-aware Granite update workflow based on granite-mem@latest without blind reinstalls.",
+          "Restart the matching persistent daemon automatically after an actual update so it loads the new version.",
+          "Check the dashboard on port 4321 during setup and restart a matching but non-responsive daemon during apply.",
+          "Verify the requested vault, MCP port, web port, and HTTP response after daemon startup or recovery while preserving MCP-only knowledge operations."
+        ]
+      },
+      {
+        "version": "1.0.4",
+        "date": "2026-07-16",
+        "changes": [
+          "Require Granite MCP for every agent knowledge operation so type contracts, validation, provenance, recommendations, and lifecycle rules remain enforced.",
+          "Forbid CLI search, capture, edit, extraction, import, and direct Markdown edits as harness shortcuts.",
+          "Limit Granite CLI usage to installation, vault initialization, daemon lifecycle, diagnostics, and MCP repair.",
+          "Require real MCP wakeup and retrieval calls before declaring the knowledge runtime verified."
+        ]
+      },
+      {
+        "version": "1.0.3",
+        "date": "2026-07-16",
+        "changes": [
+          "Explain during every setup that Granite is an LLM-operated knowledge compiler, not a file dump.",
+          "Require the connected agent harness to perform retrieval, semantic analysis, deduplication, and structured writes.",
+          "Discourage direct file uploads as completed ingestion and document the correct LLM-mediated file flow.",
+          "Persist the no-dump operating model in managed AGENTS.md and CLAUDE.md guidance and setup reports."
+        ]
+      },
+      {
+        "version": "1.0.2",
+        "date": "2026-07-16",
+        "changes": [
+          "Start Granite as a persistent local daemon by default with the web UI on port 4321.",
+          "Detect existing daemon configuration and local port conflicts before making changes.",
+          "Require explicit daemon replacement approval and verify the UI responds after startup.",
+          "Warn that the unauthenticated Granite interface may listen beyond loopback and must not be exposed publicly.",
+          "Use GRANITE_VAULT for daemon lifecycle commands to avoid Granite 0.1.12 targeting the default vault unexpectedly."
+        ]
+      },
+      {
+        "version": "1.0.1",
+        "date": "2026-07-16",
+        "changes": [
+          "Block MCP mutations when the Granite executable cannot report a version.",
+          "Require existing vaults to pass `granite status` before changing any host MCP configuration.",
+          "Add regression coverage proving broken binaries and invalid vaults preserve existing Cursor configuration."
+        ]
+      },
+      {
+        "version": "1.0.0",
+        "date": "2026-07-16",
+        "changes": [
+          "Initial portable Granite installation, MCP configuration, repair, guidance, and onboarding workflow.",
+          "Add dependency-free dry-run/apply setup script for Claude Code, Codex, and Cursor.",
+          "Add safe first-ingestion interview, permission ladder, bounded prototype, and retrieval acceptance test.",
+          "Add unit tests and realistic setup, conflict, privacy, routing, and pressure eval prompts."
+        ]
+      }
+    ]
+  },
+  "environment": {
+    "env": {},
+    "secrets": {}
+  },
+  "dependencies": {},
+  "commands": [
+    {
+      "name": "Plan Granite setup",
+      "desc": "Detect Granite, vaults, agent hosts, MCP conflicts, and project instruction changes without writing."
+    },
+    {
+      "name": "Apply Granite setup",
+      "desc": "Install Granite, start the persistent web UI on port 4321, connect selected harnesses, and enforce MCP-only knowledge operations."
+    },
+    {
+      "name": "Start Granite web UI",
+      "desc": "Start or repair the persistent Granite daemon, verify http://127.0.0.1:4321, and surface its no-authentication warning."
+    },
+    {
+      "name": "Update Granite",
+      "desc": "Compare the installed version with granite-mem@latest, update only when needed, restart the daemon, and verify the dashboard on port 4321."
+    },
+    {
+      "name": "Repair Granite MCP",
+      "desc": "Inspect duplicate or conflicting Granite MCP entries and replace them only after approval."
+    },
+    {
+      "name": "Onboard initial knowledge",
+      "desc": "Use Granite MCP to extract and analyze selected sources, deduplicate them, write structured drafts with validation and provenance, and prove retrieval."
+    }
+  ]
+}

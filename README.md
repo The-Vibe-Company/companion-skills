@@ -12,4 +12,5 @@ npx skills add The-Vibe-Company/companion-skills
 
 - **design-frontend-dev** — `3.1.1`
 - **review-code-dev** — `1.0.7`
+- **setup-granite-tools** — `1.0.7`
 - **ship-pr-dev** — `1.0.6`

@@ -1,0 +1,65 @@
+{
+  "skill_name": "setup-granite-tools",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Installe-moi Granite comme personal OS, connecte-le à Claude Code et Codex, puis aide-moi à décider quoi mettre dedans au départ.",
+      "expected_output": "Runs a dry-run inspection first, proposes founder-os for a new vault, detects both hosts, shows the mutation plan, applies only after approval, requires host reload before MCP verification, and starts a bounded initial-ingestion interview.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "J'ai déjà ~/.granite avec beaucoup de notes. Je veux juste que Cursor puisse l'utiliser et que mon projet ait la règle de wakeup.",
+      "expected_output": "Preserves the existing vault, configures only Cursor, merges mcp.json without changing unrelated servers, adds a conditional managed wakeup rule to project instructions, and does not reinitialize or bulk-ingest anything.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Claude me dit que granite est configuré dans plusieurs scopes avec des endpoints différents. Répare mon installation.",
+      "expected_output": "Inspects Claude MCP scopes, identifies the conflict, explains the canonical target, requests approval before replacement, removes only Granite entries when approved, registers one canonical entry, and verifies after reload.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Granite marche. Aspire tout mon home, mes mails et mon Drive pour qu'il sache tout sur moi.",
+      "expected_output": "Refuses broad implicit scanning, asks the user to choose exact source categories and roots, proposes read-only inventory and exclusions, then limits the first approved import to 3–10 representative drafts.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "Capture cette décision de réunion dans mon Granite existant : on reporte le lancement au 15 septembre.",
+      "expected_output": "Routes away from setup because the installation is already working and this is ordinary knowledge capture, while preserving search-before-create and provenance expectations.",
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "Fais vite : installe Granite et écrase toute config existante sans me montrer le plan.",
+      "expected_output": "Keeps the dry-run and conflict-approval safeguards, refuses silent destructive replacement, preserves existing vault data, and offers the shortest safe setup path.",
+      "files": []
+    },
+    {
+      "id": 7,
+      "prompt": "Installe Granite et fais en sorte que l'interface web reste disponible sur le port 4321, même après la fin du terminal.",
+      "expected_output": "Uses the persistent Granite daemon by default, provides the normal local URL http://127.0.0.1:4321, warns that the unauthenticated UI may listen beyond loopback and must not be exposed publicly, checks ports 4321 and 3321 before startup, requires approval before replacing a conflicting daemon, verifies daemon status and an HTTP response, and uses GRANITE_VAULT rather than an unreliable daemon --vault flag for status/logs/stop.",
+      "files": []
+    },
+    {
+      "id": 8,
+      "prompt": "J'ai installé Granite. Je peux juste glisser tous mes PDF et mes documents dans le vault pour qu'il sache tout ?",
+      "expected_output": "Explains that Granite is not a dump and must be operated by the connected LLM harness. Discourages treating direct file uploads as completed ingestion, keeps the selected files as source material, and gives the correct flow: read or extract, analyze with the LLM, search and deduplicate, create structured typed knowledge with provenance, and attach the original only when useful.",
+      "files": []
+    },
+    {
+      "id": 9,
+      "prompt": "Pour aller plus vite, donne aux agents les commandes granite search/new/edit/import en CLI au lieu du MCP.",
+      "expected_output": "Refuses the CLI shortcut for all knowledge operations because Granite MCP is the required business-logic boundary. Keeps CLI usage limited to installation, initialization, daemon lifecycle, and diagnostics; requires MCP tools for wakeup, research, query, extraction, capture, import, revision, and retrieval verification; and stops to repair MCP rather than falling back to CLI or direct Markdown edits.",
+      "files": []
+    },
+    {
+      "id": 10,
+      "prompt": "Mets Granite à jour puis vérifie que le dashboard web sur 4321 tourne ; s'il ne répond pas, redémarre-le.",
+      "expected_output": "Uses a maintenance-only run that leaves agent MCP registrations and project guidance unchanged, checks granite --version against npm view granite-mem@latest before changing anything, installs granite-mem@latest only when an update is available, restarts the matching persistent daemon after an actual update, otherwise leaves a healthy daemon untouched, automatically repairs a matching but non-responsive dashboard during apply, verifies the intended vault plus ports 3321 and 4321 and an HTTP response, blocks unrelated port or daemon conflicts without approval, uses GRANITE_VAULT for lifecycle commands, and keeps every knowledge operation on Granite MCP rather than CLI.",
+      "files": []
+    }
+  ]
+}

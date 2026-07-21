@@ -21,5 +21,10 @@
       "version": "1.0.6",
       "checksum": "sha256:30403e1dcb20bf449c0c0180cce3cb13dd8045962cf10592fb0f1e875ebd9aad"
     }
-  ]
+  ],
+  "companion_ownership": {
+    "app_id": "4353406",
+    "previous_commit_sha": "cd8f956e952c5f8f88cf3c2fbf7f245d0b70c372",
+    "signature": "zYGHxgRo530FGdEWDgeX1Kg12d5dRnVGY71x2yfQBrwMNJ3hT_gyt42YAQK5VWY_LuML7byT2V2lRtb6kq1p0CYNXm9YrOVzE1H6V4uC7TKszDysW6wiJkdeg68xC2Z1mGmzeHqy2Sj2mC4Oep29n9uYHk7xUfMtIxNMF1O1RNnAKpERa-nbh2-LIxLmCSnhWIwgCRSdTQA7L6ubSEWOABzSqnCVSKv-3BxrJJdhZ0Q0OylYDW49902gYQRPUXb8FBDpUTK0p4DmXCwzEbCSpiYnayzup0b7dFoU5JPdGELV1rFzy3DLqjox3dQJM1YkGk2YZVdEosnmGify1laWuQ"
+  }
 }

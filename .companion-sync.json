@@ -10,6 +10,11 @@
       "slug": "review-code-dev",
       "version": "1.0.7",
       "checksum": "sha256:ee857b250960d0c0430eaa07ee409a6175ef1f59ebef8d17e330efee0ff1c574"
+    },
+    {
+      "slug": "ship-pr-dev",
+      "version": "1.0.6",
+      "checksum": "sha256:30403e1dcb20bf449c0c0180cce3cb13dd8045962cf10592fb0f1e875ebd9aad"
     }
   ]
 }

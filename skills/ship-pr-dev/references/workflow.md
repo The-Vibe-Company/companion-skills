@@ -11,7 +11,7 @@ The target state is not "opened PR". The target state is a PR a human can merge:
 3. Fetch the remote when safe so `<base>...HEAD` is current.
 4. Capture `git status --short` and identify unrelated dirty files.
 5. If on the default branch with local changes, create a feature branch before editing unless the user asked for local-only work.
-6. Read repository guidance: `AGENTS.md`, `CLAUDE.md`, `CONTRIBUTING`, `.github/`, package config, CI config, and relevant docs.
+6. Read portable repository guidance: `AGENTS.md`, `CONTRIBUTING`, `.github/`, package config, CI config, and relevant docs. Read another runtime's context file only when the repository intentionally tracks it as project documentation; never require it.
 7. If the user referenced an issue, ticket, spec, or PR, read it when accessible.
 
 Stop if unrelated local changes cannot be safely separated. Do not stash or discard them without explicit user approval.

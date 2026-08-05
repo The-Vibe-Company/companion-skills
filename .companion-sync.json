@@ -18,13 +18,13 @@
     },
     {
       "slug": "ship-pr-dev",
-      "version": "1.0.6",
-      "checksum": "sha256:30403e1dcb20bf449c0c0180cce3cb13dd8045962cf10592fb0f1e875ebd9aad"
+      "version": "1.0.7",
+      "checksum": "sha256:96ec4e67dab6cf0a7816b8e0f30d2201358b08eaed012310705041d604c05903"
     }
   ],
   "companion_ownership": {
     "app_id": "4353406",
-    "previous_commit_sha": "e05d72ff5e26a2bed3e15f39584d128c974ac3d2",
-    "signature": "nWhpna7xXv7FjDRZxkbcj-atVZqCTUlEKTy9IIiw_U-nL6VoFguQ_IdYSkwTFD-y9rdPExokiPrZ_NbFUTbll4i-RUZ-g_7a7AKDmbK_gG2rMoZDzZjqgJLMkx4R_2vP67k3Lq3De2_0RcdDgtAyn0FV9AEYnN4qF17Zh5F0a87pAVpIosfQZoSFsCqBQXkpk2ycuxSx4T9JrCPpNWSptb5Ijj2W_aluiTXV3-DkCbf8m8bUFwS5bVr6vg_Zs2w76qy_404kiLzYx86k9iPfyNJsR5qNQvwzhvEOLebGWJ6IBaN2WrGocD6AKh9blYEV2Hc12GhFbJvKG4rt0dIIJg"
+    "previous_commit_sha": "6c75a4c716f3d54b1af1dc7e04886bd43c75d02e",
+    "signature": "Esdhsv0bFnA5k9TC2VaK3oxTEmyekgbS_yrlaAv_bhhnsoRz2HiWOVUpt4tku8IJ0QU0GPqigg3I6XlGsJlOpqvLJfhZgyFHVLQ5yy2dS5-aL6QEtSBONmjVvZfDqa_8d4d2bJsXGT__VDTWckGMhcR3Boi6NTdSNGtH-dHGdtCLKeqLYFX4ncMhaG3XMf-0lfb8wlgVjxlV9_kPb7C7i7WIHNiUHffUV6YHNZ5fMzNn37F_aD4ElnvdfFGLnGNhUE4B_XomON53rliSYBkVI584wh-aW8aBEJAdp_GbgwM01hT4pXDumP3fD6jCPeI0LVZxFpl_d08zzWEGp_MV9Q"
   }
 }

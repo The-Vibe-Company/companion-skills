@@ -9,7 +9,6 @@ description: "Ship PR: autonomous pull request readiness workflow. Use when the
   read-only review gate, route frontend scrutiny through review-code-dev, and
   never merge the PR itself."
 metadata: {}
-allowed-tools: Bash Read Edit Write Glob Grep Agent
 ---
 
 # Ship PR
@@ -37,7 +36,15 @@ Read only the files needed for the invocation:
 - `references/readiness-gates.md` - stop conditions, verification expectations, and review gate policy.
 - `references/pr-template.md` - PR body structure and final handoff format.
 
-Also read the `review-code-dev` skill before the review gate. In this workspace it lives at `skills/review-code-dev/SKILL.md`; in another runtime, resolve the installed skill named `review-code-dev`.
+Also load the installed `review-code-dev` skill through Hermes skill discovery before the review gate. Never guess a package path.
+
+## Hermes-only runtime contract
+
+- Use Hermes `skill_view` (or the host's equivalent installed-skill loader) for skill resolution.
+- Use Hermes `delegate_task` for an isolated read-only review when that tool is available. Otherwise run the same review inline and record the portable fallback.
+- Use portable `git` commands for repository state and the authenticated `gh` CLI or connected GitHub tool for PR/CI state. A missing tool or authentication is a blocker, never a reason to switch runtimes.
+- Do not invoke legacy session primitives, gateway commands, or any path, command, state file, or fallback belonging to another agent runtime.
+- In a cron/read-only caller mode, `ship-pr-dev` may inspect readiness only: no edits, commits, pushes, PR creation, comments, or Git metadata mutation. Explicit user authorization to ship is required before entering mutating phases.
 
 ## Workflow Summary
 
@@ -91,7 +98,7 @@ Read `references/workflow.md` and create a concise checklist in `RUN_DIR/ship-st
 
 Use subagents when available for read-only work that benefits from independence:
 
-- Mandatory: launch `review-code-dev` in a fresh subagent for the final review gate when subagents are available. If no subagent mechanism exists, run it inline and record the fallback.
+- Mandatory: launch `review-code-dev` with Hermes `delegate_task` in a fresh isolated context for the final review gate when that tool is available. If delegation is unavailable, run it inline and record the portable fallback.
 - Recommended for non-trivial diffs: run a read-only review board from `references/review-board.md` with distinct specialist angles. If no subagent mechanism exists, run the same grid inline and record `Review board: local equivalent`.
 - Optional: launch a read-only CI investigator only for failing CI that is not obvious from logs.
 
@@ -132,7 +139,7 @@ Write the review result and artifact location in `RUN_DIR/review-gate.md`. Fix c
 
 Only after verification and review gates are acceptable:
 
-1. Ensure the branch name is safe. If creating a branch, prefer `codex/<short-purpose>` unless the user requested another name.
+1. Ensure the branch name is safe. If creating a branch, prefer `agent/<short-purpose>` unless repository guidance or the user requests another name.
 2. Stage only intentional files.
 3. Use a commitzen commit message.
 4. Push with upstream tracking using a normal push.

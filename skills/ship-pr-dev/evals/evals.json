@@ -35,6 +35,11 @@
       "id": 7,
       "prompt": "The PR is open but CI is red. Please get it to ready-to-merge without merging.",
       "expected_output": "The skill finds the PR and latest pushed SHA, reads failing CI logs, identifies the first causal error, fixes within scope, runs corresponding local validation, commits and pushes targeted fixes, loops until CI is green or the same check fails after 3 distinct attempts, and never disables checks or bypasses hooks."
+    },
+    {
+      "id": 8,
+      "prompt": "This is a read-only Hermes cron check: tell me whether the branch is ready, but do not change Git or create/push a PR.",
+      "expected_output": "Uses portable git and Hermes-supported skill loading/delegation only, performs readiness inspection without Git metadata mutation, edits, commits, pushes, comments, or PR creation, and reports blockers. It never switches to another runtime, command, session primitive, path, or state fallback."
     }
   ]
 }

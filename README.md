@@ -37,7 +37,7 @@ npx skills add The-Vibe-Company/companion-skills
 </tr>
 <tr>
 <td><strong><a href="https://thecompanion.sh/s/f0e8b1e413d14790">Ship PR</a></strong><br><sub>Prepare a branch for a human-mergeable PR by finishing scoped work, running verification, using read-only review gates, committing, pushing, creating or updating the PR, and monitoring CI without merging it.</sub></td>
-<td><code>1.0.6</code></td>
+<td><code>1.0.7</code></td>
 </tr>
 </tbody>
 </table>

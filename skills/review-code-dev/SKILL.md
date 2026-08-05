@@ -188,6 +188,22 @@ python "$SKILL_DIR/scripts/parse_review_findings.py" "$RUN_DIR/review.md" --outp
 
 The user-facing answer starts with findings ordered by P0, P1, P2, P3. If there are more than 5 findings, show the top 5 and point to `review.md` for the full list.
 
+## Recurring PR Watch Mode
+
+Use this mode only when the owner cron asks for recurring discovery of new pull requests.
+
+1. Persist deduplication state with `scripts/veille_pr_state.py`. Its default is `$HERMES_HOME/state/veille-pr.json`; never use an OpenClaw path.
+2. Normalize the complete bounded GitHub result to JSON items containing `repo`, integer `number`, `url`, and optional `title`, `author`, `created_at`.
+3. If the ledger is not initialized, run `init` once with the current open-PR set as the baseline and stop with `[SILENT]`. Never review baseline items retroactively.
+4. On later runs, call `pending` and process at most the first two returned PRs.
+5. Before spawning a reviewer, atomically call `claim` with repo, number, URL, and the current run id. Spawn only when `claimed:true`.
+6. Run the normal read-only review workflow in an isolated worker. The recurring owner may read GitHub metadata and diffs, but must not comment, set statuses, push, or mutate the repository.
+7. Call `mark-reviewed` only after verified review artifacts exist. Store only the review session identifier and any separately authorized delivery receipt; never store secrets or raw diffs in the ledger.
+8. On worker failure, timeout, cancellation, missing artifacts, or unverified output, call `release` so a later run may retry. A live claim expires after the script's bounded TTL.
+9. If state is malformed, unavailable, or cannot be written atomically, fail closed before spawning a reviewer. Never silently run without deduplication.
+
+The recurring cron owns scheduling and delivery. This skill owns review behavior and the ledger protocol.
+
 ## Invocation Variants
 
 - `quick`: changed files plus obvious direct call sites. No sub-reviewers unless security-sensitive.

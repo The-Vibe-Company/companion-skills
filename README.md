@@ -29,7 +29,7 @@ npx skills add The-Vibe-Company/companion-skills
 </tr>
 <tr>
 <td><strong><a href="https://thecompanion.sh/s/835b82753dc74e30">Review code</a></strong><br><sub>Run isolated local code reviews with a primary review agent, bounded specialist loops, non-committable artifacts, and parseable P0-P3 findings.</sub></td>
-<td><code>1.0.7</code></td>
+<td><code>1.2.1</code></td>
 </tr>
 <tr>
 <td><strong><a href="https://thecompanion.sh/s/59596a2b352f4344">Setup Granite Tools</a></strong><br><sub>Install and safely update Granite as an MCP-first knowledge system, keep its web dashboard healthy on port 4321, and prevent file-dump ingestion.</sub></td>

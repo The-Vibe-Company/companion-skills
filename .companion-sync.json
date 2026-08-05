@@ -8,8 +8,8 @@
     },
     {
       "slug": "review-code-dev",
-      "version": "1.0.7",
-      "checksum": "sha256:ee857b250960d0c0430eaa07ee409a6175ef1f59ebef8d17e330efee0ff1c574"
+      "version": "1.2.1",
+      "checksum": "sha256:09129fa061205905e1fc49f6d52111ffcbf730906b7d61795c718e6647784d0d"
     },
     {
       "slug": "setup-granite-tools",
@@ -24,7 +24,7 @@
   ],
   "companion_ownership": {
     "app_id": "4353406",
-    "previous_commit_sha": "cd8f956e952c5f8f88cf3c2fbf7f245d0b70c372",
-    "signature": "zYGHxgRo530FGdEWDgeX1Kg12d5dRnVGY71x2yfQBrwMNJ3hT_gyt42YAQK5VWY_LuML7byT2V2lRtb6kq1p0CYNXm9YrOVzE1H6V4uC7TKszDysW6wiJkdeg68xC2Z1mGmzeHqy2Sj2mC4Oep29n9uYHk7xUfMtIxNMF1O1RNnAKpERa-nbh2-LIxLmCSnhWIwgCRSdTQA7L6ubSEWOABzSqnCVSKv-3BxrJJdhZ0Q0OylYDW49902gYQRPUXb8FBDpUTK0p4DmXCwzEbCSpiYnayzup0b7dFoU5JPdGELV1rFzy3DLqjox3dQJM1YkGk2YZVdEosnmGify1laWuQ"
+    "previous_commit_sha": "e05d72ff5e26a2bed3e15f39584d128c974ac3d2",
+    "signature": "nWhpna7xXv7FjDRZxkbcj-atVZqCTUlEKTy9IIiw_U-nL6VoFguQ_IdYSkwTFD-y9rdPExokiPrZ_NbFUTbll4i-RUZ-g_7a7AKDmbK_gG2rMoZDzZjqgJLMkx4R_2vP67k3Lq3De2_0RcdDgtAyn0FV9AEYnN4qF17Zh5F0a87pAVpIosfQZoSFsCqBQXkpk2ycuxSx4T9JrCPpNWSptb5Ijj2W_aluiTXV3-DkCbf8m8bUFwS5bVr6vg_Zs2w76qy_404kiLzYx86k9iPfyNJsR5qNQvwzhvEOLebGWJ6IBaN2WrGocD6AKh9blYEV2Hc12GhFbJvKG4rt0dIIJg"
   }
 }

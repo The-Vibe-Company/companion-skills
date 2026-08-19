@@ -1,0 +1,92 @@
+{
+  "skill_name": "agent-instructions",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Create a high-quality AGENTS.md and CLAUDE.md system for the attached greenfield site. Do not modify the fixture. Save the complete proposal and reasoning artifacts in the requested output directory.",
+      "expected_output": "A minimal Create-mode proposal grounded in repository evidence, with AGENTS.md as the shared canonical file, a thin CLAUDE.md adapter, an evidence ledger, and validation notes.",
+      "files": ["evals/fixtures/greenfield-site"],
+      "expectations": [
+        "The proposal uses Create mode and does not claim to audit legacy instruction bodies.",
+        "The proposed CLAUDE.md is a thin adapter importing AGENTS.md rather than duplicating it.",
+        "The proposal preserves the non-obvious frontend layout trap, Bun workflow, dynamic dev wrapper, and DESIGN.md authority without copying a broad repository overview.",
+        "The output includes evidence and static-validation artifacts or an equivalent explicit validation report.",
+        "The fixture is not modified."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our CLAUDE.md and AGENTS.md have become technical debt. Rebuild the entire instruction system for the attached monorepo from scratch. Do not modify the fixture; write the candidate, semantic audit, and migration plan to the output directory.",
+      "expected_output": "A Rebuild-mode cold reconstruction that preserves verified trust boundaries and validation behavior while removing stale, generic, private, duplicated, and inferrable content.",
+      "files": ["evals/fixtures/context-debt-monorepo"],
+      "expectations": [
+        "The output explicitly separates the cold candidate from the later audit of existing instructions.",
+        "The final candidate preserves exit-code-2 handling, disposable-Postgres integration testing, browser validation, creator privacy, tenant scoping, secret handling, and sandbox execution.",
+        "The semantic diff classifies generic advice, stale status, invalid npm commands, repository tours, synthetic email, Notion URL, and UUID for deletion or private relocation.",
+        "The migration plan detects that setup.sh recreates AGENTS.md as a symlink to CLAUDE.md and proposes a reversible topology migration.",
+        "The fixture is not modified."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Audit and restructure the attached repository's root and nested agent instructions. They disagree about package manager and testing. Produce a proposal only; do not change the fixture.",
+      "expected_output": "An audit-only Rebuild result that evaluates the complete instruction chain, resolves contradictions, and scopes API-specific database testing near the API subtree.",
+      "files": ["evals/fixtures/nested-conflict"],
+      "expectations": [
+        "The output identifies conflicts between root AGENTS.md, CLAUDE.md, and packages/api/AGENTS.md.",
+        "The proposal selects pnpm from packageManager evidence and does not preserve npm commands.",
+        "API-specific integration guidance is scoped to packages/api rather than duplicated at root.",
+        "The output stops at a proposal and does not modify the fixture."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Please make an AGENTS.md for this tiny attached library. Keep it genuinely useful rather than filling a template, and do not modify the fixture.",
+      "expected_output": "A justified recommendation to create no persistent file or an extremely small proposal containing only a demonstrably non-obvious rule.",
+      "files": ["evals/fixtures/self-descriptive-library"],
+      "expectations": [
+        "The output explicitly considers and preferably recommends the no-file option because make check is already obvious from README and Makefile.",
+        "The output does not invent stack, architecture, testing, style, security, or git-workflow sections.",
+        "The fixture is not modified."
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Fix the typo in the attached library README and make no other changes.",
+      "expected_output": "A wrong-owner response explaining that this skill does not own ordinary README editing and producing no agent-instruction proposal.",
+      "files": ["evals/fixtures/self-descriptive-library"],
+      "expectations": [
+        "The response recognizes that ordinary README editing is outside this skill's ownership.",
+        "No AGENTS.md, CLAUDE.md, evidence ledger, or migration artifacts are produced.",
+        "The fixture is not modified."
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Make the attached monorepo genuinely agent-ready. Rebuild its instruction system, use its design and architecture knowledge correctly, decide whether nested AGENTS.md and CLAUDE.md files are justified, and design the ongoing review loop. Do not modify the fixture; save the complete proposal and evidence artifacts in the output directory.",
+      "expected_output": "A full agent-readiness Rebuild proposal that separates instruction routing from durable authorities, resolves the two design meanings, admits only behaviorally justified subtree scopes, and includes deterministic and behavioral review plans.",
+      "files": ["evals/fixtures/agent-ready-monorepo"],
+      "expectations": [
+        "The output rates the six readiness dimensions with evidence and no aggregate numeric or file-count score.",
+        "The proposal treats root DESIGN.md as the UI authority and docs/design.md as architecture, then recommends an explicit authority map or reversible architecture rename rather than duplicating either in instructions.",
+        "The final root topology uses canonical AGENTS.md plus a thin CLAUDE.md adapter and removes the parallel duplicated root bodies.",
+        "Any proposed API or worker nested pair is justified by a subtree-only tenant or lease boundary and includes violation, safe, unrelated, and cross-scope evaluation; the web subtree is not mirrored automatically.",
+        "The review plan covers static topology, authority drift, coverage, restraint, retention, actionability, promotion routing, and garbage collection.",
+        "The fixture is not modified."
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "Make the attached small design repository agent-ready. I was thinking of adding AGENTS.md and CLAUDE.md inside src/components and src/content too. Produce a proposal only and do not modify the fixture.",
+      "expected_output": "A restrained Create-mode readiness proposal that uses DESIGN.md as a single design authority and rejects empty or repetitive nested instruction pairs.",
+      "files": ["evals/fixtures/small-design-repo"],
+      "expectations": [
+        "The output uses Create mode and considers the no-file or minimal-root option rather than filling an agent-readiness template.",
+        "The proposal keeps DESIGN.md as the design authority and at most places one conditional pointer in the root instruction chain.",
+        "The proposal rejects nested files in src/components and src/content because no consequential subtree-only rule is evidenced.",
+        "The output does not invent architecture, security, reliability, product, or ADR authorities.",
+        "The fixture is not modified."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "@atlas/api",
+  "private": true,
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "test:integration": "node ../../scripts/test-with-db.mjs"
+  }
+}

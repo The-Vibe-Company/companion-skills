@@ -1,0 +1,8 @@
+{
+  "name": "@sample/api",
+  "scripts": {
+    "test": "vitest run",
+    "test:integration": "INTEGRATION=1 vitest run"
+  }
+}
+

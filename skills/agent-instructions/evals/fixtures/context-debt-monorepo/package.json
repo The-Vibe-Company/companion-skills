@@ -1,0 +1,13 @@
+{
+  "name": "context-debt-monorepo",
+  "private": true,
+  "packageManager": "pnpm@9.12.0",
+  "scripts": {
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "test:integration": "pnpm --filter @sample/api test:integration",
+    "browser:smoke": "bash scripts/browser-smoke.sh",
+    "verify:change": "node scripts/verify-change.mjs"
+  }
+}
+

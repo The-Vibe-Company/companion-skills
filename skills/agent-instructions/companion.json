@@ -1,0 +1,75 @@
+{
+  "$schema": "https://thecompanion.sh/schemas/companion-manifest.v2.schema.json",
+  "name": "agent-instructions",
+  "version": "0.3.0",
+  "icon": "file-code",
+  "title": "Agent Instructions",
+  "description": "Make a repository agent-ready or improve an existing agent harness across instructions, knowledge authorities, reproducible workflows, guardrails, scoped review rules, and maintenance loops.",
+  "notes": "## What it does\n\nAgent-Ready Repository creates or rebuilds the smallest evidence-backed harness that helps coding agents find the right authority, use the supported workflow, respect consequential boundaries, verify changes, and improve after repeated failures. It treats AGENTS.md and CLAUDE.md as a routing layer—not a second README.\n\n## Full repository model\n\nThe skill audits six dimensions without a numeric score: entry and reproducibility, context routing, knowledge authorities, deterministic guardrails, review quality, and feedback/maintenance. It understands DESIGN.md as a versioned design authority, distinguishes it from system architecture, and maps product, security, reliability, testing, decisions, and plans only where the repository needs them.\n\n## Nested instructions\n\nA subtree receives AGENTS.md and a Claude adapter only when a non-obvious local boundary passes violation, safe, unrelated, and cross-scope evaluation. The skill traces Codex, Claude Code, and Copilot discovery semantics instead of assuming one universal precedence model.\n\n## Safety and validation\n\nThe skill writes proposals to an isolated run directory until the user approves applying them. Portable Python helpers inventory evidence, snapshot and lint instruction stacks, trace representative host chains, audit readiness without a file-count score, and compare candidates. Sanitized evals cover greenfield creation, cold reconstruction, minimal outcomes, conflicts, design/architecture authority, justified nested scopes, and restraint against over-structuring.",
+  "metadata": {
+    "companionSkillId": "5583a8c3-7aba-4bc1-bab1-7c1086bad237",
+    "changelog": [
+      {
+        "version": "0.3.0",
+        "date": "2026-08-05",
+        "changes": [
+          "Add semantic-retention reconciliation so mixed legacy sections are classified as separate decision-point rules.",
+          "Require before-action discovery proof before consequential guidance can be moved out of persistent instructions.",
+          "Preserve compact environment-specific launcher selectors without copying implementation tours into AGENTS.md."
+        ]
+      },
+      {
+        "version": "0.2.0",
+        "date": "2026-08-04",
+        "changes": [
+          "Expand the skill into the end-to-end owner for repository agent readiness while keeping one public surface.",
+          "Add a knowledge-authority model for DESIGN.md, architecture, product, security, reliability, testing, decisions, and plans.",
+          "Add behaviorally gated nested AGENTS.md and CLAUDE.md topology with host-specific chain tracing.",
+          "Add scoreless readiness audit and review loops for topology, drift, coverage, restraint, retention, actionability, promotion, and garbage collection.",
+          "Add sanitized monorepo and small-repository evals for authority disambiguation and resistance to over-nesting."
+        ]
+      },
+      {
+        "version": "0.1.0",
+        "date": "2026-08-04",
+        "changes": [
+          "Initial public package with Create and Rebuild modes under one owner skill.",
+          "Add evidence-first rule admission, cold reconstruction, semantic migration, and cross-agent topology guidance.",
+          "Add portable inventory, stack snapshot, lint, and candidate-comparison scripts.",
+          "Add sanitized evals covering creation, reconstruction, minimal output, nested conflicts, and wrong-owner routing."
+        ]
+      }
+    ]
+  },
+  "environment": {
+    "env": {},
+    "secrets": {}
+  },
+  "dependencies": {},
+  "commands": [
+    {
+      "name": "Make a repository agent-ready",
+      "desc": "Audit the complete agent harness and propose evidence-backed improvements to instructions, knowledge authorities, workflows, guardrails, review, and maintenance."
+    },
+    {
+      "name": "Create repository instructions",
+      "desc": "Build a minimal AGENTS.md and CLAUDE.md system for a repository without substantive agent instructions."
+    },
+    {
+      "name": "Rebuild context debt",
+      "desc": "Reconstruct existing agent instructions from repository evidence, audit the legacy rules, and prepare a reversible migration."
+    },
+    {
+      "name": "Audit instruction stack",
+      "desc": "Inspect root and nested instructions, conflicts, imports, symlinks, private data, drift, and unnecessary context without applying changes."
+    },
+    {
+      "name": "Validate agent instructions",
+      "desc": "Check proposed or existing instruction files for broken imports, invalid commands and paths, duplication, private data, and context size."
+    },
+    {
+      "name": "Review nested instruction scopes",
+      "desc": "Trace host-specific instruction chains and admit subtree AGENTS.md and CLAUDE.md pairs only when local rules pass behavioral evaluation."
+    }
+  ]
+}

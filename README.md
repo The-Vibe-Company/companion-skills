@@ -24,6 +24,10 @@ npx skills add The-Vibe-Company/companion-skills
 <thead><tr><th>Skill</th><th>Version</th></tr></thead>
 <tbody>
 <tr>
+<td><strong><a href="https://thecompanion.sh/s/d5483aa9a60e480a">Agent Instructions</a></strong><br><sub>Make a repository agent-ready or improve an existing agent harness across instructions, knowledge authorities, reproducible workflows, guardrails, scoped review rules, and maintenance loops.</sub></td>
+<td><code>0.3.0</code></td>
+</tr>
+<tr>
 <td><strong><a href="https://thecompanion.sh/s/4e5ab27746d644c6">Design frontend</a></strong><br><sub>Clean agent-only frontend design and UI review skill derived from Impeccable, without CLI, hooks, live mode, install flow, site, or commercial surface.</sub></td>
 <td><code>3.1.1</code></td>
 </tr>

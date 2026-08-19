@@ -1,0 +1,13 @@
+{
+  "name": "atlas-workspace",
+  "private": true,
+  "packageManager": "pnpm@10.0.0",
+  "scripts": {
+    "dev": "pnpm -r --parallel dev",
+    "build": "pnpm -r build",
+    "check": "pnpm lint && pnpm test",
+    "lint": "eslint . && pnpm design:lint",
+    "test": "vitest run",
+    "design:lint": "node scripts/check-design.mjs"
+  }
+}

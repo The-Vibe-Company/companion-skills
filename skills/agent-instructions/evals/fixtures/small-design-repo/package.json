@@ -1,0 +1,11 @@
+{
+  "name": "pocket-page",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "check": "npm run design:lint && npm run test",
+    "test": "vitest run",
+    "design:lint": "node scripts/check-design.mjs"
+  }
+}

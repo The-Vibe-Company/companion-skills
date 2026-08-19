@@ -2,6 +2,11 @@
   "schema": 1,
   "skills": [
     {
+      "slug": "agent-instructions",
+      "version": "0.3.0",
+      "checksum": "sha256:d859869877371711adf2167002cfd6de036600d357af42de527ab347139de9dc"
+    },
+    {
       "slug": "design-frontend-dev",
       "version": "3.1.1",
       "checksum": "sha256:8622f4d9885f0f6ad0f140010e4fc7faecf0c1f44fa5c856994c257e637edb84"
@@ -24,7 +29,7 @@
   ],
   "companion_ownership": {
     "app_id": "4353406",
-    "previous_commit_sha": "6c75a4c716f3d54b1af1dc7e04886bd43c75d02e",
-    "signature": "Esdhsv0bFnA5k9TC2VaK3oxTEmyekgbS_yrlaAv_bhhnsoRz2HiWOVUpt4tku8IJ0QU0GPqigg3I6XlGsJlOpqvLJfhZgyFHVLQ5yy2dS5-aL6QEtSBONmjVvZfDqa_8d4d2bJsXGT__VDTWckGMhcR3Boi6NTdSNGtH-dHGdtCLKeqLYFX4ncMhaG3XMf-0lfb8wlgVjxlV9_kPb7C7i7WIHNiUHffUV6YHNZ5fMzNn37F_aD4ElnvdfFGLnGNhUE4B_XomON53rliSYBkVI584wh-aW8aBEJAdp_GbgwM01hT4pXDumP3fD6jCPeI0LVZxFpl_d08zzWEGp_MV9Q"
+    "previous_commit_sha": "6a9939fb96bc247e362e82b1ceaaa24cbb3327da",
+    "signature": "4PQImsXqVDjaWYU2AN-397pcPiKbxXm5aQ9kMhkz6n0khiQbxHZvNwnCVtaA0IL_f2NKa6qiCRkSdFIugggRks0ooGFzZSeFrzfdM9wpraUryAKxOmmwUhWZvsumkfxE-eGu53mGICT2sAyiJkcI2cum1JIQykoXFayTnMX3ytMp4H3lEd1Q2ZDYuX-qsD7M79e6eUZ1Y1F7b9BWwuSCg8mBo-STLKiqj_6euucBZzy1V2P7ui2U5s_Nw7EzrdXCRfGuVlM6IaH1ckZ1wfqO_xsgad6KU9U-cPqbalRQr6PxhyuWrEagED8Ny3TQD25m_Y7kqcQ08WSrLqjCeHxQ8g"
   }
 }

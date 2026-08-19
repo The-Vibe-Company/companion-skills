@@ -1,0 +1,11 @@
+{
+  "name": "greenfield-site",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "prebuild": "bun scripts/validate-content.ts",
+    "images:optimize": "bun scripts/optimize-images.ts"
+  }
+}
+

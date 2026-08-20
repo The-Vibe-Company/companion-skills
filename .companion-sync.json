@@ -18,8 +18,8 @@
     },
     {
       "slug": "review-code-dev",
-      "version": "1.3.0",
-      "checksum": "sha256:fcee97607b2f10a13e5e2b7c30391562586bae9171e5f2b84501e7870402f7a0"
+      "version": "1.3.1",
+      "checksum": "sha256:179e4033c17242c6c42419df17d954426ca96ceb4f32e0b0ecadfd280c9debea"
     },
     {
       "slug": "setup-granite-tools",
@@ -28,13 +28,13 @@
     },
     {
       "slug": "ship-pr-dev",
-      "version": "1.2.0",
-      "checksum": "sha256:5e92d8ad3be21b8814f7e9085475d95535cc9ed7ec09e76fec5be54025e051ee"
+      "version": "1.2.1",
+      "checksum": "sha256:db7f361ef4313ecab9cd074935a55b3062a71e064010b8afb55074f67e0889bf"
     }
   ],
   "companion_ownership": {
     "app_id": "4353406",
-    "previous_commit_sha": "2f601f4f7b3e85873e4ca4c602931f003a453169",
-    "signature": "MBszzIzlW5R4VMZMOWDw8za96lAyrS0rjVFUaEFi-6tart7vZqGzQGqBQs7bx5gCfZPnL_kg3Psbfs2FhshB_mTD6BSu2Pdf2ilClZM38K4N3QF67FN6nu8khOKJ8osWnOAjAubYDAROuY0ED_gZwILE2a0d3uHqE57GCtTf1UO13KClTirITGj6DRrvk125_0SVX-lj7_irfUvy1irF7qi8bcAptuGcUMoppzzDDZggR7X8qi2xrQ5NHs8ELMKyCwgpEvAyB4CISfiEfZFkjdDQXI7dmXG9UcusSko78WAKxboLzNL7g5ucipOkliHdJggxuWWlANpmSJS7_vHekA"
+    "previous_commit_sha": "d42cd81929015e59078b093960245649e27e5ea7",
+    "signature": "XBjlUOe5u3DJuxGj7yCQbu2PrrNE8lBZRGzfhrHJdASsKM_XHHhmpA6UZRtaGv1QeMlF2q04g9D5cBIzCKl6PH93xINezb3DfRolqEF9xu9wCdu1U2MN4z57xzfP6P8KabNOf1aGyxiq2ljJNzGhNEDUQiK0orTmk0hP5pCEJuQNViClPXsDqvllFz0hmzxKyJLBQQo71dWaOYQ1jCKOudFu2Xt-q37q2TPztjutyn31XilWmAYI2UFCgjdeerCUJ4HDbuZdjCGpK7v782DsvqLD_Kz5tcH_aGTZBfHGxePNQZWTlFCo1F7ix6sMTFPEfh7XqtjNrkhe2eFRsfJSQQ"
   }
 }

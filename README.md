@@ -37,7 +37,7 @@ npx skills add The-Vibe-Company/companion-skills
 </tr>
 <tr>
 <td><strong><a href="https://thecompanion.sh/s/835b82753dc74e30">Review Code</a></strong><br><sub>Run independent read-only code review with one isolated primary reviewer, credit-aware host-native model routing, bounded specialists, atomic PR-watch state, and parseable P0-P3 artifacts.</sub></td>
-<td><code>1.3.0</code></td>
+<td><code>1.3.1</code></td>
 </tr>
 <tr>
 <td><strong><a href="https://thecompanion.sh/s/59596a2b352f4344">Setup Granite Tools</a></strong><br><sub>Install and safely update Granite as an MCP-first knowledge system, keep its web dashboard healthy on port 4321, and prevent file-dump ingestion.</sub></td>
@@ -45,7 +45,7 @@ npx skills add The-Vibe-Company/companion-skills
 </tr>
 <tr>
 <td><strong><a href="https://thecompanion.sh/s/f0e8b1e413d14790">Ship PR</a></strong><br><sub>Prepare a branch for a human-mergeable PR with credit-aware host-native workers, one independent review gate, deterministic verification and CI waiting, and no merge action.</sub></td>
-<td><code>1.2.0</code></td>
+<td><code>1.2.1</code></td>
 </tr>
 </tbody>
 </table>

@@ -7,14 +7,19 @@
       "checksum": "sha256:d859869877371711adf2167002cfd6de036600d357af42de527ab347139de9dc"
     },
     {
+      "slug": "capture-learning-tools",
+      "version": "0.1.1",
+      "checksum": "sha256:35aeeb809dd83c1b449080a3a92d2480860a3205f49888fc6a758392ba14937f"
+    },
+    {
       "slug": "design-frontend-dev",
       "version": "3.1.1",
       "checksum": "sha256:8622f4d9885f0f6ad0f140010e4fc7faecf0c1f44fa5c856994c257e637edb84"
     },
     {
       "slug": "review-code-dev",
-      "version": "1.2.1",
-      "checksum": "sha256:09129fa061205905e1fc49f6d52111ffcbf730906b7d61795c718e6647784d0d"
+      "version": "1.3.0",
+      "checksum": "sha256:fcee97607b2f10a13e5e2b7c30391562586bae9171e5f2b84501e7870402f7a0"
     },
     {
       "slug": "setup-granite-tools",
@@ -23,13 +28,13 @@
     },
     {
       "slug": "ship-pr-dev",
-      "version": "1.0.7",
-      "checksum": "sha256:96ec4e67dab6cf0a7816b8e0f30d2201358b08eaed012310705041d604c05903"
+      "version": "1.2.0",
+      "checksum": "sha256:5e92d8ad3be21b8814f7e9085475d95535cc9ed7ec09e76fec5be54025e051ee"
     }
   ],
   "companion_ownership": {
     "app_id": "4353406",
-    "previous_commit_sha": "6a9939fb96bc247e362e82b1ceaaa24cbb3327da",
-    "signature": "4PQImsXqVDjaWYU2AN-397pcPiKbxXm5aQ9kMhkz6n0khiQbxHZvNwnCVtaA0IL_f2NKa6qiCRkSdFIugggRks0ooGFzZSeFrzfdM9wpraUryAKxOmmwUhWZvsumkfxE-eGu53mGICT2sAyiJkcI2cum1JIQykoXFayTnMX3ytMp4H3lEd1Q2ZDYuX-qsD7M79e6eUZ1Y1F7b9BWwuSCg8mBo-STLKiqj_6euucBZzy1V2P7ui2U5s_Nw7EzrdXCRfGuVlM6IaH1ckZ1wfqO_xsgad6KU9U-cPqbalRQr6PxhyuWrEagED8Ny3TQD25m_Y7kqcQ08WSrLqjCeHxQ8g"
+    "previous_commit_sha": "2f601f4f7b3e85873e4ca4c602931f003a453169",
+    "signature": "MBszzIzlW5R4VMZMOWDw8za96lAyrS0rjVFUaEFi-6tart7vZqGzQGqBQs7bx5gCfZPnL_kg3Psbfs2FhshB_mTD6BSu2Pdf2ilClZM38K4N3QF67FN6nu8khOKJ8osWnOAjAubYDAROuY0ED_gZwILE2a0d3uHqE57GCtTf1UO13KClTirITGj6DRrvk125_0SVX-lj7_irfUvy1irF7qi8bcAptuGcUMoppzzDDZggR7X8qi2xrQ5NHs8ELMKyCwgpEvAyB4CISfiEfZFkjdDQXI7dmXG9UcusSko78WAKxboLzNL7g5ucipOkliHdJggxuWWlANpmSJS7_vHekA"
   }
 }

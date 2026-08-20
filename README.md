@@ -28,20 +28,24 @@ npx skills add The-Vibe-Company/companion-skills
 <td><code>0.3.0</code></td>
 </tr>
 <tr>
+<td><strong><a href="https://thecompanion.sh/s/74b9e7c634f14627">Capture learning</a></strong><br><sub>Turn technical conversations, bugs, CI failures, and repeated agent mistakes into durable project improvements: shared agent instructions, tests, CI, scripts, docs, ADRs, or explicit no-automation decisions.</sub></td>
+<td><code>0.1.1</code></td>
+</tr>
+<tr>
 <td><strong><a href="https://thecompanion.sh/s/4e5ab27746d644c6">Design frontend</a></strong><br><sub>Clean agent-only frontend design and UI review skill derived from Impeccable, without CLI, hooks, live mode, install flow, site, or commercial surface.</sub></td>
 <td><code>3.1.1</code></td>
 </tr>
 <tr>
-<td><strong><a href="https://thecompanion.sh/s/835b82753dc74e30">Review code</a></strong><br><sub>Run isolated local code reviews with a primary review agent, bounded specialist loops, non-committable artifacts, and parseable P0-P3 findings.</sub></td>
-<td><code>1.2.1</code></td>
+<td><strong><a href="https://thecompanion.sh/s/835b82753dc74e30">Review Code</a></strong><br><sub>Run independent read-only code review with one isolated primary reviewer, credit-aware host-native model routing, bounded specialists, atomic PR-watch state, and parseable P0-P3 artifacts.</sub></td>
+<td><code>1.3.0</code></td>
 </tr>
 <tr>
 <td><strong><a href="https://thecompanion.sh/s/59596a2b352f4344">Setup Granite Tools</a></strong><br><sub>Install and safely update Granite as an MCP-first knowledge system, keep its web dashboard healthy on port 4321, and prevent file-dump ingestion.</sub></td>
 <td><code>1.0.7</code></td>
 </tr>
 <tr>
-<td><strong><a href="https://thecompanion.sh/s/f0e8b1e413d14790">Ship PR</a></strong><br><sub>Prepare a branch for a human-mergeable PR by finishing scoped work, running verification, using read-only review gates, committing, pushing, creating or updating the PR, and monitoring CI without merging it.</sub></td>
-<td><code>1.0.7</code></td>
+<td><strong><a href="https://thecompanion.sh/s/f0e8b1e413d14790">Ship PR</a></strong><br><sub>Prepare a branch for a human-mergeable PR with credit-aware host-native workers, one independent review gate, deterministic verification and CI waiting, and no merge action.</sub></td>
+<td><code>1.2.0</code></td>
 </tr>
 </tbody>
 </table>

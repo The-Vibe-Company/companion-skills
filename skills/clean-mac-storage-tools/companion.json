@@ -1,0 +1,50 @@
+{
+  "$schema": "https://thecompanion.sh/schemas/companion-manifest.v2.schema.json",
+  "name": "clean-mac-storage-tools",
+  "version": "1.0.0",
+  "icon": "square-stack",
+  "title": "Clean My Mac Storage",
+  "description": "Safely reclaim Mac storage and reach a concrete used-space target with history-aware protection, read-only diagnosis, approval-gated cleanup waves, and post-clean verification.",
+  "notes": "## What it does\n\nClean My Mac Storage diagnoses APFS and user storage, recovers protection rules from accessible conversation history, ranks rebuildable candidates, and frees only enough space to reach the requested target.\n\n## Safety model\n\nEvery destructive wave requires explicit approval and exact targets. Photos, personal files, application state, credentials, active workspaces, Docker volumes, databases, booted simulators, current runtimes, and backups are protected by default. The workflow stops as soon as a fresh measurement crosses the target.\n\n## Integrations\n\nThe portable Python helper is read-only and uses standard macOS commands. Docker and Xcode are optional: when present, the skill distinguishes build cache from volumes and old shutdown runtimes from current or booted simulator state. No secrets, accounts, or machine-specific paths are required.",
+  "metadata": {
+    "companionSkillId": "7a32362a-93ad-43e6-9485-850fb546618b",
+    "changelog": [
+      {
+        "version": "1.0.0",
+        "date": "2026-08-26",
+        "changes": [
+          "Create a portable history-aware macOS storage cleanup workflow.",
+          "Add approval-gated cleanup waves with protected personal, application, database, Docker, and simulator state.",
+          "Add a read-only Python audit helper and sanitized safety evals."
+        ]
+      }
+    ]
+  },
+  "environment": {
+    "env": {},
+    "secrets": {}
+  },
+  "dependencies": {},
+  "commands": [
+    {
+      "name": "Reach a Mac storage target",
+      "desc": "Audit the Mac, rank safe cleanup candidates, and free only enough space to cross a concrete used-space threshold."
+    },
+    {
+      "name": "Repeat a previous cleanup",
+      "desc": "Recover prior protection rules and approved cleanup patterns from accessible task history before proposing the next measured cleanup."
+    },
+    {
+      "name": "Audit macOS storage",
+      "desc": "Run the bundled read-only inventory helper and explain APFS usage, rebuildable candidates, and the remaining gap without deleting anything."
+    },
+    {
+      "name": "Clean Docker and Xcode safely",
+      "desc": "Separate Docker build cache from volumes and old shutdown simulator runtimes from current or booted Xcode state."
+    },
+    {
+      "name": "Reduce System Data",
+      "desc": "Identify rebuildable cache, log, package-manager, developer, and simulator storage while preserving personal and application data."
+    }
+  ]
+}

@@ -32,6 +32,10 @@ npx skills add The-Vibe-Company/companion-skills
 <td><code>0.1.1</code></td>
 </tr>
 <tr>
+<td><strong><a href="./skills/clean-mac-storage-tools/SKILL.md">Clean My Mac Storage</a></strong><br><sub>Safely reclaim Mac storage and reach a concrete used-space target with history-aware protection, read-only diagnosis, approval-gated cleanup waves, and post-clean verification.</sub></td>
+<td><code>1.0.0</code></td>
+</tr>
+<tr>
 <td><strong><a href="./skills/design-frontend-dev/SKILL.md">Design frontend</a></strong><br><sub>Clean agent-only frontend design and UI review skill derived from Impeccable, without CLI, hooks, live mode, install flow, site, or commercial surface.</sub></td>
 <td><code>3.1.1</code></td>
 </tr>

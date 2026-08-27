@@ -12,6 +12,11 @@
       "checksum": "sha256:35aeeb809dd83c1b449080a3a92d2480860a3205f49888fc6a758392ba14937f"
     },
     {
+      "slug": "clean-mac-storage-tools",
+      "version": "1.0.0",
+      "checksum": "sha256:156154ad804f973fd2d91b56092b74e65190bae81351748c16143f7c92a8af72"
+    },
+    {
       "slug": "design-frontend-dev",
       "version": "3.1.1",
       "checksum": "sha256:8622f4d9885f0f6ad0f140010e4fc7faecf0c1f44fa5c856994c257e637edb84"
@@ -34,7 +39,7 @@
   ],
   "companion_ownership": {
     "app_id": "4353406",
-    "previous_commit_sha": "25ef4e2b8aee609616d0b1fb53ada940fe3f4dc6",
-    "signature": "gZ4iDt6igZqyZBKIUJFTV0A3tgPgD7BniwvAj9IMj9OoxCEi3Mnub4idRHEYTnRuzESCCupqFGEyYv7-rD3ubXJQkwEBn47L4oRZF3Ki8fVEQ1HFRI_D5ObfVGR4HrVS9Up-b8hVjsSeJn6K3iU18HpfFicisMONF9-Z9SEdiVx7trx5GEO6tmO-2y1FFQjADTM0Lku5S9syNRXj1JrmiQiQClBcU307X9GfykZQU7NXOVR5Ys3EDcONR3Cm4tw4hcuIR1xKHRee2cy1wdfls9yvtr65P9deolaxgbw0Lv_b3etpej6WdFqT9KKNJ30gM5mpbF1wQNYs_4ITm0SO9Q"
+    "previous_commit_sha": "7d9454e1cc35a458d0dfa58d13e2092897614d3d",
+    "signature": "m4YwFEKTglXbWH_Jjj02OApYqfa9-TyOCE23Vmx7Robvrw8KPBbyLguctrPnL5hA1zStnuAPsX9J2UVTMP7Ab_MTnmnv7XX5Gm7Wn881dXPMLsUIaxzJUf_N9WvmuHaByARt_WBD-SzXzYAzwAELgmKV0VlPqWo99v2W1IW8LominaJXO5ru-zSVls-aoWE9szbrukOiu36xT56TpW6xXrmkMO6B7Il4qRpCvbEpnnxa5TaIsp_X0nPb3IVl5CHLpdWk2_8D4QNtMHC_wr637nrax0huKbO8gKRCMgJJ4U3bIGSzpZzT9KnO9oQzSP8Q7gFGgKuB7vz9ma5j_OXexA"
   }
 }

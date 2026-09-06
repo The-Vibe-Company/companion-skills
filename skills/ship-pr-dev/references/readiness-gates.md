@@ -4,7 +4,7 @@ Use these gates to decide whether the PR can be presented as merge-ready.
 
 ## Hard Blocks
 
-Stop before push or mark the PR blocked when any of these are true:
+These conditions prevent a ready claim. Fix what is safely in scope and wait for healthy CI; a failing gate is work to finish, not by itself a reason to end the task. Keep unverified changes local unless repairing an existing PR or the user requested a draft. Produce a blocked handoff only when progress needs unavailable access, an external change, or a user decision:
 
 - unresolved merge conflicts
 - any failed, cancelled, errored, stale, or partially inspected visible non-skipped PR check/check suite on the latest pushed commit
@@ -65,16 +65,15 @@ Stop before push or mark the PR blocked when any of these are true:
 
 Any source change after a passing test, build, or review can stale that evidence. Re-run the affected verification. If only PR text, changelog, or comments changed, say why verification remains fresh.
 
-## Loop Limits
+## Completion And Reassessment
 
-Default caps:
+For `ship` and `update-pr`, finish the scoped corrections, fresh local verification, independent review, normal push/PR update, every visible non-skipped latest-SHA CI item green, and the report-only learning pass before handing back success. For `prepare` and `local-handoff`, finish local verification, review, and the learning pass; report remote CI as unverified and the branch as locally prepared, without pushing or claiming merge readiness.
 
-- 3 implementation/fix cycles
-- 2 full verification cycles after source changes
-- 2 full `review-code-dev` gate runs; prefer a targeted failed-lens rerun after bounded fixes
-- 3 correction attempts for the same CI check
+Use counts to notice a failing approach: reassess after three implementation/CI corrections, two failed worker attempts on one root cause, or before a third full verification/review cycle. Counts and elapsed time are diagnostic checkpoints, not automatic stop conditions. User-specified budgets or stop instructions still bind.
 
-When a retry or count cap is reached (never a time reassessment checkpoint), stop and produce a blocked handoff with the current evidence and the smallest next action.
+At a checkpoint, record the failing gate, first causal error, attempted fixes and their effects, and the next evidence-backed hypothesis in `ship-state.json`. Take over from a stalled worker or change the diagnostic approach. Continue scoped repairs and affected checks when the evidence supports a useful next step; rerun a full review only when scope or architecture changed enough to require it.
+
+When the same action yields the same failure with no new evidence, stop repeating that action. Inspect the missing evidence or use a bounded investigator within the existing agent budget. If that establishes that progress requires unavailable access, an external change, or a user decision, record that concrete dependency and return a blocked handoff. Never weaken a gate to escape a loop or label a PR ready because a retry count was reached.
 
 ## Human Decision Gates
 

@@ -18,7 +18,7 @@ Use the coordinator for trivial work and decisions that change scope or architec
 
 The worker may edit only its owned scope and run explicitly allowed targeted checks. It never performs Git or remote actions. The coordinator inspects the resulting diff, resolves assumptions, and integrates it.
 
-Resume the same worker for a follow-up. After two failed attempts on one root cause, take over or stop. Never run simultaneous writers.
+Resume the same worker for a follow-up. After two failed attempts on one root cause, the coordinator takes over diagnosis using `readiness-gates.md`'s reassessment policy. Never run simultaneous writers.
 
 ## C. Verification
 
@@ -36,7 +36,7 @@ Run `review-code-dev` after the branch is coherent:
 
 Pass required lenses into that run. Frontend is a lens inside the same review, not a separate full pass. Ship PR does not launch a parallel review board.
 
-Fix confirmed P0/P1/P2 findings. Prefer the same write worker for bounded follow-ups. Rerun affected verification and only the failed review lens. Run a second full review only after material scope/architecture changes; cap it at two full runs.
+Fix confirmed P0/P1/P2 findings. Prefer the same write worker for bounded follow-ups. Rerun affected verification and only the failed review lens. Repeat a full review only after material scope/architecture changes; use `readiness-gates.md` for reassessment.
 
 ## E. Commit And PR
 
@@ -55,7 +55,7 @@ For a failure:
 3. use one read-only investigator only when direct evidence is insufficient;
 4. fix in scope, run the matching local check, commit, push, and rebuild the inventory.
 
-Stop after three distinct corrections for a single check or two repeated fixes for one root cause. Never bypass a check or report success with pending/stale/partial latest-SHA CI.
+Use the completion and reassessment policy in `readiness-gates.md` when corrections repeat. Never bypass a check or report success with pending/stale/partial latest-SHA CI.
 
 ## G. Freshness, Learning, Handoff
 

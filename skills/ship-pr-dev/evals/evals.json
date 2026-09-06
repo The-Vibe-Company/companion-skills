@@ -4,12 +4,12 @@
     {
       "id": 1,
       "prompt": "Ship this branch as a PR against main. It should be clean enough for a human to merge, and do not merge it yourself.",
-      "expected_output": "The skill prepares an ignored ship-pr-dev run directory, collects branch context, creates a tiered agent-budget.json, runs relevant local checks, runs review-code-dev as the single independent gate, fixes confirmed blockers within loop caps, commits with commitzen, pushes normally, creates or updates a PR, waits deterministically until every visible non-skipped PR CI item is green on the latest pushed commit, runs capture-learning-tools report-only, and only then returns the PR URL plus latest commit, verification, CI, review, and artifact summaries."
+      "expected_output": "The skill prepares an ignored ship-pr-dev run directory, collects branch context, creates a tiered agent-budget.json, runs relevant local checks, runs review-code-dev as the single independent gate, fixes confirmed blockers with evidence-based reassessment at retry checkpoints, commits with commitzen, pushes normally, creates or updates a PR, waits deterministically until every visible non-skipped PR CI item is green on the latest pushed commit, runs capture-learning-tools report-only, and only then returns the PR URL plus latest commit, verification, CI, review, and artifact summaries."
     },
     {
       "id": 2,
       "prompt": "Clean this up locally before PR, but don't push yet. I want to know whether it's merge-ready.",
-      "expected_output": "The skill runs local cleanup, verification, and review-code-dev, records artifacts, avoids push/PR creation, and returns a local handoff stating whether the branch is merge-ready and what remains."
+      "expected_output": "The skill runs local cleanup, verification, and review-code-dev, records artifacts, avoids push/PR creation, and completes the report-only learning pass and returns a locally prepared handoff with remote CI unverified; it does not claim merge readiness."
     },
     {
       "id": 3,
@@ -34,7 +34,7 @@
     {
       "id": 7,
       "prompt": "The PR is open but CI is red. Please get it to ready-to-merge without merging.",
-      "expected_output": "The skill finds the PR and latest pushed SHA, reads failing CI logs, identifies the first causal error, fixes within scope, runs corresponding local validation, commits and pushes targeted fixes, loops until every visible non-skipped CI check/check suite is green on the latest SHA or the same check fails after 3 distinct attempts, runs capture-learning-tools after green CI, and never disables checks or bypasses hooks."
+      "expected_output": "The skill finds the PR and latest pushed SHA, reads failing CI logs, identifies the first causal error, fixes within scope, runs corresponding local validation, commits and pushes targeted fixes, loops until every visible non-skipped CI check/check suite is green on the latest SHA or a concrete external dependency or user decision prevents further progress; three attempts trigger reassessment, not an automatic stop, runs capture-learning-tools after green CI, and never disables checks or bypasses hooks."
     },
     {
       "id": 8,
@@ -65,6 +65,21 @@
       "id": 13,
       "prompt": "Ship this PR that only updates packages under .agents/skills and .claude/skills.",
       "expected_output": "The context collector marks agent_workflow true but does not infer application backend or security risk from Python scripts or security-named references inside agent packages. Documentation and metadata-only skill updates stay trivial; executable workflow changes are normally standard, so the skill does not launch a deep review solely because agent package paths contain backend or security keywords."
+    },
+    {
+      "id": 14,
+      "prompt": "Get this existing PR ready for review without merging. Three distinct corrections to the integration check have already been pushed. The third fixed the setup failure and exposed a deterministic UTC parsing bug in the same changed module. The logs identify the exact assertion; the fix is in scope, a disposable local fixture reproduces it, credentials work, and the user set no attempt budget. The check is red on the latest SHA. Decide and describe the next actions and the eventual handoff; do not actually operate a repository.",
+      "expected_output": "Reassess and record the new causal evidence, apply the scoped UTC fix, run affected checks, normally commit/push, refresh CI inventory and relevant review evidence, and finish with latest-SHA green CI and report-only learning. Do not stop merely because three corrections occurred, bypass checks, or merge."
+    },
+    {
+      "id": 15,
+      "prompt": "Finish shipping this existing PR. Local checks and independent review passed. The only failing CI job cannot download a private dependency: the provider confirms that the organization credential was revoked. Two code changes left the exact same 401. The repo contains no replacement credential, and only the organization owner can restore access. Decide and describe the next actions and the handoff; do not operate a repository.",
+      "expected_output": "Stop repeated code fixes for the same 401. Record the verified revoked-credential dependency and ask the organization owner to restore access; retain a blocked PR state, finish report-only learning, and avoid claiming readiness, weakening CI, or requesting secret plaintext."
+    },
+    {
+      "id": 16,
+      "prompt": "Prepare this branch locally for PR; do not push. Three local fix cycles were necessary and the scoped implementation is now complete. Relevant verification and quick independent review pass for the current source, with no findings. Remote CI is green only for an older commit. The report-only learning pass remains to run. Decide and describe the remaining actions and final readiness claim; do not operate a repository.",
+      "expected_output": "Complete report-only learning and deliver a locally prepared handoff. No push, remote mutation, automatic stop for three cycles, or merge-ready claim. Explain that current remote CI is unverified because it belongs to an older SHA."
     }
   ]
 }

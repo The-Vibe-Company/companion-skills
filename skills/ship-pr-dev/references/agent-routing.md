@@ -58,7 +58,7 @@ Stay in the coordinator for one-tool-call edits, deterministic discovery, checks
 ## Retry And Concurrency
 
 - Resume the same worker for follow-up when supported.
-- After two failed attempts on one root cause, the coordinator takes over or stops.
+- After two failed attempts on one root cause, the coordinator takes over diagnosis under `readiness-gates.md`'s reassessment policy; the count alone does not block delivery.
 - Run at most three read-only workers concurrently.
 - Never run two workers with the same angle.
 - Never use model turns as process or CI pollers; use deterministic wait commands.

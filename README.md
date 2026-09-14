@@ -1,16 +1,16 @@
 <!-- COMPANION:START -->
 <p align="center">
-  <a href="https://thecompanion.sh">
+  <a href="https://skillpack.app">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://thecompanion.sh/brand/companion-wordmark-dark.png">
-      <img src="https://thecompanion.sh/brand/companion-wordmark.png" alt="Companion" width="420">
+      <source media="(prefers-color-scheme: dark)" srcset="https://skillpack.app/brand/companion-wordmark-dark.png">
+      <img src="https://skillpack.app/brand/companion-wordmark.png" alt="Skillpack" width="420">
     </picture>
   </a>
 </p>
 
 # companion-skills
 
-A curated library of agent skills, published and kept up to date by [Companion](https://thecompanion.sh).
+A curated library of agent skills, published and kept up to date by [Skillpack](https://skillpack.app).
 
 ## Install
 
@@ -56,5 +56,5 @@ npx skills add The-Vibe-Company/companion-skills
 
 ---
 
-<sub>Companion manages only the content between the COMPANION markers. Content outside them is preserved.</sub>
+<sub>Skillpack manages only the content between the COMPANION markers. Content outside them is preserved.</sub>
 <!-- COMPANION:END -->

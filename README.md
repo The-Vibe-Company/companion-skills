@@ -36,12 +36,8 @@ npx skills add The-Vibe-Company/companion-skills
 <td><code>1.0.0</code></td>
 </tr>
 <tr>
-<td><strong><a href="./skills/design-frontend-dev/SKILL.md">Design frontend</a></strong><br><sub>Clean agent-only frontend design and UI review skill derived from Impeccable, without CLI, hooks, live mode, install flow, site, or commercial surface.</sub></td>
-<td><code>3.1.1</code></td>
-</tr>
-<tr>
-<td><strong><a href="./skills/review-code-dev/SKILL.md">Review Code</a></strong><br><sub>Run independent read-only code review with one isolated primary reviewer, credit-aware host-native model routing, bounded specialists, atomic PR-watch state, and parseable P0-P3 artifacts.</sub></td>
-<td><code>1.3.2</code></td>
+<td><strong><a href="./skills/review-code-dev/SKILL.md">Review Code — Alibaba</a></strong><br><sub>Alibaba Open Code Review delegation: deterministic file selection and rules, host-agent review, and automatic macOS/Linux CLI setup without additional LLM configuration.</sub></td>
+<td><code>2.0.0</code></td>
 </tr>
 <tr>
 <td><strong><a href="./skills/setup-granite-tools/SKILL.md">Setup Granite Tools</a></strong><br><sub>Install and safely update Granite as an MCP-first knowledge system, keep its web dashboard healthy on port 4321, and prevent file-dump ingestion.</sub></td>

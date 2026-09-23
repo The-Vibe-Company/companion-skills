@@ -44,8 +44,8 @@ npx skills add The-Vibe-Company/companion-skills
 <td><code>1.0.7</code></td>
 </tr>
 <tr>
-<td><strong><a href="./skills/ship-pr-dev/SKILL.md">Ship PR</a></strong><br><sub>Ship a verified PR through review-code-dev v2 Alibaba delegation, one isolated reviewer, latest-SHA green CI and a report-only learning pass; never merge.</sub></td>
-<td><code>1.4.0</code></td>
+<td><strong><a href="./skills/ship-pr-dev/SKILL.md">Ship PR</a></strong><br><sub>Ship a verified PR from a branch or approved plan through one independent review, latest-SHA green CI and a report-only learning pass; never merge.</sub></td>
+<td><code>1.5.0</code></td>
 </tr>
 </tbody>
 </table>

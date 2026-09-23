@@ -1,14 +1,31 @@
 {
   "$schema": "https://skillpack.app/schemas/companion-manifest.v2.schema.json",
   "name": "agent-instructions",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "icon": "file-code",
   "title": "Agent Instructions",
   "description": "Make a repository agent-ready or improve an existing agent harness across instructions, knowledge authorities, reproducible workflows, guardrails, scoped review rules, and maintenance loops.",
   "notes": "## What it does\n\nAgent-Ready Repository creates or rebuilds the smallest evidence-backed harness that helps coding agents find the right authority, use the supported workflow, respect consequential boundaries, verify changes, and improve after repeated failures. It treats AGENTS.md and CLAUDE.md as a routing layer—not a second README.\n\n## Full repository model\n\nThe skill audits six dimensions without a numeric score: entry and reproducibility, context routing, knowledge authorities, deterministic guardrails, review quality, and feedback/maintenance. It understands DESIGN.md as a versioned design authority, distinguishes it from system architecture, and maps product, security, reliability, testing, decisions, and plans only where the repository needs them.\n\n## Nested instructions\n\nA subtree receives AGENTS.md and a Claude adapter only when a non-obvious local boundary passes violation, safe, unrelated, and cross-scope evaluation. The skill traces Codex, Claude Code, and Copilot discovery semantics instead of assuming one universal precedence model.\n\n## Safety and validation\n\nThe skill writes proposals to an isolated run directory until the user approves applying them. Portable Python helpers inventory evidence, snapshot and lint instruction stacks, trace representative host chains, audit readiness without a file-count score, and compare candidates. Sanitized evals cover greenfield creation, cold reconstruction, minimal outcomes, conflicts, design/architecture authority, justified nested scopes, and restraint against over-structuring.",
   "metadata": {
     "companionSkillId": "5583a8c3-7aba-4bc1-bab1-7c1086bad237",
+    "usage": {
+      "schemaVersion": 1,
+      "skillId": "5583a8c3-7aba-4bc1-bab1-7c1086bad237",
+      "version": "0.4.1",
+      "origin": "https://thecompanion.sh",
+      "migration": {
+        "parentVersion": "0.4.0",
+        "parentChecksum": "sha256:6138247ba1fd9578960c923162046a9e4f5ed851b69ab53982a85a53a12fc24c"
+      }
+    },
     "changelog": [
+      {
+        "version": "0.4.1",
+        "date": "2026-09-23",
+        "changes": [
+          "Replace model activation reporting with automatic Skillpack runtime collection."
+        ]
+      },
       {
         "version": "0.4.0",
         "date": "2026-09-23",

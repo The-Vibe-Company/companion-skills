@@ -25,51 +25,51 @@ npx skills add The-Vibe-Company/companion-skills
 <tbody>
 <tr>
 <td><strong><a href="./skills/agent-instructions/SKILL.md">Agent Instructions</a></strong><br><sub>Make a repository agent-ready or improve an existing agent harness across instructions, knowledge authorities, reproducible workflows, guardrails, scoped review rules, and maintenance loops.</sub></td>
-<td><code>0.4.0</code></td>
+<td><code>0.4.1</code></td>
 </tr>
 <tr>
 <td><strong><a href="./skills/better-ui/SKILL.md">UI polish</a></strong><br><sub>UI polish reference. Supplied mockups and repository decisions take precedence over aesthetic defaults; typography, accessibility and layout route to design-frontend-dev.</sub></td>
-<td><code>1.1.0</code></td>
+<td><code>1.1.1</code></td>
 </tr>
 <tr>
 <td><strong><a href="./skills/capture-learning-tools/SKILL.md">Capture learning</a></strong><br><sub>Turn technical conversations, bugs, CI failures, and repeated agent mistakes into durable project improvements: shared agent instructions, tests, CI, scripts, docs, ADRs, or explicit no-automation decisions.</sub></td>
-<td><code>0.2.0</code></td>
+<td><code>0.2.1</code></td>
 </tr>
 <tr>
 <td><strong><a href="./skills/clean-mac-storage-tools/SKILL.md">Clean My Mac Storage</a></strong><br><sub>Safely reclaim Mac storage and reach a concrete used-space target with history-aware protection, read-only diagnosis, approval-gated cleanup waves, and post-clean verification.</sub></td>
-<td><code>1.1.0</code></td>
+<td><code>1.1.1</code></td>
 </tr>
 <tr>
 <td><strong><a href="./skills/design-frontend-dev/SKILL.md">Design frontend</a></strong><br><sub>Clean agent-only frontend design and UI review skill derived from Impeccable, without CLI, hooks, live mode, install flow, site, or commercial surface.</sub></td>
-<td><code>3.2.0</code></td>
+<td><code>3.2.1</code></td>
 </tr>
 <tr>
 <td><strong><a href="./skills/emil-design-eng/SKILL.md">Emil design engineering</a></strong><br><sub>Design engineering reference with explicit precedence for supplied mockups, repository conventions and the calling owner’s consolidated output.</sub></td>
-<td><code>1.1.0</code></td>
+<td><code>1.1.1</code></td>
 </tr>
 <tr>
 <td><strong><a href="./skills/grilling/SKILL.md">Decision grilling</a></strong><br><sub>Bounded decision interview. Investigate facts using available host tools and resolve consequential choices within the requested branch.</sub></td>
-<td><code>1.1.0</code></td>
+<td><code>1.1.1</code></td>
 </tr>
 <tr>
 <td><strong><a href="./skills/plan-pr/SKILL.md">Plan PR</a></strong><br><sub>Prepare a grounded plan from a prompt or ticket, get human approval, implement with fixed design/TDD expertise, then hand off to Ship PR.</sub></td>
-<td><code>1.1.0</code></td>
+<td><code>1.1.1</code></td>
 </tr>
 <tr>
 <td><strong><a href="./skills/review-code-dev/SKILL.md">Review Code — Alibaba</a></strong><br><sub>Alibaba Open Code Review delegation: deterministic file selection and rules, host-agent review, and automatic macOS/Linux CLI setup without additional LLM configuration.</sub></td>
-<td><code>2.1.0</code></td>
+<td><code>2.1.1</code></td>
 </tr>
 <tr>
 <td><strong><a href="./skills/setup-granite-tools/SKILL.md">Setup Granite Tools</a></strong><br><sub>Install and safely update Granite as an MCP-first knowledge system, keep its web dashboard healthy on port 4321, and prevent file-dump ingestion.</sub></td>
-<td><code>1.1.0</code></td>
+<td><code>1.1.1</code></td>
 </tr>
 <tr>
 <td><strong><a href="./skills/ship-pr-dev/SKILL.md">Ship PR</a></strong><br><sub>Ship a verified PR from a branch or approved plan through one independent review, latest-SHA green CI and a report-only learning pass; never merge.</sub></td>
-<td><code>1.6.0</code></td>
+<td><code>1.6.1</code></td>
 </tr>
 <tr>
 <td><strong><a href="./skills/tdd/SKILL.md">Behavioral TDD</a></strong><br><sub>Portable behavioral TDD reference. The approved plan confirms named test boundaries; architecture vocabulary is inline and review belongs to the delivery owner.</sub></td>
-<td><code>1.1.0</code></td>
+<td><code>1.1.1</code></td>
 </tr>
 </tbody>
 </table>

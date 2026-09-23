@@ -3,68 +3,68 @@
   "skills": [
     {
       "slug": "agent-instructions",
-      "version": "0.4.0",
-      "checksum": "sha256:6138247ba1fd9578960c923162046a9e4f5ed851b69ab53982a85a53a12fc24c"
+      "version": "0.4.1",
+      "checksum": "sha256:1de31b7f37ac4f19af82d5c402b41d9f76d0cf16e66d40e667d12d3a7d4bdbfa"
     },
     {
       "slug": "better-ui",
-      "version": "1.1.0",
-      "checksum": "sha256:23de7817257cf0dbb41d31d209f3d7659c42161858f754ba17be168105666e5e"
+      "version": "1.1.1",
+      "checksum": "sha256:b8201d92ec2c6fd4ea99eb2e6d4d6d8439eb80a0172b280aa35418fcce94a8f1"
     },
     {
       "slug": "capture-learning-tools",
-      "version": "0.2.0",
-      "checksum": "sha256:5a580f0189dc4f34ee2d9a896fd7e962f0f487785ece3b85f8325f0c74278c0c"
+      "version": "0.2.1",
+      "checksum": "sha256:f9ae2f0b3fedb58b681b5d3afbe680ecefbe337c701fb54846a745db4a90182d"
     },
     {
       "slug": "clean-mac-storage-tools",
-      "version": "1.1.0",
-      "checksum": "sha256:ef25582d0a0702f795033c449f0126db97e6478e68941291a5a86540e52e1d1b"
+      "version": "1.1.1",
+      "checksum": "sha256:660c2a7bb5c6866ae3daa01362f669a2364c8749122efaf058a1ec8346a54522"
     },
     {
       "slug": "design-frontend-dev",
-      "version": "3.2.0",
-      "checksum": "sha256:a1858dbe3d9a314c2058c24a5722439389c01c80e32509138d304699347729a4"
+      "version": "3.2.1",
+      "checksum": "sha256:0d977052085bf597e23e63064b5fea18009e5c18623757683369975398d6470b"
     },
     {
       "slug": "emil-design-eng",
-      "version": "1.1.0",
-      "checksum": "sha256:fb7df15888d78b66551ed7b83d3191c13383de915b9d5f33a23580c3fc1cd56e"
+      "version": "1.1.1",
+      "checksum": "sha256:f5ac2a2da3ff74977c4dc5f4a9d79452144ad2ae4518115eeaf9d19559c58690"
     },
     {
       "slug": "grilling",
-      "version": "1.1.0",
-      "checksum": "sha256:185f12cadb94217a87b5f59049cb560ac5a98c5bb4461b5cec1ab4ced7795440"
+      "version": "1.1.1",
+      "checksum": "sha256:27c39645d0ff1e6fd9626f07127ac31c9e0e84708a9f730f296e9235aaa9d623"
     },
     {
       "slug": "plan-pr",
-      "version": "1.1.0",
-      "checksum": "sha256:84e25bf886062f6af0f0d5ffe201ddcec6efa3f812ca48266be4d62e0782c045"
+      "version": "1.1.1",
+      "checksum": "sha256:7d94a26dcd58e49c599855624fea37feace53f045b01d8a72d9fc344f29e1985"
     },
     {
       "slug": "review-code-dev",
-      "version": "2.1.0",
-      "checksum": "sha256:c49fd6056ee381287f1288619d08d4229fa88e490f8441f5287886dea2e95063"
+      "version": "2.1.1",
+      "checksum": "sha256:b8f404c433737ac23155fb4fff069d193cd4051e9ef5c462ee469ad825a68cbd"
     },
     {
       "slug": "setup-granite-tools",
-      "version": "1.1.0",
-      "checksum": "sha256:828f6d6194311d4de090bab8c9c7afe4576ab858588f24ac4c8819b64fc4467b"
+      "version": "1.1.1",
+      "checksum": "sha256:5c847c90a2afe8b11c4dd0692651d3032453ecdd0247b471537c8b6450b973a1"
     },
     {
       "slug": "ship-pr-dev",
-      "version": "1.6.0",
-      "checksum": "sha256:19974e5bd5afce97edf786ebb6c3f9ad4c68006222e591eee0d3695daeb4b187"
+      "version": "1.6.1",
+      "checksum": "sha256:05b9f28005f95c63e5f65a4b1c5df52dba2f4df208a496162c6f9319f36ebf09"
     },
     {
       "slug": "tdd",
-      "version": "1.1.0",
-      "checksum": "sha256:ad00685fae8fbf1f4d1b8a533b6d53346bd6a5ebc60ba577f47e3e25b6e639d9"
+      "version": "1.1.1",
+      "checksum": "sha256:37759d6bce0c140691ad36823e603771ee019da456db56378e39aa6757923aba"
     }
   ],
   "companion_ownership": {
     "app_id": "4353406",
-    "previous_commit_sha": "9c1a44072eb9752a568d28e7deeb22c39f8b0bf5",
-    "signature": "HmgIHtw9AOBirrAsmqBQZdQCELOwl8VtQkMu4n1_D7YK2qhyr4wHpao-Ecssvp8sWWTPtfjH7gg5PnhSs45K8niybhiidmNYvhEg7TlI5B_lKrQ9wl1W9REc6dYPZs6JnyMhfFl93c9nUKds4S8zCWqyAjl9dvapCvD_bDnrsEbvcvyLhNV9aUToaly5IU4hqNullO0XkhUPUN_jCe5k6cgEMs2BPwskatUZNq1mRO67BB0_eoHdOZtqm_rDKRf3ge7aVBMhdcbU3RRGS6GWA4svzq6lxEUHdm0x_whxllKZmMCwKPhRNzJ_7AIy34yrTfriDrl3uml-lz89xTbDnA"
+    "previous_commit_sha": "46d00975a25c3cc02dba30007beec0d594c54e9f",
+    "signature": "uoYdjYVIZT_RxyOz9lx1IaW14VKDhsVNdk_WzdzGhALXk3P7e-Sl_3WMwrd24BDscQ6k5v3zDZM5VwK_OiUoGWe3CPPjKE0Zo_Rmjvg5__gy3-vB9JXQEtFCtcNcUydK62F9YyVbSGw6qN7RZFivqboQj9J6wvVOLBioPAKNMHv7MGtG2WWTI6jfYNg-j2pWF3GyZ1e3WVYSR1IrlDDHanPTneRlQJ3dz421Gc_oFWgwvVrlqA92nfw-tYfi3MR_viyGPdkMcCvxThc6ahOLrkqJFieoDC5qLudYzWrRkthp_fFw7bP0dQsEUBA6DMWyl-j7rxlW_fXBX9NTzbFcbg"
   }
 }

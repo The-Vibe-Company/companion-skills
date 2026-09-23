@@ -3,23 +3,23 @@
   "skills": [
     {
       "slug": "agent-instructions",
-      "version": "0.3.0",
-      "checksum": "sha256:d859869877371711adf2167002cfd6de036600d357af42de527ab347139de9dc"
+      "version": "0.4.0",
+      "checksum": "sha256:6138247ba1fd9578960c923162046a9e4f5ed851b69ab53982a85a53a12fc24c"
     },
     {
       "slug": "capture-learning-tools",
-      "version": "0.1.1",
-      "checksum": "sha256:35aeeb809dd83c1b449080a3a92d2480860a3205f49888fc6a758392ba14937f"
+      "version": "0.2.0",
+      "checksum": "sha256:5a580f0189dc4f34ee2d9a896fd7e962f0f487785ece3b85f8325f0c74278c0c"
     },
     {
       "slug": "clean-mac-storage-tools",
-      "version": "1.0.0",
-      "checksum": "sha256:156154ad804f973fd2d91b56092b74e65190bae81351748c16143f7c92a8af72"
+      "version": "1.1.0",
+      "checksum": "sha256:ef25582d0a0702f795033c449f0126db97e6478e68941291a5a86540e52e1d1b"
     },
     {
       "slug": "review-code-dev",
-      "version": "2.0.0",
-      "checksum": "sha256:9593102f928fda2ec3ca8d8a013f101f4b7818eac6c4c2cf888332dccc196fce"
+      "version": "2.1.0",
+      "checksum": "sha256:c49fd6056ee381287f1288619d08d4229fa88e490f8441f5287886dea2e95063"
     },
     {
       "slug": "setup-granite-tools",
@@ -28,13 +28,13 @@
     },
     {
       "slug": "ship-pr-dev",
-      "version": "1.5.1",
-      "checksum": "sha256:78485b85685ee86d741b901d4516fa53a05c4a86fe742d5db394a2525969a4a0"
+      "version": "1.6.0",
+      "checksum": "sha256:19974e5bd5afce97edf786ebb6c3f9ad4c68006222e591eee0d3695daeb4b187"
     }
   ],
   "companion_ownership": {
     "app_id": "4353406",
-    "previous_commit_sha": "027970ba0b88ff1bbbe683bc337b6e62eefd9809",
-    "signature": "0Tz9aCl8chL8bf_EQzVcWbhAQh8f009z3e8PO_NkRI6RjMYJhq4UDIHnqiU5C2MoRLukh4cq1y6-OFbcRbIHyXbA_yOnoCmFilPadlpZdaTN07cE6sVvRi685bB4ntTr2DzSNhyiI_nU3ZiMfrnvJacxG2X5Oc5QU1yuyok7WyjEFGqIv6GwIbDMxdU7p9rgTZrNfYDgqIgWw9Pv2U3R1TRVvOgzIyzizMd2z6KBOjgip6G3AHN9XGP3JB92d8QO1XeLI5peOCh6sRkxZQHLjSBPvsS_I4NIfnhYLjP_gsy728kmNZeUfYtHBShko4cm38CXIq3gFlB41r9JCb3HlA"
+    "previous_commit_sha": "902b1e5d4f8816c97185bc43f21721d8a12543dc",
+    "signature": "M4fve2lzI5BrDzlKhzQ6kpyS6cPzFDYnREiXSHOKFqzDwxpJEP-bSlfYuVCsgo_cezWNO47HgL6_L3ADwd3TCIzx_7V8ivZItwRL066hO3COvhTz1qj6KF6oNDsEDmZGNf4XerZn9RILE0NnBFSb7YRbWJg4RxDTAxtmtYrszId-i24bT7_FlLjLwGaEb3Zmy9C1OFNYdd5etN8zXbpYiJvRF9OacbMUynDxJEctwKDGf-UAgskbi4dNw-s35KKnM_3kjn2W96cj5C-6DUifNJcd3zci7pYZmBvPirdeH45oqleNCoU_6IZ3xTKPIBmcEQZIvYaoEnDKT_wQeK6ecw"
   }
 }

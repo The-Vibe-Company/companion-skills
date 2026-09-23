@@ -1,7 +1,7 @@
 {
-  "$schema": "https://thecompanion.sh/schemas/companion-manifest.v2.schema.json",
+  "$schema": "https://skillpack.app/schemas/companion-manifest.v2.schema.json",
   "name": "agent-instructions",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "icon": "file-code",
   "title": "Agent Instructions",
   "description": "Make a repository agent-ready or improve an existing agent harness across instructions, knowledge authorities, reproducible workflows, guardrails, scoped review rules, and maintenance loops.",
@@ -9,6 +9,13 @@
   "metadata": {
     "companionSkillId": "5583a8c3-7aba-4bc1-bab1-7c1086bad237",
     "changelog": [
+      {
+        "version": "0.4.0",
+        "date": "2026-09-23",
+        "changes": [
+          "Include Skillpack activation reporting with optional identity, telemetry opt-out, and non-blocking delivery."
+        ]
+      },
       {
         "version": "0.3.0",
         "date": "2026-08-05",

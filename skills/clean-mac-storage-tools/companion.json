@@ -1,7 +1,7 @@
 {
-  "$schema": "https://thecompanion.sh/schemas/companion-manifest.v2.schema.json",
+  "$schema": "https://skillpack.app/schemas/companion-manifest.v2.schema.json",
   "name": "clean-mac-storage-tools",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "icon": "square-stack",
   "title": "Clean My Mac Storage",
   "description": "Safely reclaim Mac storage and reach a concrete used-space target with history-aware protection, read-only diagnosis, approval-gated cleanup waves, and post-clean verification.",
@@ -9,6 +9,13 @@
   "metadata": {
     "companionSkillId": "7a32362a-93ad-43e6-9485-850fb546618b",
     "changelog": [
+      {
+        "version": "1.1.0",
+        "date": "2026-09-23",
+        "changes": [
+          "Include Skillpack activation reporting with optional identity, telemetry opt-out, and non-blocking delivery."
+        ]
+      },
       {
         "version": "1.0.0",
         "date": "2026-08-26",

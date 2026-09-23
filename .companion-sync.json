@@ -7,6 +7,11 @@
       "checksum": "sha256:6138247ba1fd9578960c923162046a9e4f5ed851b69ab53982a85a53a12fc24c"
     },
     {
+      "slug": "better-ui",
+      "version": "1.1.0",
+      "checksum": "sha256:23de7817257cf0dbb41d31d209f3d7659c42161858f754ba17be168105666e5e"
+    },
+    {
       "slug": "capture-learning-tools",
       "version": "0.2.0",
       "checksum": "sha256:5a580f0189dc4f34ee2d9a896fd7e962f0f487785ece3b85f8325f0c74278c0c"
@@ -15,6 +20,26 @@
       "slug": "clean-mac-storage-tools",
       "version": "1.1.0",
       "checksum": "sha256:ef25582d0a0702f795033c449f0126db97e6478e68941291a5a86540e52e1d1b"
+    },
+    {
+      "slug": "design-frontend-dev",
+      "version": "3.2.0",
+      "checksum": "sha256:a1858dbe3d9a314c2058c24a5722439389c01c80e32509138d304699347729a4"
+    },
+    {
+      "slug": "emil-design-eng",
+      "version": "1.1.0",
+      "checksum": "sha256:fb7df15888d78b66551ed7b83d3191c13383de915b9d5f33a23580c3fc1cd56e"
+    },
+    {
+      "slug": "grilling",
+      "version": "1.1.0",
+      "checksum": "sha256:185f12cadb94217a87b5f59049cb560ac5a98c5bb4461b5cec1ab4ced7795440"
+    },
+    {
+      "slug": "plan-pr",
+      "version": "1.1.0",
+      "checksum": "sha256:84e25bf886062f6af0f0d5ffe201ddcec6efa3f812ca48266be4d62e0782c045"
     },
     {
       "slug": "review-code-dev",
@@ -30,11 +55,16 @@
       "slug": "ship-pr-dev",
       "version": "1.6.0",
       "checksum": "sha256:19974e5bd5afce97edf786ebb6c3f9ad4c68006222e591eee0d3695daeb4b187"
+    },
+    {
+      "slug": "tdd",
+      "version": "1.1.0",
+      "checksum": "sha256:ad00685fae8fbf1f4d1b8a533b6d53346bd6a5ebc60ba577f47e3e25b6e639d9"
     }
   ],
   "companion_ownership": {
     "app_id": "4353406",
-    "previous_commit_sha": "a8e36ae6c3c885d61ffd1aba7fba34f452093695",
-    "signature": "yjl7AYSKmJTpVuYUDnN2G1d2sqhM66kEHo2vjB7amAoEoatnt9otanfXnrtBIoB1ar6TQ5cOzZPQwDtbzKWBnzE6TqofEENWteOhGX5CUBLRJf0nH7yF1DJ_lUorgvY7PcWMtKNv5EhqdwCq1-h-tt3znv5sWeE0OKgpK4laS65_QEE1k9s37iXkWUwmL5-YkwrRFrkX7jE9AJ4nD5sLBC7C6PP2RhVa9dmBd1_1k7St1rzqefyXRxj8mSYLEGY3agB6i_zFg37KgLzm6P51fpfooPoPTH5h0lxro-taiFl_VV3CQmGLHRcF5pTJgKF_iRQZ58cbjtTG5FO5iJRbAQ"
+    "previous_commit_sha": "9c1a44072eb9752a568d28e7deeb22c39f8b0bf5",
+    "signature": "HmgIHtw9AOBirrAsmqBQZdQCELOwl8VtQkMu4n1_D7YK2qhyr4wHpao-Ecssvp8sWWTPtfjH7gg5PnhSs45K8niybhiidmNYvhEg7TlI5B_lKrQ9wl1W9REc6dYPZs6JnyMhfFl93c9nUKds4S8zCWqyAjl9dvapCvD_bDnrsEbvcvyLhNV9aUToaly5IU4hqNullO0XkhUPUN_jCe5k6cgEMs2BPwskatUZNq1mRO67BB0_eoHdOZtqm_rDKRf3ge7aVBMhdcbU3RRGS6GWA4svzq6lxEUHdm0x_whxllKZmMCwKPhRNzJ_7AIy34yrTfriDrl3uml-lz89xTbDnA"
   }
 }

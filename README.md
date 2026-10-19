@@ -40,6 +40,10 @@ npx skills add The-Vibe-Company/companion-skills
 <td><code>1.1.1</code></td>
 </tr>
 <tr>
+<td><strong><a href="./skills/create-skill-tools/SKILL.md">Create skill</a></strong><br><sub>Create, improve, audit, refactor, evaluate, package, and publish portable agent skills. Use for new skills, trigger fixes, MECE skill ownership, SkillOpt-style loops, Companion-compatible packaging, and skill-system a…</sub></td>
+<td><code>1.1.1</code></td>
+</tr>
+<tr>
 <td><strong><a href="./skills/design-frontend-dev/SKILL.md">Design frontend</a></strong><br><sub>Clean agent-only frontend design and UI review skill derived from Impeccable, without CLI, hooks, live mode, install flow, site, or commercial surface.</sub></td>
 <td><code>3.2.1</code></td>
 </tr>
@@ -54,6 +58,10 @@ npx skills add The-Vibe-Company/companion-skills
 <tr>
 <td><strong><a href="./skills/plan-pr/SKILL.md">Plan PR</a></strong><br><sub>Prepare a grounded plan from a prompt or ticket, get human approval, implement with fixed design/TDD expertise, then hand off to Ship PR.</sub></td>
 <td><code>1.1.1</code></td>
+</tr>
+<tr>
+<td><strong><a href="./skills/refine-skill-tools/SKILL.md">Skill Refinery</a></strong><br><sub>Improve an existing Agent Skill through baseline execution, bounded candidate edits, held-out evaluation, independent comparison, and regression rejection.</sub></td>
+<td><code>0.2.1</code></td>
 </tr>
 <tr>
 <td><strong><a href="./skills/review-code-dev/SKILL.md">Review Code — Alibaba</a></strong><br><sub>Alibaba Open Code Review delegation: deterministic file selection and rules, host-agent review, and automatic macOS/Linux CLI setup without additional LLM configuration.</sub></td>

@@ -22,6 +22,11 @@
       "checksum": "sha256:660c2a7bb5c6866ae3daa01362f669a2364c8749122efaf058a1ec8346a54522"
     },
     {
+      "slug": "create-skill-tools",
+      "version": "1.1.1",
+      "checksum": "sha256:18a48f682d53fa833daf82520081b56e204456d47bf556b79b7477cae92d3a6e"
+    },
+    {
       "slug": "design-frontend-dev",
       "version": "3.2.1",
       "checksum": "sha256:0d977052085bf597e23e63064b5fea18009e5c18623757683369975398d6470b"
@@ -40,6 +45,11 @@
       "slug": "plan-pr",
       "version": "1.1.1",
       "checksum": "sha256:7d94a26dcd58e49c599855624fea37feace53f045b01d8a72d9fc344f29e1985"
+    },
+    {
+      "slug": "refine-skill-tools",
+      "version": "0.2.1",
+      "checksum": "sha256:d40cde2d1192562580884d4d9db4498a982a2f6277103d6ec7bf561c54798400"
     },
     {
       "slug": "review-code-dev",
@@ -64,7 +74,7 @@
   ],
   "companion_ownership": {
     "app_id": "4353406",
-    "previous_commit_sha": "46d00975a25c3cc02dba30007beec0d594c54e9f",
-    "signature": "uoYdjYVIZT_RxyOz9lx1IaW14VKDhsVNdk_WzdzGhALXk3P7e-Sl_3WMwrd24BDscQ6k5v3zDZM5VwK_OiUoGWe3CPPjKE0Zo_Rmjvg5__gy3-vB9JXQEtFCtcNcUydK62F9YyVbSGw6qN7RZFivqboQj9J6wvVOLBioPAKNMHv7MGtG2WWTI6jfYNg-j2pWF3GyZ1e3WVYSR1IrlDDHanPTneRlQJ3dz421Gc_oFWgwvVrlqA92nfw-tYfi3MR_viyGPdkMcCvxThc6ahOLrkqJFieoDC5qLudYzWrRkthp_fFw7bP0dQsEUBA6DMWyl-j7rxlW_fXBX9NTzbFcbg"
+    "previous_commit_sha": "83aee7d4f6c44506806b6c7ff9d697e8ab9faa08",
+    "signature": "4Kk2xrigUsIrCA4VeVVvKDRcdaSidKxUfXJ-wzhqwoqY-ijb9MhKDw_nD5-sQKT7SsXn4OI1HkPkFRBnKdtNRrwMjU3Xslg4rKX-sexatxplxg7wLvnJTG1jKbiRZ_UL18zsP-jnVM4F1ASXqj3aSr4na9rYGENue1OFyoqZ9GrYi7WWXdQPbvZYQehIiOSHWW92MYcM7zJ2Fe0aSJ42U-0o7Lp1hDTa0ZXuPDDqMzA7cdc65Q_U_vSptDUL-MSkSBlah5QlKUQfwo1MqBq7MLZUbByGkQv6tr3Fim8RttW_yc9kGFm1YVoSfd5C5cOrdagxvRYzuCNWTBEkrx8gPw"
   }
 }

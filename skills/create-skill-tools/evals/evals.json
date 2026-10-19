@@ -1,0 +1,92 @@
+{
+  "skill_name": "skill-creator",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I keep doing the same cleanup on exported bank CSVs. Can you turn that workflow into a reusable skill?",
+      "expected_output": "Should use the skill-creation workflow: capture the recurring workflow, triggers, inputs, outputs, edge cases, dependencies, and success criteria before drafting. Should propose a compact SKILL.md with portable frontmatter and an output contract. Should recommend 2-3 realistic eval prompts because the workflow is deterministic and repeated. Should avoid creating a broad skill if an existing owner skill already covers the work.",
+      "expectations": [
+        "Captures workflow, triggers, inputs, outputs, dependencies, and success criteria before drafting",
+        "Checks whether an existing owner skill should be extended before creating a new skill",
+        "Drafts or proposes a portable SKILL.md structure with name and description frontmatter",
+        "Defines an output contract for the bank CSV cleanup workflow",
+        "Recommends realistic eval prompts because the workflow is deterministic",
+        "Keeps examples sanitized and avoids private financial data"
+      ],
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Improve this existing skill. It works, but it is getting bloated and agents sometimes skip the setup step.",
+      "expected_output": "Should default to SkillOpt-style iteration rather than rewriting the whole skill. Should pick one target file, snapshot the baseline, state a hypothesis, and make a bounded edit. Should protect stable invariants, move bulky examples or fast-changing details out of SKILL.md, and validate against baseline or held-out prompts. Should reject ties instead of accepting merely different output.",
+      "expectations": [
+        "Defaults to a bounded SkillOpt-style iteration",
+        "Chooses one target file instead of rewriting the whole skill",
+        "Snapshots the baseline before editing",
+        "States a concrete improvement hypothesis",
+        "Protects stable invariants from routine edits",
+        "Moves bulky or volatile detail out of SKILL.md when appropriate",
+        "Compares candidate behavior against a baseline or held-out prompts",
+        "Rejects ties or merely different output"
+      ],
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Audit my skills folder. I think I have overlapping skills for publishing, content drafting, post scheduling, and social replies.",
+      "expected_output": "Should use skill-system architecture mode. Should inventory the public skill surface, identify likely owner/capability/private-reference boundaries, and require evidence before recommending merges. Should produce or propose inventory, frictions, and proposal artifacts. Should not delete, merge, rename, or de-publicize live skills without explicit approval.",
+      "expectations": [
+        "Uses skill-system architecture or audit mode",
+        "Inventories the current skill surface before recommending changes",
+        "Distinguishes owner skills, capability skills, and private references or scripts",
+        "Requires evidence before recommending merges",
+        "Produces or proposes inventory, frictions, and proposal artifacts",
+        "Does not delete, merge, rename, or de-publicize skills without explicit approval"
+      ],
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "This skill is good when loaded, but it almost never triggers unless I call it by name. Fix the description.",
+      "expected_output": "Should treat the frontmatter description as the routing surface. Should read the trigger-description optimization reference before running a description loop. Should gather realistic positive, adjacent-negative, and wrong-owner trigger prompts. Should improve the description with trigger phrases and scope boundaries while staying under spec limits. Should validate routing separately from the skill body.",
+      "expectations": [
+        "Identifies the description as the router",
+        "Reads or points to trigger-description optimization before running the loop",
+        "Builds positive trigger prompts from realistic user phrasing",
+        "Builds adjacent-negative or wrong-owner prompts",
+        "Adds scope boundaries such as related-skill handoffs",
+        "Keeps the description within spec limits",
+        "Validates routing separately from body quality"
+      ],
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "Can you write the actual outreach emails for this prospecting workflow skill?",
+      "expected_output": "Should recognize that writing outreach emails is not the skill-creator's job unless the user is asking to encode that behavior into a skill. Should either clarify that this belongs to an email/cold-outreach capability, or help define how a prospecting workflow skill should hand off to such a capability. Should not silently produce a full email campaign as if skill-creator owned email copywriting.",
+      "expectations": [
+        "Recognizes this is a wrong-owner task for skill-creator",
+        "Clarifies that skill-creator can encode the workflow but should not own email copywriting",
+        "Suggests the relevant email or cold-outreach capability when available",
+        "Can define a handoff boundary for the prospecting workflow skill",
+        "Does not silently write a full outreach campaign"
+      ],
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "Package this skill so I can share it publicly. It currently has local paths, private client examples, a couple scripts, and a companion.json draft.",
+      "expected_output": "Should run portability and packaging checks before publishing. Should scan SKILL.md, references, scripts, evals, and companion.json for absolute paths, secrets, private names, host-only assumptions, and undeclared dependencies. Should keep local overlays out of the public package, validate companion metadata, and ask for explicit approval before publishing or replacing any shared package.",
+      "expectations": [
+        "Runs portability checks before packaging",
+        "Scans SKILL.md, references, scripts, evals, and companion.json",
+        "Flags absolute paths, secrets, private names, and host-only assumptions",
+        "Checks scripts for explicit input/output paths and declared dependencies",
+        "Keeps local overlays out of the public package",
+        "Validates companion metadata",
+        "Asks for explicit approval before publishing or replacing a shared package"
+      ],
+      "files": []
+    }
+  ]
+}

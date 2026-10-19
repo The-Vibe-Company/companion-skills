@@ -1,0 +1,70 @@
+{
+  "$schema": "https://skillpack.app/schemas/companion-manifest.v2.schema.json",
+  "name": "refine-skill-tools",
+  "version": "0.2.1",
+  "title": "Skill Refinery",
+  "description": "Improve an existing Agent Skill through baseline execution, bounded candidate edits, held-out evaluation, independent comparison, and regression rejection.",
+  "notes": "## What it does\n\nSkill Refinery optimizes both the quality of an Agent Skill package and the real outputs it produces. It keeps the installed target unchanged during experiments, treats structural quality as a gate, compares candidates against the current best version, and accepts only strict held-out improvements without critical regressions.\n\n## Portability\n\nThe core workflow is runtime-neutral. Subagents accelerate isolated execution and blind judging when available; hosts without subagents use a clearly labeled sequential sanity-check fallback. Bundled helpers use only the Python standard library and accept explicit paths.\n\n## Safety\n\nTarget packages are treated as untrusted data during inspection. Final replacement, git operations, and publication always require separate approval.",
+  "metadata": {
+    "companionSkillId": "7538daeb-82c8-4b47-bd57-da42d480066d",
+    "usage": {
+      "schemaVersion": 1,
+      "skillId": "7538daeb-82c8-4b47-bd57-da42d480066d",
+      "version": "0.2.1",
+      "origin": "https://thecompanion.sh",
+      "migration": {
+        "parentVersion": "0.2.0",
+        "parentChecksum": "sha256:85abcb6e1ac6a419783d40b9cf8257d2a42fdb60a5bb17b68c22f9d0857e6e27"
+      }
+    },
+    "changelog": [
+      {
+        "version": "0.2.1",
+        "date": "2026-09-23",
+        "changes": [
+          "Replace model activation reporting with automatic Skillpack runtime collection."
+        ]
+      },
+      {
+        "version": "0.2.0",
+        "date": "2026-09-23",
+        "changes": [
+          "Include Skillpack activation reporting with optional identity, telemetry opt-out, and non-blocking delivery."
+        ]
+      },
+      {
+        "version": "0.1.0",
+        "date": "2026-07-20",
+        "changes": [
+          "Initial public package with an outcome-first optimization loop.",
+          "Adapted Karpathy Autoresearch into a fixed-harness, single-mutable-asset, keep/discard experiment ratchet.",
+          "Added isolated run preparation, static inspection, and bounded candidate gates.",
+          "Added evaluation design, reviewer council, artifact schemas, experiment ledger, and seven self-evals."
+        ]
+      }
+    ]
+  },
+  "environment": {
+    "env": {},
+    "secrets": {}
+  },
+  "dependencies": {},
+  "commands": [
+    {
+      "name": "Refine a skill",
+      "desc": "Run the full baseline, candidate, held-out evaluation, and handoff loop."
+    },
+    {
+      "name": "Diagnose output quality",
+      "desc": "Identify likely skill causes behind observed output failures without editing."
+    },
+    {
+      "name": "Resume a run",
+      "desc": "Continue from an existing run manifest and rejected-edit ledger."
+    },
+    {
+      "name": "Record an experiment",
+      "desc": "Append a keep, discard, crash, or inconclusive result to the run ledgers."
+    }
+  ]
+}

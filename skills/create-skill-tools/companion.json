@@ -1,0 +1,131 @@
+{
+  "$schema": "https://skillpack.app/schemas/companion-manifest.v2.schema.json",
+  "name": "create-skill-tools",
+  "version": "1.1.1",
+  "title": "Create skill",
+  "description": "Create, improve, audit, refactor, evaluate, package, and publish portable agent skills. Use for new skills, trigger fixes, MECE skill ownership, SkillOpt-style loops, Companion-compatible packaging, and skill-system architecture work.",
+  "notes": "## What it does\n\nSkill Creator guides the full lifecycle for portable agent skills: drafting SKILL.md, designing shareable file formats, creating realistic eval prompts, running with-skill and baseline comparisons, reviewing qualitative and quantitative results, auditing skill surfaces, refactoring overlapping owners, and preparing Companion-ready packages.\n\n## Portability\n\nThe skill avoids hard-coded personal paths, private organization context, and secret values. Distribution metadata lives in companion.json; local project rules should be treated as per-workspace overlays, not baked into the shareable package.\n\n## Runtime notes\n\nMost guidance is host-agnostic. Some optional eval and description-improvement scripts use the local agent CLI available in the current environment. If a host lacks subagents or browser access, use the documented manual or static-output fallback.",
+  "metadata": {
+    "companionSkillId": "da943979-69aa-4031-841f-a629d25233f6",
+    "usage": {
+      "schemaVersion": 1,
+      "skillId": "da943979-69aa-4031-841f-a629d25233f6",
+      "version": "1.1.1",
+      "origin": "https://thecompanion.sh",
+      "migration": {
+        "parentVersion": "1.1.0",
+        "parentChecksum": "sha256:937cbe7935a694163f980084460d8042cef9ef4cd7d648a6528d4cfdc0e56291"
+      }
+    },
+    "changelog": [
+      {
+        "version": "1.1.1",
+        "date": "2026-09-23",
+        "changes": [
+          "Replace model activation reporting with automatic Skillpack runtime collection."
+        ]
+      },
+      {
+        "version": "1.1.0",
+        "date": "2026-09-23",
+        "changes": [
+          "Include Skillpack activation reporting with optional identity, telemetry opt-out, and non-blocking delivery."
+        ]
+      },
+      {
+        "version": "1.0.5",
+        "date": "2026-07-03",
+        "changes": [
+          "Publish version 1.0.5."
+        ]
+      },
+      {
+        "version": "1.0.4",
+        "date": "2026-06-29",
+        "changes": [
+          "Added clean skill-structure guidance inspired by high-quality public skill repositories.",
+          "Added a self-evaluation suite covering creation, bounded improvement, audits, trigger optimization, wrong-owner routing, and packaging.",
+          "Standardized eval terminology on expectations across SKILL.md, schemas, grader guidance, self-evals, and the review viewer."
+        ]
+      },
+      {
+        "version": "1.0.3",
+        "date": "2026-06-27",
+        "changes": [
+          "Added usage history analysis for Codex and Claude conversations so skill updates can be proposed from real usage evidence."
+        ]
+      },
+      {
+        "version": "1.0.2",
+        "date": "2026-06-26",
+        "changes": [
+          "Renamed the Companion slug from skill-creator-and-eval to skill-creator after moving the archived legacy skill out of the way."
+        ]
+      },
+      {
+        "version": "1.0.1",
+        "date": "2026-06-26",
+        "changes": [
+          "Expanded Skill Creator into the owner for portable skill-system audits, MECE refactors, trigger fixes, Companion readiness, and SkillOpt-light loops.",
+          "Added shareable package format guidance and a portable skill-system audit script.",
+          "Kept the stable Companion slug skill-creator-and-eval for this upload while a legacy archived skill still held the skill-creator slug."
+        ]
+      },
+      {
+        "version": "1.0.0",
+        "date": "2026-06-25",
+        "changes": [
+          "Initial Companion package for the Skill Creator and Eval workflow."
+        ]
+      }
+    ]
+  },
+  "environment": {
+    "env": {
+      "CODEX_HOME": {
+        "required": false,
+        "description": "Optional override for the local Codex configuration directory used when discovering installed skill roots."
+      },
+      "CLAUDE_HOME": {
+        "required": false,
+        "description": "Optional override for the local Claude configuration directory used when discovering installed skill roots."
+      }
+    },
+    "secrets": {}
+  },
+  "dependencies": {},
+  "commands": [
+    {
+      "name": "Create a skill",
+      "desc": "Guide the user from intent capture to a draft SKILL.md and realistic test prompts."
+    },
+    {
+      "name": "Run evals",
+      "desc": "Run with-skill and baseline comparisons, capture outputs, and prepare review artifacts."
+    },
+    {
+      "name": "Improve a skill",
+      "desc": "Iterate on an existing skill using bounded SkillOpt-style changes and measured results."
+    },
+    {
+      "name": "Improve description",
+      "desc": "Optimize a skill frontmatter description for better trigger accuracy."
+    },
+    {
+      "name": "Audit skill system",
+      "desc": "Inventory a skill surface, detect overlaps and portability issues, and produce a scoped proposal."
+    },
+    {
+      "name": "Refactor skills",
+      "desc": "Merge, split, retire, or migrate skills with snapshots, approval gates, and validation."
+    },
+    {
+      "name": "Prepare package",
+      "desc": "Check that SKILL.md and companion.json are portable and ready for sharing."
+    },
+    {
+      "name": "Analyze usage history",
+      "desc": "Scan local Codex and Claude conversations for how a skill was used, where it failed, and what update to propose."
+    }
+  ]
+}

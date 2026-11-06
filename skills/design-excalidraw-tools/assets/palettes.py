@@ -69,6 +69,19 @@ PALETTES = {
         "cat1": "#4a5d82", "cat1_bg": "#eef0f6", "cat1_soft": "#c2c9db",
         "cat2": "#5c6b4f", "cat2_bg": "#f0f3ec", "cat2_soft": "#cbd5c0",
     },
+    # Playful: cream paper, soft ink, bright pastels, orange pen. Illustrated explainers for a general audience,
+    # blog posts, onboarding. Pair it with tints() for one pastel per step.
+    "playful": {
+        "canvas": "#fffcf5", "white": "#ffffff", "paper": "#f8f4ec", "lane": "#f5efe3", "line": "#e6ddcd",
+        "stone": "#c6bba8", "grey": "#6a645d", "mid": "#55504a", "ink": "#343a40", "on_dark": "#e9ecef",
+        "accent": "#c2410c", "accent_bg": "#fff4e6", "accent_soft": "#ffc078",
+        "bad": "#c92a2a", "bad_bg": "#fff5f5", "bad_soft": "#ffc9c9",
+        "good": "#2b8a3e", "good_bg": "#ebfbee", "good_soft": "#b2f2bb",
+        "wait": "#c2410c", "wait_bg": "#fff4e6", "wait_soft": "#ffd8a8",
+        "open": "#fab005", "open_bg": "#fff9db", "open_txt": "#806600",
+        "cat1": "#1864ab", "cat1_bg": "#e7f5ff", "cat1_soft": "#a5d8ff",
+        "cat2": "#0b7285", "cat2_bg": "#e3fafc", "cat2_soft": "#99e9f2",
+    },
 }
 
 # role -> kit attribute names it drives
@@ -135,7 +148,24 @@ def example(default_out, doc=""):
     ap = argparse.ArgumentParser(description=doc)
     ap.add_argument("--out", default=default_out)
     ap.add_argument("--hand", action="store_true", help="hand-drawn look (Excalifont, roughness 1, warm palette)")
-    ap.add_argument("--palette", choices=sorted(PALETTES), help="clean (default), warm (default with --hand), ink")
+    ap.add_argument("--palette", choices=sorted(PALETTES), help="clean (default), warm (default with --hand), ink, playful")
     args = ap.parse_args()
     S, pal = setup(args.hand, args.palette)
     return args, S, pal
+
+
+# ---------------------------------------------------------------- per-step tints (illustrated explainers)
+# (card fill, badge fill) pairs. In an explainer each step may get its own pastel: colour paces the reading instead of
+# coding a meaning, so no legend is needed. Keep the accent for the takeaway line. Badges carry ink numbers.
+TINTS = {
+    "playful": [("#fff3bf", "#ffd43b"), ("#ffe8cc", "#ffa94d"), ("#d3f9d8", "#69db7c"), ("#e5dbff", "#b197fc"),
+                ("#ffdeeb", "#faa2c1"), ("#d0ebff", "#74c0fc"), ("#c3fae8", "#63e6be")],
+    "warm": [("#faefd9", "#e9c46a"), ("#f9e3d3", "#e5986b"), ("#e6efdf", "#9cc18b"), ("#ebe4f1", "#b5a2cf"),
+             ("#f6e1e3", "#d99aa3"), ("#e1ebf3", "#8fb3d3"), ("#e0f0ec", "#86c2b2")],
+}
+
+
+def tints(n, name="playful"):
+    """n (card fill, badge fill) pairs, cycling if n exceeds the list. Unknown palettes get the playful set."""
+    seq = TINTS.get(name, TINTS["playful"])
+    return [seq[i % len(seq)] for i in range(n)]

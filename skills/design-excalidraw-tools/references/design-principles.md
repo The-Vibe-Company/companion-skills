@@ -17,6 +17,8 @@ composition · arrows · density · styles · beauty checklist.
    sections 32–64, header to content 64+. Proximity, not borders, says what belongs together.
 4. **Colour means something or it is grey.** Neutrals for structure; one accent for the thing that matters; at most
    two semantic hues more. Each colour has a single meaning, named in the legend or in a coloured header.
+   Exception: an illustrated explainer may give each step its own pastel (`palettes.tints`), because there colour
+   paces the reading and codes nothing; the accent still belongs to one element.
 5. **Look at the render.** Lint is necessary, not sufficient: hierarchy, empty bands and balance only show on the
    picture.
 

@@ -45,7 +45,7 @@ npx skills add The-Vibe-Company/companion-skills
 </tr>
 <tr>
 <td><strong><a href="./skills/design-excalidraw-tools/SKILL.md">Excalidraw Diagram Designer</a></strong><br><sub>Design beautiful, readable Excalidraw diagrams of any kind from a Python generator, then lint, render, look and refine before delivery.</sub></td>
-<td><code>0.1.0</code></td>
+<td><code>0.2.0</code></td>
 </tr>
 <tr>
 <td><strong><a href="./skills/design-frontend-dev/SKILL.md">Design frontend</a></strong><br><sub>Clean agent-only frontend design and UI review skill derived from Impeccable, without CLI, hooks, live mode, install flow, site, or commercial surface.</sub></td>

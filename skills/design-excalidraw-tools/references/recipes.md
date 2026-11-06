@@ -5,7 +5,7 @@ grid constants. Every example takes `--out`, `--hand` (hand-drawn, warm palette)
 uses the tokens of `references/design-principles.md` through `assets/palettes.py`.
 
 Contents: flow · swimlanes and tracks · architecture · layered stack · timeline / roadmap · before / after · hub
-(concept map) · poster with key figures · lifecycle around a core.
+(concept map) · poster with key figures · illustrated explainer · lifecycle around a core.
 
 | Recipe | Example | Width |
 |---|---|---|
@@ -16,6 +16,7 @@ Contents: flow · swimlanes and tracks · architecture · layered stack · timel
 | Before / after | `assets/example_before_after.py` | 1432 |
 | Hub (concept map) | `assets/example_hub.py` | 1216 |
 | Poster with key figures | `assets/example_poster.py` | 1440 |
+| Illustrated explainer | `assets/example_explainer.py` | 1600 |
 
 All share the header block (title 36 at y 0, message 20 at y 56, content from y ≈ 148) and the footer line (legend
 left, provenance right-aligned, 40 below the last block).
@@ -132,6 +133,32 @@ top; every figure states unit and base ("24 h → 6 h", "1 400 requests, 8 weeks
 are marked illustrative in the footer.
 **Traps**: all figures the same size (no hierarchy); coloured edges on every tile (they compete with the hero); a
 yellow questions box larger than the "how" block.
+
+## Illustrated explainer (how something works, for a general audience)
+
+**Example**: `example_explainer.py` — five pastel cards explain how an assistant answers from company documents; it
+defaults to hand-drawn and the `playful` palette (`--clean`, `--palette warm|clean|ink` for variants).
+**When**: blog posts, onboarding, a README for newcomers, any "how does X work?" for people who will not read a
+legend. The drawing carries the meaning; the words only name the step.
+**Shape**: centred title with a hand underline (`doodles.underline`), one sentence under it; a row of 3–6 equal cards,
+each with a number badge straddling its top-left corner (`doodles.badge`), a pictogram in an icon zone of about
+130 px, a title of two short lines (22) and one example line (16, mid); arched arrows between cards
+(`doodles.curvy_arrow`); the takeaway in the accent colour under the row; a quiet note when the example is made up.
+**Kit**: `scripts/doodles.py` — bubble, page (with highlighted lines), page_stack, magnifier, check, cross, robot,
+person, database, bulb, clock, envelope, cloud, bars, answer (reply with source tags). Each takes a bounding box and
+scales into it. `palettes.tints(n, name)` gives one (card fill, badge fill) pair per step.
+**Validated rules**:
+- One pastel per step is allowed here: colour paces the reading, it codes nothing, so there is no legend. The accent
+  is kept for one thing only, the takeaway line (and small marks like the "?").
+- Every card shows the thing its step talks about: a question is a bubble, documents are pages, "picks" is
+  highlighted lines with ticks, the model is a robot, the answer is a reply with source tags. One running example
+  ("Can I work from home on Fridays?") threads through all cards and is marked as made up.
+- Numbers on badges are ink on a mid-tone fill (white on yellow is unreadable). Pictograms stay inside the icon zone,
+  32 px or more from the card sides; titles centred, at the same height in every card.
+- Cards 256 wide with 80 px gaps (room for the arched arrow), corner radius 20, ink outline 2 px.
+**Traps**: decorative doodles that say nothing (a rocket for "deploy" is fine, a random star is not); more than one
+pictogram scene per card; jargon in titles ("embedding", "vector store") when the reader asked for plain words;
+invented specifics (page numbers, figures) without the made-up note.
 
 ## Lifecycle around a core
 

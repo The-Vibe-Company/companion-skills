@@ -35,6 +35,12 @@ SHAPES = ("rectangle", "ellipse", "diamond", "image")
 HEAD_LEN = 24          # how far back an Excalidraw arrowhead reaches from its tip
 
 
+def is_doodle(e):
+    """Parts of a pictogram drawn by doodles.py: their shapes overlap and nest on purpose, so the layout checks
+    (near-miss, rhythm) leave them alone. Overflow, contrast and corner checks still apply."""
+    return bool((e.get("customData") or {}).get("doodle"))
+
+
 def bbox(e):
     if e["type"] in ("arrow", "line", "freedraw") and e.get("points"):
         xs = [e["x"] + p[0] for p in e["points"]]
@@ -303,7 +309,8 @@ class Geo:
 
     # -- near-misses: edges 1-3 px apart
     def near_misses(self):
-        cand = [s for s in self.shapes if s["width"] >= 36 and s["height"] >= 36]     # boxes, not chips or badges
+        cand = [s for s in self.shapes if s["width"] >= 36 and s["height"] >= 36     # boxes, not chips or badges
+                and not is_doodle(s)]                                              # nor parts of a pictogram
         for i, a in enumerate(cand):
             ab = bbox(a)
             for b in cand[i + 1:]:
@@ -324,7 +331,7 @@ class Geo:
 
     # -- rhythm: uneven gaps between siblings, same-style boxes of slightly different sizes
     def rhythm(self):
-        cand = [s for s in self.shapes if s["height"] >= 36 and s["width"] >= 60]
+        cand = [s for s in self.shapes if s["height"] >= 36 and s["width"] >= 60 and not is_doodle(s)]
         fam = {}
         for s in cand:
             p = self.parent(s)

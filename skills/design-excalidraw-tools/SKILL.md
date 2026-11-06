@@ -16,7 +16,7 @@ metadata: {}
 <!-- skillpack:usage:start -->
 ## Skillpack runtime
 
-Usage is observed locally by skillpack-runtime when installed through Skillpack. Package: f1567982-638a-46c1-9ab1-4379fa8eed44@0.1.0, origin: https://skillpack.app.
+Usage is observed locally by skillpack-runtime when installed through Skillpack. Package: f1567982-638a-46c1-9ab1-4379fa8eed44@0.2.0, origin: https://skillpack.app.
 Do not send activation reports, run tracking commands, or install hooks during this skill's execution. Setup and updates belong to Skillpack. Continue the task when collection is unavailable. SKILLPACK_TELEMETRY=0 disables collection for this session.
 <!-- skillpack:usage:end -->
 
@@ -38,22 +38,22 @@ If the user gave numbers, keep their unit and statistic attached (`2.1 working d
 
 ## 2. Pick the structure that fits the message
 
-Read `references/recipes.md` and choose the diagram type whose shape matches the idea: a flow for "how things move", an architecture for "what talks to what", a timeline for "when", a comparison for "what changes", a hub for "what surrounds a concept", a stack for "what is built on what", a poster for "what we achieved". Mixing types in one canvas is the most common reason a diagram feels messy; when two ideas compete, make two diagrams.
+Read `references/recipes.md` and choose the diagram type whose shape matches the idea: a flow for "how things move", an architecture for "what talks to what", a timeline for "when", a comparison for "what changes", a hub for "what surrounds a concept", a stack for "what is built on what", a poster for "what we achieved", an illustrated explainer for "how does it work?" told to a general audience (one drawing per step). Mixing types in one canvas is the most common reason a diagram feels messy; when two ideas compete, make two diagrams.
 
 Read `references/design-principles.md` for the rules that make any of them look good: grid and spacing, hierarchy, typography, colour, arrows, density.
 
 ## 3. Choose a style
 
 - **Clean** (default for anything shared outside the team or put on a slide): Nunito, `roughness 0`, rounded boxes, thin strokes.
-- **Hand-drawn** (brainstorms, explainers, blog posts, anything that should feel informal): Excalifont, `roughness 1`, widths estimated ~16 % wider.
+- **Hand-drawn** (brainstorms, explainers, blog posts, anything that should feel informal): Excalifont, `roughness 1`; text widths are measured per font, nothing to adjust.
 
 Both are produced by the same generator (`excalikit.hand_drawn`). If the user has no preference, make the clean one and offer the other in one line.
 
-Then pick a palette from `assets/palettes.py`: **clean** (cool greys, violet accent) for most work, **warm** (cream paper, terracotta accent) for hand-drawn explainers and posts, **ink** (navy on off-white, cobalt accent) for technical documentation. Every palette fills the same roles (accent, bad, good, wait, open, two category families), so switching is one line: `use("warm")`. Use the spacing and type scales defined there instead of ad-hoc numbers.
+Then pick a palette from `assets/palettes.py`: **clean** (cool greys, violet accent) for most work, **warm** (cream paper, terracotta accent) for hand-drawn explainers and posts, **ink** (navy on off-white, cobalt accent) for technical documentation, **playful** (cream, soft ink, bright pastels, orange pen) for illustrated explainers. Every palette fills the same roles (accent, bad, good, wait, open, two category families), so switching is one line: `use("warm")`. Use the spacing and type scales defined there instead of ad-hoc numbers.
 
 ## 4. Generate with a script
 
-Start from the closest example in `assets/` — `example_flow_tracks.py` (flow with tracks), `example_architecture.py`, `example_timeline.py`, `example_before_after.py`, `example_hub.py` (concept map), `example_stack.py` (layers), `example_poster.py` (key figures); each runs with `--out`, `--hand` and `--palette` — and build with `scripts/excalikit.py`: primitives (text, rect, ellipse, line, arrow, chip) and components (node, group, card, labelled arrow, badge, stat tile, timeline, hero bar, rows, legend, cartouche, questions box). The kit estimates text widths and prints `OVERFLOW` warnings to stderr; fix each one. Keep every content change in the generator so the diagram can be regenerated after each round of feedback.
+Start from the closest example in `assets/` — `example_flow_tracks.py` (flow with tracks), `example_architecture.py`, `example_timeline.py`, `example_before_after.py`, `example_hub.py` (concept map), `example_stack.py` (layers), `example_poster.py` (key figures), `example_explainer.py` (illustrated, hand-drawn by default, `--clean`); each runs with `--out` and `--palette`, the others also with `--hand` — and build with `scripts/excalikit.py`: primitives (text, rect, ellipse, line, arrow, chip) and components (node, group, card, labelled arrow, badge, stat tile, timeline, hero bar, rows, legend, cartouche, questions box). For explainers, `scripts/doodles.py` adds pictograms (bubble, page, magnifier, robot, person, database, cloud, answer with sources…), number badges, arched arrows and a hand underline: draw the thing each step talks about, it does more than any sentence. The kit estimates text widths and prints `OVERFLOW` warnings to stderr; fix each one. Keep every content change in the generator so the diagram can be regenerated after each round of feedback.
 
 ## 5. Lint, render, look
 
@@ -91,4 +91,4 @@ Deliver the `.excalidraw` file, the generator script beside it, and the render (
 - `references/validation.md` — order of checks, lint findings and fixes, local renderer setup, what to look at in thumbnail, at 100 % and zoomed.
 - `references/audience-rules.md` — when the diagram leaves the team: cartouche, numbers, provenance, tone.
 - `references/excalidraw-plus.md` — publishing, screenshots, HTTP fallback, pitfalls.
-- `scripts/excalikit.py`, `scripts/lint_scene.py`, `scripts/render_scene.mjs`, `scripts/excalidraw_plus.py`; `assets/palettes.py` (palettes, spacing and type scales); `assets/example_*.py` to copy.
+- `scripts/excalikit.py`, `scripts/doodles.py` (pictograms for explainers), `scripts/lint_scene.py`, `scripts/render_scene.mjs`, `scripts/excalidraw_plus.py`; `assets/palettes.py` (palettes, spacing and type scales); `assets/example_*.py` to copy.

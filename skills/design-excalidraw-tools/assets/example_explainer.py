@@ -5,32 +5,28 @@ Audience: non-technical readers of a blog post, glancing for ten seconds, maybe 
 Composition: centred title with a hand underline; a row of equal cards, each with a number badge straddling its
 top-left corner, a drawing in the icon zone, a two-line title and a short example line; arched arrows between cards;
 the takeaway in the accent colour under the row; a quiet note that the example is made up.
-Colour: one pastel per step paces the reading (no legend needed); the accent is kept for the takeaway alone.
+Colour: follows the style's mood. sober (sketch, corporate, editorial, night): neutral cards, the answer card in the
+accent tint; pastel (playful): one pastel per step paces the reading, no legend, the accent kept for the takeaway;
+mono: no hue, the answer card marked by a heavier outline and a grey fill.
 
-    python example_explainer.py --out explainer.excalidraw [--clean] [--palette playful|warm|clean|ink]
+    python example_explainer.py --out explainer.excalidraw [--style sketch|playful|corporate|editorial|night|mono]
 """
-import argparse
 import os
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)  # works under python -I too
 sys.path.insert(0, os.path.join(HERE, "..", "scripts"))
-from palettes import use, tints
+from palettes import example, tints
 import excalikit
 from excalikit import Palette as P, ARROW_GAP
 import doodles as D
 
-ap = argparse.ArgumentParser(description=__doc__)
-ap.add_argument("--out", default="explainer.excalidraw")
-ap.add_argument("--clean", action="store_true", help="clean style instead of hand-drawn")
-ap.add_argument("--palette", default="playful", choices=["playful", "warm", "clean", "ink"])
-args = ap.parse_args()
-
-pal = use(args.palette)
-S = excalikit.Scene()
-if not args.clean:
-    excalikit.hand_drawn(S)
+args, S, pal = example("explainer.excalidraw", __doc__, default_style="sketch")
+STYLE = pal["_style"]
+MOOD = STYLE["mood"]
+HAND = STYLE["hand"]
+D.set_mood(MOOD)
 
 # ---------------------------------------------------------------- grid
 CW, CH, GAP = 256, 330, 80            # card size and gap (the gap holds an arched arrow)
@@ -48,21 +44,20 @@ STEPS = [
     ("The AI reads them\nwith your question", "passages + question\ngo in together"),
     ("You get an answer,\nwith its sources", "“Yes, with your\nmanager's OK.”"),
 ]
-FILLS = tints(N, args.palette)
+KEY = N - 1                           # the step the message is about (sober and mono moods mark only this one)
+FILLS = tints(N, STYLE["palette"], MOOD, key=KEY)
 
 # ---------------------------------------------------------------- header
-title = "How an AI assistant answers your question"
-S.text(MID, 0, title, 40, P.INK, align="center")
-tw = excalikit.text_size(title, 40, S.font)[0]
-D.underline(S, MID - tw * 0.32, 58, tw * 0.64)
-S.text(MID, 84, "It reads your company's documents first, then answers and shows where it looked.", 20, P.MID,
-       align="center")
+S.header("How an AI assistant answers your question",
+         "It reads your company's documents first, then answers and shows where it looked.", underline=HAND)
 
 # ---------------------------------------------------------------- cards
 cards = []
 for i, ((t, body), (fill, mark)) in enumerate(zip(STEPS, FILLS)):
     x = i * (CW + GAP)
-    S.rect(x, TOP, CW, CH, fill, P.INK, 2, radius=20)
+    key = i == KEY and MOOD != "pastel"
+    stroke = (P.ACCENT if key else P.INK) if (HAND or MOOD == "pastel") else (P.ACCENT if key else P.STONE)
+    S.rect(x, TOP, CW, CH, fill, stroke, 3 if key else 2, radius=None)
     cards.append(x)
     zx, zy, zw, zh = x + 40, TOP + ICON_TOP, CW - 80, ICON_H
     cx = x + CW / 2
@@ -94,7 +89,7 @@ for x in cards[:-1]:
 # ---------------------------------------------------------------- takeaway and note
 FY = TOP + CH + 48
 S.text(MID, FY, "It doesn't answer from memory: it reads the right pages first, then tells you where it found them.",
-       24, P.ACCENT, align="center")
+       24, P.INK if MOOD == "mono" else P.ACCENT, align="center")
 S.text(W, FY + 56, "Example question and answer are made up.", 14, P.GREY, align="right")
 
 S.canvas(pal["canvas"])

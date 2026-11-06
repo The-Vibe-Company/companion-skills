@@ -25,8 +25,7 @@ W = xs[2] + SW
 ROWS_H = 3 * SH + 2 * RG
 CY = TOP + (ROWS_H - CHT) / 2
 
-S.text(0, 0, "Onboarding: what a new hire leans on", 36, P.INK)
-S.text(0, 56, "Six supports, one goal: a first real change shipped in week two.", 20, P.MID)
+S.header("Onboarding: what a new hire leans on", "Six supports, one goal: a first real change shipped in week two.")
 
 S.node(xs[1], CY, CWD, CHT, "First change shipped", "by the end of week two", strong=True, size=24)
 
@@ -47,5 +46,6 @@ for name, col, bg, soft, x, side, items in FAM:
 
 S.text(0, TOP + ROWS_H + 48, "Illustrative example · supports are not ranked", 13, P.GREY)
 
+S.canvas(pal["canvas"])
 S.dump(args.out, background=pal["canvas"])
 print(args.out, len(S.els), "elements, width", W)

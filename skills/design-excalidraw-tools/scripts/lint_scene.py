@@ -35,6 +35,11 @@ SHAPES = ("rectangle", "ellipse", "diamond", "image")
 HEAD_LEN = 24          # how far back an Excalidraw arrowhead reaches from its tip
 
 
+def is_decor(e):
+    """Purely decorative copies (sticker shadows): no check applies to them."""
+    return (e.get("customData") or {}).get("decor") is not None
+
+
 def is_doodle(e):
     """Parts of a pictogram drawn by doodles.py: their shapes overlap and nest on purpose, so the layout checks
     (near-miss, rhythm) leave them alone. Overflow, contrast and corner checks still apply."""
@@ -488,7 +493,7 @@ def main():
     a = ap.parse_args()
 
     doc = json.load(open(a.path, encoding="utf-8"))
-    els = [e for e in doc["elements"] if not e.get("isDeleted")]
+    els = [e for e in doc["elements"] if not e.get("isDeleted") and not is_decor(e)]
     texts = [e for e in els if e["type"] == "text" and e.get("text", "").strip()]
     boxes = [e for e in els if e["type"] in ("rectangle", "ellipse", "diamond") and e.get("width", 0) > 30 and e.get("height", 0) > 20]
     arrows = [e for e in els if e["type"] == "arrow"]
@@ -546,9 +551,17 @@ def main():
     strokes = {e["strokeColor"].lower() for e in els if e["type"] != "text" and e.get("strokeColor")}
     if len(strokes) > a.max_colors:
         warnings.append(f"{len(strokes)} stroke colours (max {a.max_colors}): does each colour still mean one thing?")
-    fams = {t.get("fontFamily") for t in texts}
+    fams = {}
+    for t in texts:
+        fams.setdefault(t.get("fontFamily"), []).append(t.get("fontSize", 20))
     if len(fams) > 1:
-        warnings.append(f"mixed font families {sorted(fams)}")
+        body = max(fams, key=lambda f: len(fams[f]))
+        # a style may give titles (>= 28 px) and small labels (<= 12 px) their own font; anything else is a mix
+        stray = [f for f, sizes in fams.items() if f != body
+                 and not (all(z >= 28 for z in sizes) or all(z <= 12 for z in sizes))]
+        if stray or len(fams) > 3:
+            warnings.append(f"mixed font families {sorted(fams)}: keep one body font, plus at most a title font "
+                            f"(>= 28 px) and a label font (<= 12 px)")
 
     bg = hex_rgb((doc.get("appState") or {}).get("viewBackgroundColor")) or (255, 255, 255)
     g_err, g_warn, g_strict = Geo(els, texts, bg, overflowing).run(container, a.strict)

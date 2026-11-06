@@ -28,8 +28,7 @@ TALL = 2 * LH + LGAP
 CH = LH - 80                                     # card height: 40 px of lane above (label) and below
 AY, BY = LA + 40 + CH / 2, LB + 40 + CH / 2      # the two track lines
 
-S.text(0, 0, "Feature delivery: two tracks, one gate", 36, P.INK)
-S.text(0, 56, "Simple tickets take the automated track; every ticket meets the same merge gate.", 20, P.MID)
+S.header("Feature delivery: two tracks, one gate", "Simple tickets take the automated track; every ticket meets the same merge gate.")
 for x, h in zip(X, ["1 · TRIAGE", "2 · BUILD", "3 · CHECK", "4 · GATE", "5 · RELEASE"]):
     S.text(x, HEAD_Y, h, 13, P.GREY)
 
@@ -58,8 +57,8 @@ S.card(X[1], LB + 40, CW, CH, "Developer builds", "DEVELOPER", "local tests", ou
 S.card(X[2], LB + 40, CW, CH, "Tester checks", "TESTER", "one-click environment", out="verified", stroke=P.STONE)
 
 # arrows: one line per track into the gate, a single line out --------------------------------------------------------
-fa = X[0] + 18 + text_size("simple", 13)[0] + 22 + 8
-fb = X[0] + 18 + text_size("expert", 13)[0] + 22 + 8
+fa = X[0] + 18 + S.text_size("simple", 13)[0] + 22 + 8
+fb = X[0] + 18 + S.text_size("expert", 13)[0] + 22 + 8
 for y, col, f in [(AY, P.ACCENT, fa), (BY, P.INK, fb)]:
     S.arrow(f, y, X[1] - 8, y, col, 2)
     S.arrow(X[1] + CW + 8, y, X[2] - 8, y, col, 2)
@@ -74,9 +73,10 @@ S.text((X[1] + CW + X[2]) / 2, KO + 10, "KO: written feedback to the developer",
 
 # footer -----------------------------------------------------------------------------------------------------------
 FY = KO + 64
-S.legend(0, FY, [("fill", "automated track (new)", P.ACCENT), ("fill", "the one gate", P.INK),
+S.legend(0, FY, [("fill", "automated track (new)", (P.ACCENT_BG, P.ACCENT)), ("fill", "the one gate", (P.LOUD, P.INK)),
                  ("arrow", "rework", P.RED)])
 S.text(W, FY + 2, "Target process · release cadence out of scope", 13, P.GREY, align="right")
 
+S.canvas(pal["canvas"])
 S.dump(args.out, background=pal["canvas"])
 print(args.out, len(S.els), "elements, width", W)

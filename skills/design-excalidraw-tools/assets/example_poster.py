@@ -23,8 +23,7 @@ TH = 128                                         # every tile the same height
 HERO_W = 560
 SMALL_W = (W - HERO_W - 3 * G) / 3
 
-S.text(0, 0, "Support pilot: answers in hours, not days", 36, P.INK)
-S.text(0, 56, "Eight weeks, two teams: routing in the form cut the wait for a first answer by three quarters.", 20, P.MID)
+S.header("Support pilot: answers in hours, not days", "Eight weeks, two teams: routing in the form cut the wait for a first answer by three quarters.")
 
 # the hero figure: a tinted tile, the number twice the size of the others (no edge bar: it is already the loudest)
 S.rect(0, TOP, HERO_W, TH, P.ACCENT_BG, P.ACCENT, 2)
@@ -59,5 +58,6 @@ S.questions_box(HOW_W + G, BY, QW, BH, "STILL OPEN", ["Does it hold with five te
 S.text(0, BY + 30 + BH + 40, "Illustrative figures · median over all pilot requests, compared with the 8 weeks before",
        13, P.GREY)
 
+S.canvas(pal["canvas"])
 S.dump(args.out, background=pal["canvas"])
 print(args.out, len(S.els), "elements, width", W)

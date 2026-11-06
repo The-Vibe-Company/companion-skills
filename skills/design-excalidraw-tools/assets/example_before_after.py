@@ -24,8 +24,7 @@ PH = HEAD + 5 * RH + 4 * RG + 32
 PX = [0, PW + MID_GAP]
 W = 2 * PW + MID_GAP
 
-S.text(0, 0, "Support requests: from four people to two", 36, P.INK)
-S.text(0, 56, "Routing moves into the form; nobody triages or re-routes by hand.", 20, P.MID)
+S.header("Support requests: from four people to two", "Routing moves into the form; nobody triages or re-routes by hand.")
 
 # kind: same | gone | new | ghost
 BEFORE = [("Customer writes an email", "CUSTOMER", "same"), ("Shared inbox", "WAITING", "same"),
@@ -65,8 +64,9 @@ AY = TOP + PH / 2
 S.arrow(PW + 24, AY, PX[1] - 24, AY, P.INK, 3)
 
 FY = TOP + PH + 40
-S.legend(0, FY, [("fill", "new step", P.ACCENT), ("dashed", "disappears", P.RED), ("box", "unchanged", P.STONE)])
+S.legend(0, FY, [("fill", "new step", (P.ACCENT_BG, P.ACCENT)), ("dashed", "disappears", P.RED), ("box", "unchanged", P.STONE)])
 S.text(W, FY + 2, "Counts read from the two flows above", 13, P.GREY, align="right")
 
+S.canvas(pal["canvas"])
 S.dump(args.out, background=pal["canvas"])
 print(args.out, len(S.els), "elements, width", W)

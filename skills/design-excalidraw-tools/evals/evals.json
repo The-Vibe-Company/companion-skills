@@ -78,6 +78,43 @@
         "No Excalidraw diagram is produced as the main deliverable",
         "The response routes the request to slide or chart tooling"
       ]
+    },
+    {
+      "id": 7,
+      "name": "sober-board-explainer",
+      "prompt": "Our board wants to understand how our new fraud check works before approving it. Four steps: the payment comes in, we score it against known patterns, risky ones go to a human analyst, the customer gets an answer within a minute. Make me an Excalidraw I can put in the board pack. Keep it serious.",
+      "expected_output": "A sober style (corporate or editorial): neutral cards, one accent on the step that matters, no per-step pastel colours, no cartoon faces, the user's four steps in order, lint clean.",
+      "files": [],
+      "expectations": [
+        "The diagram does not give each step its own colour (at most one accent family plus neutrals)",
+        "The four steps appear in order",
+        "No figure other than 'within a minute' is shown",
+        "lint_scene.py reports 0 errors on the delivered file"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "black-and-white-print",
+      "prompt": "I need to print our onboarding checklist flow on a black-and-white printer for new hires: laptop setup, accounts, first pairing session, first small ticket, demo on Friday. Excalidraw please.",
+      "expected_output": "The mono style: only black, white and greys; emphasis by weight, fill or dashes; readable when printed.",
+      "files": [],
+      "expectations": [
+        "Every stroke and fill colour on the canvas is a grey (R = G = B)",
+        "The five steps appear in order",
+        "lint_scene.py reports 0 errors on the delivered file"
+      ]
+    },
+    {
+      "id": 9,
+      "name": "dark-talk-architecture",
+      "prompt": "Je fais un talk sur notre archi événementielle avec des slides en dark mode : services commandes, paiement et stock publient sur Kafka, un service de notifications consomme. Fais-moi le schéma Excalidraw qui va bien.",
+      "expected_output": "The night style: dark canvas, light text, one accent on Kafka or the flow that matters, French text kept as given, lint clean with no contrast warnings.",
+      "files": [],
+      "expectations": [
+        "The canvas background is dark (luminance below 0.2)",
+        "lint_scene.py reports 0 errors and no contrast warnings",
+        "Kafka appears between the publishing services and the notification service"
+      ]
     }
   ]
 }

@@ -24,6 +24,33 @@ HIGHLIGHT = "#ffd43b"   # marker-pen yellow for highlighted lines
 CHEEK = "#ffa8a8"
 
 
+def set_mood(mood):
+    """Match the marker colours to the style's colour mood: 'mono' turns the yellow marker and pink cheeks grey."""
+    global HIGHLIGHT, CHEEK
+    if mood == "mono":
+        HIGHLIGHT, CHEEK = "#d4d4d4", "#e0e0e0"
+    elif _lum(P.CANVAS) < 0.2:                       # dark palettes: markers must not outshine the accent
+        HIGHLIGHT, CHEEK = P.ACCENT_SOFT, P.STONE
+    else:
+        HIGHLIGHT, CHEEK = "#ffd43b", "#ffa8a8"
+
+
+def _lum(c):
+    c = c.lstrip("#")
+    r, g, b = (int(c[i:i + 2], 16) / 255 for i in (0, 2, 4))
+    f = lambda v: v / 12.92 if v <= 0.03928 else ((v + 0.055) / 1.055) ** 2.4  # noqa: E731
+    return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b)
+
+
+def readable_on(fill):
+    """Ink or surface colour, whichever reads better on `fill` (works for light and dark palettes)."""
+    a, b = P.INK, P.WHITE
+    def ratio(x, y):
+        hi, lo = max(_lum(x), _lum(y)), min(_lum(x), _lum(y))
+        return (hi + 0.05) / (lo + 0.05)
+    return a if ratio(a, fill) >= ratio(b, fill) else b
+
+
 def _tagged(fn):
     """Mark every element a pictogram adds with customData.doodle, so lint_scene skips its layout checks on them."""
     import functools
@@ -246,7 +273,7 @@ def answer(S, x, y, w, h, tags=("source 1", "source 2"), tag_fill=None, lines=3,
     otherwise they stack; the card grows to hold them and the whole doodle stays inside (x, y, w, h)."""
     from excalikit import text_size, CHIP_PX
     size = 12 if h < 110 else 13
-    tag_w = [text_size(t, size, S.font)[0] + 2 * CHIP_PX for t in tags]
+    tag_w = [S.text_size(t, size)[0] + 2 * CHIP_PX for t in tags]
     ch = S.chip_height(size)
     inner = w - 24
     rows = [[0]] if tags else []
@@ -283,10 +310,11 @@ def answer(S, x, y, w, h, tags=("source 1", "source 2"), tag_fill=None, lines=3,
 
 # ---------------------------------------------------------------- decorations
 def badge(S, cx, cy, n, fill=None, d=44, color=None):
-    """Number disc centred on (cx, cy), typically a card's top-left corner so it straddles it. The number is ink on
-    a mid-tone fill (readable, unlike white on yellow)."""
-    S.ellipse(cx - d / 2, cy - d / 2, d, d, fill or P.ACCENT_SOFT, P.INK, 2)
-    S.text_mid(cx, cy, str(n), round(d * 0.55), color or P.INK, align="center")
+    """Number disc centred on (cx, cy), typically a card's top-left corner so it straddles it. The number takes ink or
+    surface colour, whichever contrasts more with the fill (white on yellow would be unreadable)."""
+    fill = fill or P.ACCENT_SOFT
+    S.ellipse(cx - d / 2, cy - d / 2, d, d, fill, P.INK, 2)
+    S.text_mid(cx, cy, str(n), round(d * 0.55), color or readable_on(fill), align="center")
     return d
 
 

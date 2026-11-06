@@ -22,8 +22,7 @@ BH, BG = NH + 48, 16                     # band height, gap between bands
 TOP = 148
 W = LABEL_W + 4 * NW + 3 * NG + 24
 
-S.text(0, 0, "Platform stack: where this year's work sits", 36, P.INK)
-S.text(0, 56, "The effort goes into services; the layers under them stay as they are.", 20, P.MID)
+S.header("Platform stack: where this year's work sits", "The effort goes into services; the layers under them stay as they are.")
 
 LAYERS = [  # top (closest to users) to bottom (foundation)
     ("Experiences", "what users touch", ["Web app", "Mobile app", "Partner API"], False),
@@ -42,11 +41,12 @@ for i, (name, sub, comps, hot) in enumerate(LAYERS):
 # what changes inside the accent layer: tags straddling the top edge of the two components concerned
 for j, tag in [(0, "split in two"), (2, "rebuilt")]:
     tx = LABEL_W + j * (NW + NG) + NW - 16
-    tw = text_size(tag, 12)[0] + 22
+    tw = S.text_size(tag, 12)[0] + 22
     S.chip(tx - tw, TOP + (BH + BG) + 24 - 13, tag, P.ACCENT, P.ACCENT, P.WHITE, 12)
 
 FY = TOP + 4 * BH + 3 * BG + 40
 S.text(0, FY, "Top = closest to users · bottom = foundation · component lists are not exhaustive", 13, P.GREY)
 
+S.canvas(pal["canvas"])
 S.dump(args.out, background=pal["canvas"])
 print(args.out, len(S.els), "elements, width", W)

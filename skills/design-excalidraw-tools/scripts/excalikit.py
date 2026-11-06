@@ -5,6 +5,8 @@ Generic components: node, group, connect, labelled_arrow, stat, edge_rect, timel
 Small marks: step (numbered marker), dot (status dot + label), divider, callout (annotation with a leader line).
 Flow and document components: card, out_chip, status_chip, badges, cartouche, legend, section_block, lane, hero_bar,
 rows, questions_box.
+Dense process maps: banner (TODAY / GOAL band), checklist (filled = live, hollow = to build), badge_legend (lettered
+badges with names), chip_stack (tools under a step), return_loop (dashed path back to an earlier step, label beneath).
 Page: canvas() paints a full-bleed page colour behind everything (Excalidraw+ ignores viewBackgroundColor).
 Theme: set_palette() recolours Palette and STATUS; every method reads the palette when it is called.
 
@@ -59,6 +61,8 @@ class Palette:
     LANE = "#f1f3f5"
     ON_DARK = "#ced4da"                                                      # secondary text on INK
     CANVAS = "#ffffff"                                                       # page colour (dump, canvas)
+    LOUD, LOUD_TXT, LOUD_SUB = "#212529", "#ffffff", "#ced4da"              # the one strong block, its text
+    BADGE, BADGE_TXT = "#212529", "#ffffff"                                  # number discs
 
 
 P = Palette
@@ -93,10 +97,62 @@ _EXCALIFONT_EM = (
     555, 504, 605, 537, 497, 555, 567, 244, 328, 533, 225, 663, 526, 600, 537, 539, 412, 543, 553, 548, 525, 693,
     591, 530, 572, 504, 299, 544, 669, 1000, 1000, 500, 500, 200, 550, 551, 551, 542, 504, 551, 542, 244, 561, 508,
     508, 304, 267, 412, 428, 702, 935, 709, 713, 412, 600, 600, 522)
-GLYPH_EM = {FONT_CLEAN: dict(zip(_GLYPH_CHARS, _NUNITO_EM)), FONT_HAND: dict(zip(_GLYPH_CHARS, _EXCALIFONT_EM))}
+_LIBERATION_EM = (
+    278, 278, 355, 556, 556, 889, 667, 191, 333, 333, 389, 584, 278, 333, 278, 278, 556, 556, 556, 556, 556, 556,
+    556, 556, 556, 556, 278, 278, 584, 584, 584, 556, 1015, 667, 667, 722, 722, 667, 611, 778, 722, 278, 500, 667,
+    556, 833, 722, 778, 667, 778, 722, 667, 611, 722, 667, 944, 667, 667, 611, 278, 278, 278, 469, 556, 333, 556,
+    556, 500, 556, 556, 278, 556, 556, 222, 222, 500, 222, 833, 556, 556, 556, 556, 333, 500, 278, 556, 500, 722,
+    500, 500, 500, 334, 260, 334, 584, 1000, 1000, 500, 500, 278, 584, 556, 556, 556, 500, 556, 556, 278, 556, 556,
+    556, 222, 222, 333, 333, 556, 1000, 1000, 556, 400, 764, 571, 350)
+_CASCADIA_EM = (
+    586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586,
+    586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586,
+    586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586,
+    586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586,
+    586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586,
+    586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 586, 602, 586)
+_LILITA_EM = (
+    188, 287, 460, 833, 531, 798, 667, 301, 430, 422, 557, 602, 305, 525, 229, 573, 639, 406, 525, 528, 598, 524,
+    575, 500, 570, 565, 277, 277, 484, 580, 450, 584, 867, 655, 594, 561, 616, 493, 472, 621, 644, 429, 462, 620,
+    435, 907, 648, 696, 570, 706, 590, 531, 502, 628, 661, 953, 683, 615, 563, 385, 587, 385, 687, 636, 350, 517,
+    520, 424, 565, 486, 375, 516, 501, 273, 271, 531, 272, 788, 551, 513, 555, 511, 396, 450, 368, 544, 521, 752,
+    557, 537, 454, 362, 628, 362, 459, 1000, 1000, 645, 645, 309, 610, 486, 486, 517, 424, 486, 517, 267, 513, 544,
+    544, 314, 341, 564, 530, 469, 789, 909, 574, 386, 764, 571, 357)
+FONT_SANS, FONT_CODE, FONT_DISPLAY = 9, 3, 7   # Liberation Sans, Cascadia (monospace), Lilita One (display)
+GLYPH_EM = {FONT_CLEAN: dict(zip(_GLYPH_CHARS, _NUNITO_EM)), FONT_HAND: dict(zip(_GLYPH_CHARS, _EXCALIFONT_EM)),
+            FONT_SANS: dict(zip(_GLYPH_CHARS, _LIBERATION_EM)), FONT_CODE: dict(zip(_GLYPH_CHARS, _CASCADIA_EM)),
+            FONT_DISPLAY: dict(zip(_GLYPH_CHARS, _LILITA_EM))}
+# Arrows and ticks missing from Nunito / Excalifont are drawn with the system fallback (macOS widths measured).
+for _t in (GLYPH_EM[FONT_CLEAN], GLYPH_EM[FONT_HAND]):
+    _t.update({"↑": 645, "↓": 645, "✓": 764, "✗": 571})
 # vertical metrics (ascender, descender) in em, used to centre glyphs optically in their line box
-FONT_METRICS = {FONT_CLEAN: (1.011, -0.353), FONT_HAND: (0.886, -0.374)}
+FONT_METRICS = {FONT_CLEAN: (1.011, -0.353), FONT_HAND: (0.886, -0.374), FONT_SANS: (0.9053, -0.2119),
+                FONT_CODE: (0.9277, -0.2344), FONT_DISPLAY: (0.923, -0.22)}
 _current_font = [FONT_CLEAN]
+
+# Style grammar (set by palettes.setup(style=...) through set_style). None = leave the scene's own choice.
+STYLE = {"font": None, "title_font": None, "label_font": None, "title": 36, "sub": 20, "align": "left",
+         "rule": False, "sw": None, "sw_key": None, "outline": None, "zone_fill": "solid", "curved": False,
+         "shadow": False, "tints": None}
+
+
+def set_style(spec):
+    """Apply a style grammar (a dict like palettes.STYLES[name]); unknown keys are ignored."""
+    for k in STYLE:
+        if k in spec:
+            STYLE[k] = spec[k]
+    return STYLE
+
+
+def font_for(size, default=None):
+    """Font id a text of this size gets under the current style: titles (>= 28) take title_font, small labels
+    (<= 12) take label_font, the rest the body font."""
+    body = STYLE["font"] or default or _current_font[0]
+    if size >= 28 and STYLE["title_font"]:
+        return STYLE["title_font"]
+    if size <= 12 and STYLE["label_font"]:
+        return STYLE["label_font"]
+    return body
 
 _STATUS_ROLES = {"done": ("GREEN_BG", "GREEN_SOFT", "GREEN"), "progress": ("ORANGE_BG", "ORANGE_SOFT", "ORANGE"),
                  "build": ("WHITE", "STONE", "INK"), "unchanged": ("PAPER", "LINE", "GREY")}
@@ -190,7 +246,17 @@ class Scene:
         return f"e{self._n:04d}"
 
     def _ts(self, s, size):
-        return text_size(s, size, self.font)
+        return text_size(s, size, font_for(size, self.font))
+
+    def _tint(self):
+        """Next pastel of the style's tint cycle (pastel mood): one tint per zone, lane or family."""
+        self._ti = getattr(self, "_ti", -1) + 1
+        t = STYLE["tints"]
+        return t[self._ti % len(t)]
+
+    def text_size(self, s, size):
+        """(width, height) of a text as this scene will draw it (per-size font of the current style)."""
+        return self._ts(s, size)
 
     def _seed(self):
         return self.rng.randint(1, 2 ** 31)
@@ -203,18 +269,27 @@ class Scene:
              "version": 1, "versionNonce": self._seed(), "isDeleted": False,
              "boundElements": None, "updated": 1, "link": None, "locked": False}
         e.update(kw)
+        if t in ("rectangle", "ellipse", "diamond"):
+            sw = e.get("strokeWidth", 2)
+            if STYLE["sw"] and sw == 2:
+                e["strokeWidth"] = STYLE["sw"]
+            elif STYLE["sw_key"] and sw >= 3:
+                e["strokeWidth"] = STYLE["sw_key"]
+            if STYLE["outline"] and e.get("strokeStyle") == "solid" and \
+                    str(e.get("strokeColor", "")).lower() in (Palette.LINE.lower(), Palette.STONE.lower()):
+                e["strokeColor"] = getattr(Palette, STYLE["outline"].upper())
         self.els.append(e)
         return e
 
     def _baseline(self, size):
         """Distance from the top of a text box to the baseline of its first line (Excalidraw centres the font's
         ascender + descender in the line box)."""
-        asc, desc = FONT_METRICS.get(self.font, FONT_METRICS[FONT_CLEAN])
+        asc, desc = FONT_METRICS.get(font_for(size, self.font), FONT_METRICS[FONT_CLEAN])
         return size * LINE_HEIGHT / 2 + (asc + desc) / 2 * size
 
     def _optical_dy(self, size):
         """Offset that moves a line box so that capitals and digits sit on its geometric centre."""
-        cap = 0.7 if self.font == FONT_CLEAN else 0.62
+        cap = 0.62 if font_for(size, self.font) == FONT_HAND else 0.7
         return size * LINE_HEIGHT / 2 - (self._baseline(size) - cap * size / 2)
 
     def text(self, x, y, s, size=14, color=None, align="left", width=None):
@@ -225,7 +300,7 @@ class Scene:
             x -= w / 2
         elif align == "right":
             x -= w
-        return self._base("text", x, y, w, h, text=s, originalText=s, fontSize=size, fontFamily=self.font,
+        return self._base("text", x, y, w, h, text=s, originalText=s, fontSize=size, fontFamily=font_for(size, self.font),
                           textAlign=align, verticalAlign="top", containerId=None, lineHeight=LINE_HEIGHT,
                           strokeColor=color, autoResize=True, strokeWidth=1)
 
@@ -410,8 +485,9 @@ class Scene:
         for kind, label, col in items:
             if kind == "box":
                 self.rect(cx, y, 22, 22, Palette.WHITE, col, 2)
-            elif kind == "fill":
-                self.rect(cx, y, 22, 22, col, col, 2)
+            elif kind == "fill":                   # col or (fill, stroke): match the swatch to the drawing
+                f, st = col if isinstance(col, tuple) else (col, col)
+                self.rect(cx, y, 22, 22, f, st, 2)
             elif kind == "dashed":
                 self.rect(cx, y, 22, 22, Palette.WHITE, col, 2, "dashed")
             elif kind == "arrow":
@@ -420,23 +496,26 @@ class Scene:
                 self.ellipse(cx + 6, y + 6, 10, 10, col, col, 1)
             off = 0 if kind == "text" else 32
             self.text_mid(cx + off, y + 11, label, 13, col if kind == "text" else Palette.INK)
+            col = col[1] if isinstance(col, tuple) else col
             cx += off + self._ts(label, 13)[0] + 26
 
     def section_block(self, x, y, w, h, title, scope=None, sub=None):
         """White box with a black header bar: the part of the system the diagram is about. The bar's top corners
         follow the box's corners exactly."""
         band = 56
-        self._banded(x, y, w, h, band, Palette.INK, Palette.WHITE, Palette.INK, 3)
-        self.text_mid(x + 24, y + band / 2, title, 22, Palette.WHITE)
+        self._banded(x, y, w, h, band, Palette.LOUD, Palette.WHITE, Palette.INK, 3)
+        self.text_mid(x + 24, y + band / 2, title, 22, Palette.LOUD_TXT)
         if scope:                                  # on the title's baseline
             base = y + band / 2 - self._ts(title, 22)[1] / 2 + self._optical_dy(22) + self._baseline(22)
-            self.text(x + w - 24, base - self._baseline(15), scope, 15, Palette.ON_DARK, align="right")
+            self.text(x + w - 24, base - self._baseline(15), scope, 15, Palette.LOUD_SUB, align="right")
         if sub:
             self.text(x + 24, y + band + 10, sub, 13, Palette.GREY)
         return (x, y, w, h)
 
     def lane(self, x, y, w, h, label, fill=None, stroke=None, color=None, style="solid", sw=1):
         """Horizontal swimlane: tinted band (default LANE / LINE) with its label (default INK) in the top-left."""
+        if fill is None and STYLE["tints"]:
+            fill, stroke = self._tint(), stroke or Palette.INK
         self.rect(x, y, w, h, _c(fill, "LANE"), _c(stroke, "LINE"), sw, style)
         self.text(x + PAD, y + 10, label, 13, _c(color, "INK"))
         return (x, y, w, h)
@@ -446,7 +525,7 @@ class Scene:
         Widths are proportional to value; unmeasured segments are dashed."""
         self.text(x, y, title, 24, Palette.INK)
         styles = {"measured": (Palette.PAPER, Palette.STONE, Palette.MID, "solid"),
-                  "measured_dark": (Palette.INK, Palette.INK, Palette.WHITE, "solid"),
+                  "measured_dark": (Palette.LOUD, Palette.INK, Palette.LOUD_TXT, "solid"),
                   "wait": (Palette.ORANGE_SOFT, Palette.ORANGE, Palette.INK, "solid"),
                   "unmeasured": (Palette.PAPER, Palette.STONE, Palette.GREY, "dashed")}
         total = sum(s[0] for s in segments)
@@ -492,13 +571,13 @@ class Scene:
         """A component, system or concept: centred label, optional small subtitle. strong = the one loud box.
         Defaults: fill WHITE, stroke INK."""
         fill, stroke = _c(fill, "WHITE"), _c(stroke, "INK")
-        self.rect(x, y, w, h, Palette.INK if strong else fill, Palette.INK if strong else stroke, 3 if strong else 2)
-        col = Palette.WHITE if strong else Palette.INK
+        self.rect(x, y, w, h, Palette.LOUD if strong else fill, Palette.INK if strong else stroke, 3 if strong else 2)
+        col = Palette.LOUD_TXT if strong else Palette.INK
         lh = self._ts(label, size)[1] + (self._ts(sub, 13)[1] + 4 if sub else 0)
         ty = y + (h - lh) / 2
         self.text(x + w / 2, ty, label, size, col, align="center")
         if sub:
-            self.text(x + w / 2, ty + self._ts(label, size)[1] + 4, sub, 13, Palette.ON_DARK if strong else Palette.GREY,
+            self.text(x + w / 2, ty + self._ts(label, size)[1] + 4, sub, 13, Palette.LOUD_SUB if strong else Palette.GREY,
                       align="center")
         if self._ts(label, size)[0] > w - 20 or (sub and self._ts(sub, 13)[0] > w - 20):
             warn(f"OVERFLOW in node '{label[:30]}'")
@@ -507,6 +586,10 @@ class Scene:
     def group(self, x, y, w, h, title, fill=None, stroke=None, header=None, header_text=None):
         """A tinted zone (default PAPER / LINE) holding related nodes; header = colour of an optional 44 px title
         band whose corners follow the zone's corners; header_text defaults to WHITE."""
+        if fill is None and STYLE["tints"]:
+            fill = self._tint()
+            if header is None:
+                stroke = stroke or Palette.INK
         fill, stroke = _c(fill, "PAPER"), _c(stroke, "LINE")
         if header:
             self._banded(x, y, w, h, 44, header, fill, stroke, 2)
@@ -643,8 +726,9 @@ class Scene:
     def step(self, x, y, n, color=None, size=28, outline=False):
         """Numbered step marker: a disc of diameter `size` with its top-left at (x, y), the number optically
         centred. outline=True draws a white disc with a coloured ring and number. Returns the diameter."""
-        color = _c(color, "INK")
-        fill, ring, txt = (Palette.WHITE, color, color) if outline else (color, color, Palette.WHITE)
+        on = Palette.BADGE_TXT if color is None else Palette.WHITE
+        color = _c(color, "BADGE")
+        fill, ring, txt = (Palette.WHITE, color, color) if outline else (color, color, on)
         self.ellipse(x, y, size, size, fill, ring, 2 if outline else 1)
         fs = round(size * (0.5 if len(str(n)) < 2 else 0.43))
         self.text_mid(x + size / 2, y + size / 2, str(n), fs, txt, align="center")
@@ -688,12 +772,98 @@ class Scene:
         self.line(sx, sy, [[0, 0], [tx - sx, ty - sy]], line_color, 1)
         self.ellipse(tx - 3, ty - 3, 6, 6, line_color, line_color, 1)
 
+    # ------------------------------------------------------------ header (style-aware)
+    def header(self, title, sub=None, x=0, y=0, kicker=None, underline=False):
+        """Title block drawn the current style's way: sizes, title font, alignment (centred over the finished
+        drawing at dump time when the style says so) and an optional hairline rule under it. kicker = a short
+        caps line above the title (accent). Returns the y where content may start (keep content >= 148)."""
+        els = []
+        ty = y
+        if kicker:
+            els.append(self.text(x, ty, kicker.upper(), 13, Palette.ACCENT))
+            ty += self._ts("X", 13)[1] + 6
+        els.append(self.text(x, ty, title, STYLE["title"], Palette.INK))
+        tw, th = self._ts(title, STYLE["title"])
+        if underline:                               # hand underline under the middle of the title
+            u = self.line(x + tw * 0.18, ty + th + 2, [[0, 0], [tw * 0.21, 4], [tw * 0.45, -2], [tw * 0.64, 3]],
+                          Palette.ACCENT, 3)
+            u["roundness"] = {"type": 2}
+            els.append(u)
+        ty += th + 10
+        if sub:
+            els.append(self.text(x, ty, sub, STYLE["sub"], Palette.MID))
+            ty += self._ts(sub, STYLE["sub"])[1]
+        self._header = {"els": els, "rule_y": ty + 22 if STYLE["rule"] else None, "align": STYLE["align"]}
+        return ty + 48
+
+    def _finish(self):
+        """Style passes that need the whole drawing: header alignment and rule, hachure zones, arched arrows,
+        sticker shadows. Runs once, at dump time."""
+        if getattr(self, "_finished", False):
+            return
+        self._finished = True
+        h = getattr(self, "_header", None)
+        hid = {id(e) for e in (h["els"] if h else [])}
+        body = [e for e in self.els if id(e) not in hid]
+        if body:
+            b = [_bounds(e) for e in body]
+            x0, x1 = min(v[0] for v in b), max(v[2] for v in b)
+            if h and h["align"] == "center":
+                tx = h["els"][0]["x"]
+                for e in h["els"]:
+                    if e["type"] == "text":
+                        e["x"] = (x0 + x1) / 2 - e["width"] / 2
+                        e["textAlign"] = "center"
+                title = next(e for e in h["els"] if e["type"] == "text" and e["fontSize"] == STYLE["title"])
+                for e in h["els"]:                  # the underline follows its title
+                    if e["type"] == "line":
+                        e["x"] += title["x"] - tx
+            if h and h["rule_y"] is not None:
+                self.line(x0, h["rule_y"], [[0, 0], [x1 - x0, 0]], Palette.INK, 1)
+        shapes = [e for e in self.els if e["type"] in ("rectangle", "ellipse", "diamond")]
+        if STYLE["zone_fill"] == "hachure":
+            soft = {Palette.LANE: Palette.LINE, Palette.PAPER: Palette.LINE, Palette.ACCENT_BG: Palette.ACCENT_SOFT,
+                    Palette.BLUE_BG: Palette.BLUE_SOFT, Palette.TEAL_BG: Palette.TEAL_SOFT,
+                    Palette.GREEN_BG: Palette.GREEN_SOFT, Palette.RED_BG: Palette.RED_SOFT,
+                    Palette.ORANGE_BG: Palette.ORANGE_SOFT}
+            for z in shapes:
+                if z["type"] != "rectangle" or z["backgroundColor"] not in soft or z["width"] * z["height"] < 40000:
+                    continue
+                zb = _bounds(z)
+                inner = [o for o in shapes if o is not z and 6000 <= o["width"] * o["height"] < z["width"] * z["height"] / 2
+                         and _bounds(o)[0] >= zb[0] and _bounds(o)[2] <= zb[2] and _bounds(o)[1] >= zb[1]
+                         and _bounds(o)[3] <= zb[3]]
+                if inner:
+                    z["fillStyle"] = "hachure"
+                    z["backgroundColor"] = soft[z["backgroundColor"]]
+        if STYLE["curved"]:
+            for a in self.els:
+                pts = a.get("points")
+                if a["type"] != "arrow" or not pts or len(pts) != 2 or abs(pts[1][1]) > 1 or abs(pts[1][0]) < 40:
+                    continue
+                L = pts[1][0]
+                bend = -min(10, abs(L) * 0.12)
+                a["points"] = [[0, 0], [L / 2, bend], [L, pts[1][1]]]
+                a["roundness"] = {"type": 2}
+        if STYLE["shadow"] and STYLE["sw_key"]:
+            out = []
+            for e in self.els:
+                if e["type"] == "rectangle" and e.get("strokeWidth") == STYLE["sw_key"] and \
+                        e.get("backgroundColor") not in (None, "transparent") and e.get("strokeStyle") == "solid":
+                    sh = dict(e, id=e["id"] + "s", x=e["x"] + 6, y=e["y"] + 6, backgroundColor=Palette.INK,
+                              strokeColor="transparent", strokeWidth=1, seed=self._seed(),
+                              customData={"decor": "shadow"})
+                    out.append(sh)
+                out.append(e)
+            self.els = out
+
     # ------------------------------------------------------------ output
     def dump(self, path, background=None, paint_background=False):
         """Write the scene. background defaults to Palette.CANVAS; paint_background=True (or an earlier canvas()
         call) also paints it as a full-bleed rectangle under everything, for renderers that ignore the file's
         background colour."""
         bg = _c(background, "CANVAS")
+        self._finish()
         els = self.els
         if (self._canvas or paint_background) and els:
             colour, margin = self._canvas or (None, CANVAS_MARGIN)
@@ -712,6 +882,101 @@ class Scene:
         with open(path, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False)
         return path
+
+    # ------------------------------------------------------------ dense process maps (appended components)
+    def banner(self, x, y, label, text, color=None, fill=None, w=None, size=16):
+        """Thin statement band under a header ("TODAY: ..." in the bad tint, "GOAL: ..." in the good tint): a tint
+        (default RED_BG) with a coloured left edge (default RED) that follows the rounded corners, the label in
+        that colour then the text in INK, both optically centred. No border, so it adds no stroke colour. w
+        defaults to the text width; give stacked banners the same w so they share a right edge.
+        Returns the box (x, y, w, h)."""
+        color, fill = _c(color, "RED"), _c(fill, "RED_BG")
+        lw, th = self._ts(label, size)
+        need = EDGE + PAD + lw + GAP + self._ts(text, size)[0] + PAD
+        w = w or need
+        h = th + 12
+        if need > w:
+            warn(f"OVERFLOW in banner '{label}': needs {need:.0f} px, has {w:.0f}")
+        self.edge_rect(x, y, w, h, color, EDGE, fill, "transparent", 1)
+        self.text_mid(x + EDGE + PAD, y + h / 2, label, size, color)
+        self.text_mid(x + EDGE + PAD + lw + GAP, y + h / 2, text, size, Palette.INK)
+        return (x, y, w, h)
+
+    def _bullet(self, cx, cy, d, color, filled):
+        self.ellipse(cx - d / 2, cy - d / 2, d, d, color if filled else Palette.WHITE, color, 1 if filled else 2)
+
+    def checklist(self, x, y, items, color=None, size=14, step=30, key=None, d=10):
+        """Checklist of (text, live) pairs, one row every `step` px: a filled disc (default ACCENT) marks what is
+        live, a hollow ring what is still to build (its text in MID instead of INK). key = (live label, to-build
+        label) adds a mini legend of the two bullets on the next row (12 px, GREY). Returns the y under the
+        last row."""
+        color = _c(color, "ACCENT")
+        lh = self._ts("X", size)[1]
+        for i, (s, live) in enumerate(items):
+            cy = y + i * step + lh / 2
+            self._bullet(x + d / 2, cy, d, color, live)
+            self.text_mid(x + d + GAP + 2, cy, s, size, Palette.INK if live else Palette.MID)
+        ny = y + len(items) * step
+        if key:
+            kh = self._ts("X", 12)[1]
+            cx, cy = x, ny + kh / 2
+            for lab, live in ((key[0], True), (key[1], False)):
+                self._bullet(cx + 4, cy, 8, color, live)
+                self.text_mid(cx + 8 + GAP, cy, lab, 12, Palette.GREY)
+                cx += 8 + GAP + self._ts(lab, 12)[0] + 2 * PAD
+            ny += kh
+        return ny
+
+    def badge_legend(self, x, y, items, per_row=4, col_w=None, size=13, d=32, row_gap=12):
+        """Legend of lettered badges (skills, owners, systems) matching badges(): items are (letter, label,
+        proposed) triples. Each entry is a disc (ACCENT when proposed, else INK) with its letter in WHITE, then a
+        chip with the label (accent tint when proposed, PAPER otherwise), on a grid of `per_row` columns `col_w`
+        apart (default: the widest entry + 32) so the chips line up. Returns the y under the last row."""
+        ch = self.chip_height(size)
+        rh = max(d, ch)
+        widths = [d + GAP + self._ts(lab, size)[0] + 2 * CHIP_PX for _, lab, _ in items]
+        col_w = col_w or max(widths) + 32
+        for i, (letter, lab, proposed) in enumerate(items):
+            r, c = divmod(i, per_row)
+            ex, ey = x + c * col_w, y + r * (rh + row_gap)
+            col = Palette.ACCENT if proposed else Palette.INK
+            self.ellipse(ex, ey + (rh - d) / 2, d, d, col, col, 1)
+            self.text_mid(ex + d / 2, ey + rh / 2, letter, 15, Palette.WHITE, align="center")
+            fill, stroke, tc = ((Palette.ACCENT_BG, Palette.ACCENT_SOFT, Palette.ACCENT) if proposed
+                                else (Palette.PAPER, Palette.STONE, Palette.INK))
+            self.chip(ex + d + GAP, ey + (rh - ch) / 2, lab, fill, stroke, tc, size)
+            if widths[i] > col_w - GAP:
+                warn(f"OVERFLOW in badge legend '{lab[:30]}': raise col_w")
+        rows = (len(items) + per_row - 1) // per_row
+        return y + rows * rh + (rows - 1) * row_gap
+
+    def chip_stack(self, x, y, items, max_w=None, size=12, step=None):
+        """Chips stacked in a column (the tools under a step, tags): items are (label, fill, stroke, colour)
+        tuples. Rows are chip_height + GAP apart unless `step` is given; warns when a chip is wider than max_w
+        (the column it must stay in). Returns the y under the last chip."""
+        ch = self.chip_height(size)
+        step = step or ch + GAP
+        for i, (lab, fill, stroke, colour) in enumerate(items):
+            cw = self.chip(x, y + i * step, lab, fill, stroke, colour, size)
+            if max_w and cw > max_w:
+                warn(f"OVERFLOW in chip stack '{lab[:30]}': {cw:.0f} px for a {max_w:.0f} px column")
+        return y + (len(items) - 1) * step + ch if items else y
+
+    def return_loop(self, x_from, y_from, x_to, y_to, y_loop, label=None, color=None, sw=2, size=13,
+                    style="dashed"):
+        """Path back to an earlier step (rework, continuous improvement): an arrow (default RED, dashed) that
+        leaves (x_from, y_from), runs along y_loop and climbs back to (x_to, y_to), with its label centred on the
+        run, LABEL_GAP below it (above it when the loop runs over the steps). Callers keep ARROW_GAP at both
+        ends. Returns the y beyond the label (or the run)."""
+        color = _c(color, "RED")
+        self.arrow(x_from, y_from, x_to, y_to, color, sw, style, via=[(x_from, y_loop), (x_to, y_loop)])
+        if not label:
+            return y_loop
+        th = self._ts(label, size)[1]
+        below = y_loop >= max(y_from, y_to)
+        ly = y_loop + sw / 2 + LABEL_GAP if below else y_loop - sw / 2 - LABEL_GAP - th
+        self.text((x_from + x_to) / 2, ly, label, size, color, align="center")
+        return ly + th if below else ly
 
 
 def hand_drawn(scene):

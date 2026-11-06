@@ -25,8 +25,7 @@ CY = Y - 56 - CH                           # card row, 56 px above the axis
 def at(q):                                 # position in quarters -> x
     return q * QW
 
-S.text(0, 0, "Roadmap: pilot first, then scale", 36, P.INK)
-S.text(0, 56, "Nothing reaches every team before the pilot shows a measured gain.", 20, P.MID)
+S.header("Roadmap: pilot first, then scale", "Nothing reaches every team before the pilot shows a measured gain.")
 
 # axis, quarter boundaries, quarter labels centred in their span --------------------------------------------------
 S.line(0, Y, [[0, 0], [W, 0]], P.INK, 2)
@@ -60,8 +59,9 @@ S.chip(TX - 33, CY - 34, "TODAY", P.MID, P.MID, P.WHITE, 12)
 
 # footer -----------------------------------------------------------------------------------------------------------
 FY = PY + 48 + 48
-S.legend(0, FY, [("fill", "pilot", P.ACCENT_SOFT), ("fill", "the decision", P.INK)])
+S.legend(0, FY, [("fill", "pilot", (P.ACCENT_BG, P.ACCENT_SOFT)), ("fill", "the decision", (P.LOUD, P.INK))])
 S.text(W, FY + 2, "Quarters evenly spaced · milestones are targets, not commitments", 13, P.GREY, align="right")
 
+S.canvas(pal["canvas"])
 S.dump(args.out, background=pal["canvas"])
 print(args.out, len(S.els), "elements, width", W)

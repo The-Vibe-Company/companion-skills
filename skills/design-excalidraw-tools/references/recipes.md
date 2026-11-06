@@ -1,11 +1,11 @@
 # Recipes by diagram type
 
 Pick the type whose shape matches the idea, then copy its example from `assets/` and change the content, keeping the
-grid constants. Every example takes `--out`, `--hand` (hand-drawn, warm palette) and `--palette clean|warm|ink`, and
+grid constants. Every example takes `--out` and `--style corporate|editorial|sketch|playful|night|mono` (see `references/styles.md`), and
 uses the tokens of `references/design-principles.md` through `assets/palettes.py`.
 
 Contents: flow · swimlanes and tracks · architecture · layered stack · timeline / roadmap · before / after · hub
-(concept map) · poster with key figures · illustrated explainer · lifecycle around a core.
+(concept map) · poster with key figures · illustrated explainer · dense process map · lifecycle around a core.
 
 | Recipe | Example | Width |
 |---|---|---|
@@ -17,6 +17,7 @@ Contents: flow · swimlanes and tracks · architecture · layered stack · timel
 | Hub (concept map) | `assets/example_hub.py` | 1216 |
 | Poster with key figures | `assets/example_poster.py` | 1440 |
 | Illustrated explainer | `assets/example_explainer.py` | 1600 |
+| Dense process map (lifecycle, tracks, gate) | `assets/example_process_map.py` | 2856 |
 
 All share the header block (title 36 at y 0, message 20 at y 56, content from y ≈ 148) and the footer line (legend
 left, provenance right-aligned, 40 below the last block).
@@ -136,8 +137,9 @@ yellow questions box larger than the "how" block.
 
 ## Illustrated explainer (how something works, for a general audience)
 
-**Example**: `example_explainer.py` — five pastel cards explain how an assistant answers from company documents; it
-defaults to hand-drawn and the `playful` palette (`--clean`, `--palette warm|clean|ink` for variants).
+**Example**: `example_explainer.py` — five cards explain how an assistant answers from company documents; run it
+with any `--style` (default sketch). Colour follows the style's mood: sober styles keep neutral cards and put the
+accent on the step that matters; playful gives one pastel per step; mono uses weight and grey fill only.
 **When**: blog posts, onboarding, a README for newcomers, any "how does X work?" for people who will not read a
 legend. The drawing carries the meaning; the words only name the step.
 **Shape**: centred title with a hand underline (`doodles.underline`), one sentence under it; a row of 3–6 equal cards,
@@ -148,8 +150,8 @@ each with a number badge straddling its top-left corner (`doodles.badge`), a pic
 person, database, bulb, clock, envelope, cloud, bars, answer (reply with source tags). Each takes a bounding box and
 scales into it. `palettes.tints(n, name)` gives one (card fill, badge fill) pair per step.
 **Validated rules**:
-- One pastel per step is allowed here: colour paces the reading, it codes nothing, so there is no legend. The accent
-  is kept for one thing only, the takeaway line (and small marks like the "?").
+- In the playful style only, one pastel per step: colour paces the reading, it codes nothing, so there is no
+  legend. In every style the accent is kept for one thing (the key step or the takeaway line, and small marks).
 - Every card shows the thing its step talks about: a question is a bubble, documents are pages, "picks" is
   highlighted lines with ticks, the model is a robot, the answer is a reply with source tags. One running example
   ("Can I work from home on Fridays?") threads through all cards and is marked as made up.
@@ -159,6 +161,50 @@ scales into it. `palettes.tints(n, name)` gives one (card fill, badge fill) pair
 **Traps**: decorative doodles that say nothing (a rocket for "deploy" is fine, a random star is not); more than one
 pictogram scene per card; jargon in titles ("embedding", "vector store") when the reader asked for plain words;
 invented specifics (page numbers, figures) without the made-up note.
+
+## Dense process map (lifecycle, tracks, gate)
+
+**Example**: `example_process_map.py` — a target delivery process: two entrances, two tracks, one evidence gate,
+the lifecycle around it, who does what, what disappears, open questions.
+**When**: a steering committee or a client workshop that will read the map for minutes, on a wall screen or an A3
+print; the current-state map and the target map are drawn on the same grid so the delta reads side by side. Width
+about 2 800: zooming is expected, so the thumbnail must still show the shape (entry lane, block, gate, loops).
+**Shape**: header (title + version chip, two message lines, a `TODAY:` banner in the bad tint and a `GOAL:` banner in
+the good tint that says how the goal is measured); top right a cartouche with the status chips and the colour legend
+under it; a dashed lifecycle frame holding an entry lane on top (the second entrance), a greyed column of unchanged
+upstream steps on the left (the first entrance), the owned scope as a section block with numbered column headers
+and two track lanes, the gate as the one loud card, a tools strip and a skills legend inside the block, a
+continuous-improvement loop under it and a greyed out-of-scope card on its right; a bottom band of three equal
+blocks; a sources footer.
+**Kit**: `banner(...)` for TODAY / GOAL; `cartouche`, `status_chip` colours from `STATUS`, `legend`; `rect(...,
+style="dashed")` for the frame; `lane(...)` for the entry lane and the two tracks; `section_block(...)`; `card(...,
+skills=, proposed_skills=, out=, status=)` for every step; chips inside the splitting card for the fork; a
+`rect(..., sw=3)` + `chip("GATE")` + `checklist(..., key=("live", "to build"))` for the gate; `return_loop(...)`
+for the failure path (bad) and the improvement loop (good); `divider` + `chip_stack(..., max_w=column width)` per
+column for tools; `badge_legend(...)` for the lettered skills; `rows(...)` once per actor (own edge colour) and once
+for what disappears (bad tint, no border); `questions_box(...)`.
+**Validated rules**:
+- Every coordinate derives from a few constants: column widths, one column gap (56), block padding (40), lane
+  height (256, cards 80 shorter), lane gap (24). Shared steps are tall cards spanning both lanes; the gate sits on
+  top of the lanes.
+- Colour has two meanings only: accent = proposed (cards, badges, the agent track, the entry lane), ink = the
+  current process. Status chips stay neutral (orange only for "in progress"); tool kinds use the two category
+  colours plus a neutral chip with a shared stone border, so the map stays at 12 stroke colours or fewer.
+- The gate is the only heavy outline (`sw=3`) and the only card with a tag; its checklist uses filled bullets for
+  what is live and hollow ones for what is to build, with the mini key under it; keep it under 40 words.
+- Each track has its own arrow line at its lane's mid-height from the fork chip to the merge card; one line leaves
+  the merge card; the out-of-scope arrow is stone. An express path from the entry lane drops into its lane card
+  left of the card's badges and right of the lane label (the example checks it).
+- Loops never cross the block: the failure loop runs under the lanes between card centres, the improvement loop
+  under the block from the last column to the first, both with their label centred beneath.
+- Bottom band: three thirds, titles on one baseline, contents starting on one line with one height (`rows` and
+  `questions_box` take the same total height).
+- Widths come from `S.text_size` (styles change fonts); the header is drawn left-aligned in every style because the
+  cartouche holds the top right and the version chip follows the title.
+**Traps**: a status colour that reuses the accent (two meanings); badges on the corner where an express arrow
+lands; a tall card with nothing at a track's height (put the fork chip, a note or an inner box there); figures in
+the GOAL banner without "illustrative" in the footer; client names, product names or tool brands left on a generic
+map.
 
 ## Lifecycle around a core
 

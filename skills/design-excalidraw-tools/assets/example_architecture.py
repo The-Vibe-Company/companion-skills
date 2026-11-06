@@ -24,8 +24,7 @@ ZH = HEAD + 24 + 2 * NH + NGAP + 24   # two nodes per zone: same height everywhe
 W = 4 * CW + 3 * GAP
 xs = [i * (CW + GAP) for i in range(4)]
 
-S.text(0, 0, "Data platform: one road from source to screen", 36, P.INK)
-S.text(0, 56, "Every dashboard reads modelled tables, never raw sources.", 20, P.MID)
+S.header("Data platform: one road from source to screen", "Every dashboard reads modelled tables, never raw sources.")
 
 ZONES = [
     ("SOURCES", [("Product database", "orders, users"), ("Event stream", "clicks, sessions")], False),
@@ -57,8 +56,9 @@ for c in ["access control", "monitoring", "lineage", "data contracts"]:
 
 # footer: legend left, provenance right, on one line ---------------------------------------------------------------
 FY = SY + 56 + 40
-S.legend(0, FY, [("fill", "where the rule is enforced", P.ACCENT), ("box", "component", P.STONE)])
+S.legend(0, FY, [("fill", "where the rule is enforced", (P.ACCENT_BG, P.ACCENT)), ("box", "component", P.STONE)])
 S.text(W, FY + 2, "Sketch for discussion · refresh rates to confirm", 13, P.GREY, align="right")
 
+S.canvas(pal["canvas"])
 S.dump(args.out, background=pal["canvas"])
 print(args.out, len(S.els), "elements, width", W)

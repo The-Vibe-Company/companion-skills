@@ -553,6 +553,8 @@ def main():
         warnings.append(f"{len(strokes)} stroke colours (max {a.max_colors}): does each colour still mean one thing?")
     fams = {}
     for t in texts:
+        if (t.get("customData") or {}).get("card"):   # flashcard type roles (display, body, hand) are deliberate
+            continue
         fams.setdefault(t.get("fontFamily"), []).append(t.get("fontSize", 20))
     if len(fams) > 1:
         body = max(fams, key=lambda f: len(fams[f]))

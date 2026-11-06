@@ -115,6 +115,20 @@
         "lint_scene.py reports 0 errors and no contrast warnings",
         "Kafka appears between the publishing services and the notification service"
       ]
+    },
+    {
+      "id": 10,
+      "name": "flashcards-deck",
+      "prompt": "Make me a small deck of flashcards, like a pocket guide, to teach our new developers three code review habits: small merge requests, explain the why in the description, and run the tests before asking for review. Portrait cards I can post one by one.",
+      "expected_output": "A cover with the three habits listed, then one portrait card per habit (poster title, short text, one small diagram, a rule-of-thumb box), each exportable alone at 4:5, lint clean.",
+      "files": [],
+      "expectations": [
+        "The scene contains 4 portrait cards of equal size with a 4:5 ratio (cover + 3)",
+        "The cover lists the three habits in a numbered table of contents",
+        "Each concept card has exactly one title, one small diagram and one rule-of-thumb box",
+        "lint_scene.py reports 0 errors",
+        "A per-card export command or PNG at 1200 x 1500 is provided"
+      ]
     }
   ]
 }

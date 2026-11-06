@@ -17,6 +17,7 @@ Contents: flow · swimlanes and tracks · architecture · layered stack · timel
 | Hub (concept map) | `assets/example_hub.py` | 1216 |
 | Poster with key figures | `assets/example_poster.py` | 1440 |
 | Illustrated explainer | `assets/example_explainer.py` | 1600 |
+| Flashcards (deck of study cards) | `assets/example_flashcards.py` | 600 per card |
 | Dense process map (lifecycle, tracks, gate) | `assets/example_process_map.py` | 2856 |
 
 All share the header block (title 36 at y 0, message 20 at y 56, content from y ≈ 148) and the footer line (legend
@@ -161,6 +162,38 @@ scales into it. `palettes.tints(n, name)` gives one (card fill, badge fill) pair
 **Traps**: decorative doodles that say nothing (a rocket for "deploy" is fine, a random star is not); more than one
 pictogram scene per card; jargon in titles ("embedding", "vector store") when the reader asked for plain words;
 invented specifics (page numbers, figures) without the made-up note.
+
+## Flashcards (deck of study cards, one idea per card)
+
+**Example**: `example_flashcards.py` — a cover and three concept cards on clear diagrams; run it with any `--style`
+(default playful). **When**: a course, an onboarding, a team wiki, a "pocket guide" people swipe on a phone or
+print: each card teaches one idea and stands alone. Not for one big picture (use a flow, a map or a poster).
+**Shape**: portrait cards of 600 x 750 scene units (4:5), side by side with 80 px gaps (`cards.card_xy(i)`), each
+exported alone at scale 2 to 1200 x 1500 px (`render_scene.mjs --crop <x>,0,600,750 --scale 2 --padding 0`;
+`cards.export_commands(n, path)` prints the lines).
+- Cover: handwritten kicker ("Pocket guide to"), poster title on two lines, a one-line subtitle over an accent rule,
+  a numbered table of contents (`cards.toc`), a call to swipe at the bottom (`cards.cta`).
+- Concept card, top to bottom: kicker (`cards.kicker`: "How to", "Before you draw"), poster title (`cards.poster_title`,
+  display face with an ink offset shadow, shrunk to fit; `cards.title_with_tag` adds a handwritten aside on its right),
+  one or two short paragraphs (`cards.paragraph`) or a numbered list whose lead word reads bold (`cards.numbered`),
+  one small diagram drawn with the style's own rendering (`cards.box`, `S.arrow`, `doodles.check / cross`), a
+  "Don't do this!" note in the warning pen when the card warns against something (`cards.note`), and a pale yellow
+  rule-of-thumb box with a bulb anchored on the footer band (`cards.tip(..., bottom=ymax)`).
+- Footer on every card: deck name left, page "2 / 3" (or the source) right, 13 px grey (`cards.card`).
+**Type**: three faces on purpose, tagged `customData.card` so the lint accepts them: display for titles and lead
+words (Lilita One; Liberation Sans in editorial and mono, where the shadow is dropped), a clean body face for reading
+(Nunito; Liberation Sans in editorial and mono), the hand face for kickers, asides and notes (Excalifont).
+**Colour**: the style accent for titles, kicker and rule; the warning pen (dark orange `#c4510b`, contrast 4.6:1) for
+"Don't do this!"; green check and red cross; yellow only for the tip box. In-card diagrams may use the category
+colours when the card is about colour; otherwise keep them neutral with one accent box.
+**Validated rules**:
+- One idea per card; the title says it in two to four words, in capitals.
+- Body 17-18 px at card scale (34-36 px exported), 90 words at most per card; cut words, never shrink the font.
+- The tip box ends on the footer band, so free space falls between the diagram and the tip, not under the tip.
+- `cards.check_fit(y, ymax)` after each card: content must end above the footer band.
+**Traps**: a whole article on one card; two diagrams on one card; a side tag placed by hand over the title (use
+`title_with_tag`); a coloured tip box from a palette that has no true yellow (the module fixes the tip colours);
+an ink shadow on a dark page (the module drops it).
 
 ## Dense process map (lifecycle, tracks, gate)
 

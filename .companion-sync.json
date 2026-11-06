@@ -27,6 +27,11 @@
       "checksum": "sha256:18a48f682d53fa833daf82520081b56e204456d47bf556b79b7477cae92d3a6e"
     },
     {
+      "slug": "design-excalidraw-tools",
+      "version": "0.1.0",
+      "checksum": "sha256:e66fa2c33455a9c3d6a374fb2062e2b9cce98e7b6bc5801b0b947b651491c030"
+    },
+    {
       "slug": "design-frontend-dev",
       "version": "3.2.1",
       "checksum": "sha256:0d977052085bf597e23e63064b5fea18009e5c18623757683369975398d6470b"
@@ -74,7 +79,7 @@
   ],
   "companion_ownership": {
     "app_id": "4353406",
-    "previous_commit_sha": "83aee7d4f6c44506806b6c7ff9d697e8ab9faa08",
-    "signature": "4Kk2xrigUsIrCA4VeVVvKDRcdaSidKxUfXJ-wzhqwoqY-ijb9MhKDw_nD5-sQKT7SsXn4OI1HkPkFRBnKdtNRrwMjU3Xslg4rKX-sexatxplxg7wLvnJTG1jKbiRZ_UL18zsP-jnVM4F1ASXqj3aSr4na9rYGENue1OFyoqZ9GrYi7WWXdQPbvZYQehIiOSHWW92MYcM7zJ2Fe0aSJ42U-0o7Lp1hDTa0ZXuPDDqMzA7cdc65Q_U_vSptDUL-MSkSBlah5QlKUQfwo1MqBq7MLZUbByGkQv6tr3Fim8RttW_yc9kGFm1YVoSfd5C5cOrdagxvRYzuCNWTBEkrx8gPw"
+    "previous_commit_sha": "6c0c23496180b43029d3d933c88e645344ee8163",
+    "signature": "C48vZ9YU-PkxNw0iMvcoXNWnCtaPKpm8MVCixWVQ5-sZ0AND-Ls-MzO0RlxJ6es3msMuIgWeOx01pchx8XORWC_WDf0r31MDgT_8ZY2LpBui0zLX3iSxMB26MDT-stu4ppJpF5fOZRhY5ZhmlNhGus2LoVPz1dmdpNFFY79CI1071aL-gzK12UsZ69-HrdI_hK_iOODnEjXwJPi4-mfzFnGSCV75VGP9NNnYFD81joZ5UCafO8_KoEON8-QnmUORj_OhetQSwDSRSJR01cNlEWq5m50S9whyzXrYYJPUjYC5tY5RH7r73fZqcq0932-5pWCZB-QYIAlIJqaD2_pFKQ"
   }
 }

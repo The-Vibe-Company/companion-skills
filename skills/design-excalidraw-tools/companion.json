@@ -1,0 +1,56 @@
+{
+  "$schema": "https://skillpack.app/schemas/companion-manifest.v2.schema.json",
+  "name": "design-excalidraw-tools",
+  "version": "0.1.0",
+  "title": "Excalidraw Diagram Designer",
+  "description": "Design beautiful, readable Excalidraw diagrams of any kind from a Python generator, then lint, render, look and refine before delivery.",
+  "notes": "## What it does\n\nTurns a request for a diagram into a beautiful Excalidraw scene: flows and processes, architectures, timelines and roadmaps, before/after comparisons, concept maps, layered stacks, posters with key figures and swimlanes, in a clean or a hand-drawn style. The diagram is generated from a short Python script built on a bundled kit, so it can be regenerated after every round of feedback.\n\n## Quality loop\n\nMessage first, then structure, generate, lint, render, look, refine. The lint catches overflowing text, overlaps, arrows crossing labels, crowded boxes and colour sprawl; the render is always checked before delivery. Important diagrams get a cold critique from independent reviewers with distinct personas, and their findings are sorted, not blindly applied.\n\n## Rendering and publishing\n\nRenders locally with headless Chromium when available, or through the Excalidraw+ API (EXCALIDRAW_API_KEY, optional). New versions go to new scenes; scenes are never deleted or shared without an explicit request, because share links are public.\n\n## Portability\n\nPython helpers use only the standard library; the local renderer needs Node and Playwright, the publishing helper needs an Excalidraw+ API key. Without either, the skill still produces the .excalidraw file to open on excalidraw.com.",
+  "metadata": {
+    "companionSkillId": "f1567982-638a-46c1-9ab1-4379fa8eed44",
+    "usage": {
+      "schemaVersion": 1,
+      "skillId": "f1567982-638a-46c1-9ab1-4379fa8eed44",
+      "version": "0.1.0",
+      "origin": "https://skillpack.app"
+    },
+    "changelog": [
+      {
+        "version": "0.1.0",
+        "date": "2026-11-06",
+        "changes": [
+          "Initial package: design principles, recipes per diagram type, audience rules, review loop, Excalidraw+ publishing guide.",
+          "Bundled excalikit builder, lint_scene static checks, Excalidraw+ client and examples for each recipe.",
+          "Validated against baseline runs on three prompts: render-and-critique loop, data honesty (no invented units, illustrative examples marked), flow wrapping and card-height rules."
+        ]
+      }
+    ]
+  },
+  "environment": {
+    "env": {
+      "EXCALIDRAW_API_KEY": {
+        "required": false,
+        "description": "Optional Excalidraw+ API key used by scripts/excalidraw_plus.py to create scenes, push diagrams and take screenshots."
+      }
+    },
+    "secrets": {}
+  },
+  "dependencies": {},
+  "commands": [
+    {
+      "name": "Design a diagram",
+      "desc": "Find the message, pick the diagram type, generate, lint, render and refine a new Excalidraw diagram."
+    },
+    {
+      "name": "Make a diagram prettier",
+      "desc": "Rebuild an existing diagram with the design principles, fewer words and a clean grid, keeping the user's terms."
+    },
+    {
+      "name": "Current and target pair",
+      "desc": "Draw two diagrams on a shared grid so they can be compared side by side."
+    },
+    {
+      "name": "Critique a diagram",
+      "desc": "Render an existing diagram and run cold reviewers, then sort and apply their findings."
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+# Recipes by diagram type
+
+Pick the type whose shape matches the idea, then copy its example from `assets/` and change the content, keeping the
+grid constants. Every example takes `--out`, `--hand` (hand-drawn, warm palette) and `--palette clean|warm|ink`, and
+uses the tokens of `references/design-principles.md` through `assets/palettes.py`.
+
+Contents: flow · swimlanes and tracks · architecture · layered stack · timeline / roadmap · before / after · hub
+(concept map) · poster with key figures · lifecycle around a core.
+
+| Recipe | Example | Width |
+|---|---|---|
+| Flow, swimlanes and tracks | `assets/example_flow_tracks.py` | 1588 |
+| Architecture | `assets/example_architecture.py` | 1512 |
+| Layered stack | `assets/example_stack.py` | 1224 |
+| Timeline / roadmap | `assets/example_timeline.py` | 1520 |
+| Before / after | `assets/example_before_after.py` | 1432 |
+| Hub (concept map) | `assets/example_hub.py` | 1216 |
+| Poster with key figures | `assets/example_poster.py` | 1440 |
+
+All share the header block (title 36 at y 0, message 20 at y 56, content from y ≈ 148) and the footer line (legend
+left, provenance right-aligned, 40 below the last block).
+
+## Flow (process, pipeline, user journey)
+
+**Shape**: steps as equal cards in one row left to right, numbered column headers `1 · STEP` above on one baseline,
+arrows at mid-height between card edges.
+**Kit**: `card(...)` per step with `out="artefact"` for what each step produces; `arrow(...)` or `connect(a, b)`
+between edges; `hero_bar(...)` above when the headline is about time.
+**Validated rules**: columns 260 wide with 56–72 gaps; 3–7 steps per row (wrap into two rows or group into phases
+beyond); a card that only receives one line is normal-size and centred on that line, never stretched.
+**Wrapping beyond 7 steps**: prefer grouping steps into 3–4 phases (one header band per phase) over a second row. If
+a second row is unavoidable, end row 1 and start row 2 on the left, mark the continuation with a small `→` chip or the
+step number, and do not draw a long return line across the canvas: it reads as a divider.
+**Card height follows content**: a card holding one line is `chip_height`-like (about 56–64 px), not the height of its
+neighbours with two lines; half-empty cards look unfinished at thumbnail size.
+**Traps**: waiting times as floating labels (put them inside the box, or in the hero bar); units invented for the
+user's figures (if they said "1.5 days", do not write "working days" — keep "days" and ask).
+
+## Swimlanes and tracks
+
+**Example**: `example_flow_tracks.py` — triage splits tickets into an automated and a team track that meet at one
+merge gate.
+**Shape**: lanes are pale bands for *tracks* (alternative paths) when the message is a split; for *actors* only when
+hand-offs between people are the message. Shared steps are tall cards spanning all lanes.
+**Kit**: `lane(...)` per track, `card(...)` inside; the fork as chips inside the splitting card, one coloured arrow per
+track leaving its chip; the merge as one `node(..., strong=True)` spanning the lanes.
+**Validated rules**:
+- Lane padding 36 px on the sides and 40 px above (label) and below the cards: arrowheads then end inside the lane,
+  clear of its border, and a rework path can enter from below.
+- The accent lane (the new track) gets the accent tint and accent card strokes; the other lane stays neutral.
+- Two arrows in, one heavier arrow out of the merge block.
+- A tall card holds something at each track's height (fork chips) and a short grey note between them.
+- The rework path is dashed `bad`, routed under the lanes, its label centred beneath it.
+**Traps**: a lane label crossed by an arrow; a white-on-white lane (use the lane tint and a 1 px border).
+
+## Architecture (systems and data)
+
+**Example**: `example_architecture.py` — four zones from sources to consumers, the warehouse in accent.
+**Shape**: columns by role (sources → ingestion → processing / storage → consumers), each a zone with a header band,
+components as nodes inside, arrows from zone edge to zone edge labelled with the transport.
+**Kit**: `group(..., header=...)` per zone, `node(...)` per component, `labelled_arrow(...)` between zones; chips in a
+full-width strip for shared concerns (access control, monitoring) instead of extra boxes.
+**Validated rules**:
+- Every zone has the same header structure; neutral zones use a `LINE` band with ink text, the one zone the message
+  is about uses the accent band with white text. Colour by importance, not by category.
+- Same number of nodes per zone (rebalance the content) so no zone is half empty; zones 300 wide, gaps 104 to hold a
+  two-line transport label.
+- Component borders `STONE` (accent in the accent zone): black outlines everywhere make the picture heavy.
+- Brand and product names stay off generic diagrams; name the role (`Change capture`), not the vendor.
+**Traps**: drawing every connection (show the main data path; mention the rest in a footnote); mixing deployment
+boxes and logical components in one row.
+
+## Layered stack
+
+**Example**: `example_stack.py` — four layers, services in accent, tags on the two components that change.
+**Shape**: full-width bands stacked from foundation (bottom) to users (top); a fixed label column on the left (name
+20 + one grey line); components on a column grid shared by every band.
+**Kit**: `rect(...)` per band, `node(...)` per component, `chip(...)` straddling a node's top edge for "what changes".
+**Validated rules**: equal bands (node height + 48), 16 px between bands; nodes 220 wide with 24 gaps so their edges
+line up vertically across layers; a layer with fewer components leaves its last cells empty rather than stretching.
+**Traps**: arrows between layers (the stacking already says "built on"); an annotation chip placed in the band next
+to the one it describes.
+
+## Timeline / roadmap
+
+**Example**: `example_timeline.py` — four quarters, five milestones, the go / no-go in ink.
+**Shape**: an axis with boundary ticks; period names centred in their span (not on the ticks); milestones as equal
+cards in one row above the axis, each on a dashed stem to a dot; phases as tinted spans right under the period
+labels; "today" as a dashed line with a chip at its top.
+**Kit**: `line(...)` for the axis and ticks, `node(...)` for milestones (`strong=True` for the decision), `rect(...)`
+for phases, `chip(...)` for the today marker. (`timeline(...)` draws a simpler axis with labels on the ticks.)
+**Validated rules**: cards 200 wide, at least 40 px apart; position milestones so that "today" runs through a gap
+between two cards; the phase boundary falls on the decision milestone; 5–8 milestones.
+**Traps**: proportional time when labels collide (switch to equal spacing and say so in the footer); milestones
+alternating above and below the axis with phases further down (the eye zigzags and stems cross the phases).
+
+## Before / after (current vs target)
+
+**Example**: `example_before_after.py` — the same five rows on both sides, two steps gone, two steps new.
+**Shape**: two equal panels on one canvas with an identical row grid, the headline figure of each side in its
+header, a single arrow in the centre gap.
+**Kit**: `rect(...)` panels, `rect(...)` + `text(...)` rows, numbered discs (`step(...)` or `ellipse` + text) on a
+1 px spine instead of arrows between rows; `legend(...)` in the footer.
+**Validated rules**:
+- The same step sits at the same height on both sides; a removed step leaves a dashed ghost row on the target side.
+- Removed = dashed `bad` on the left; new = accent on the right; unchanged = neutral on both. Nothing else coloured.
+- The headline figure ("4 people" → "2 people") is counted from the drawing itself, so it needs no source.
+**Traps**: different box sizes on the two sides; recolouring unchanged parts; two separate canvases with drifting
+grids (if they must be separate, share the constants).
+
+## Hub (concept map, ecosystem, stakeholders)
+
+**Example**: `example_hub.py` — one goal in ink, three people on the left, three knowledge supports on the right.
+**Shape**: the concept in a central strong box; satellites in the side columns of a 3 × 3 grid; one colour family per
+column, named by a coloured column header instead of a legend.
+**Kit**: `node(..., strong=True)` for the centre, `node(..., fill=X_BG, stroke=X)` for satellites, `line(...)` for
+connectors (no arrowheads).
+**Validated rules**: connectors 1 px in the family colour, fanned into points 44 px apart on the centre's facing edge;
+satellites 280 × 92 with 36 px row gaps; 168 px between a column and the centre. Excellent in the hand-drawn style.
+**Traps**: more than eight satellites (make a second level or a list); pale `_soft` connectors (invisible on white);
+crossing connectors.
+
+## Poster with key figures
+
+**Example**: `example_poster.py` — one hero figure, three supporting figures, three steps, two open questions.
+**Shape**: headline sentence; a row of tiles where the hero is wider and tinted; below, two thirds for "how it was
+obtained" and one third for open questions, both starting on the same line with the same height.
+**Kit**: `rect(...)` + `text(..., 56)` for the hero tile, plain `rect(...)` + `text(..., 28)` tiles (or `stat(...)`
+when each figure belongs to a colour category); `card(...)` steps; `questions_box(...)`.
+**Validated rules**: the hero number is twice the size of the others (56 vs 28); every tile has the same height and
+top; every figure states unit and base ("24 h → 6 h", "1 400 requests, 8 weeks"); figures that are not the user's
+are marked illustrative in the footer.
+**Traps**: all figures the same size (no hierarchy); coloured edges on every tile (they compete with the hero); a
+yellow questions box larger than the "how" block.
+
+## Lifecycle around a core
+
+No dedicated example; start from `example_flow_tracks.py`.
+**Shape**: an outer dashed frame for the whole lifecycle, the owned core as a section block with a dark header bar,
+the phases outside it greyed or dashed when out of scope or not measured, a return loop under everything.
+**Kit**: `rect(..., style="dashed")` for the frame, `section_block(...)` for the core, `card(...)` for phases, an
+elbowed `arrow(..., via=...)` for the loop with its label beneath.
+**Traps**: the frame and the loop competing (loop below the frame's content, frame lighter than the core).

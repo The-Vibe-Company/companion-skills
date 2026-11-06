@@ -833,7 +833,12 @@ class Scene:
                 inner = [o for o in shapes if o is not z and 6000 <= o["width"] * o["height"] < z["width"] * z["height"] / 2
                          and _bounds(o)[0] >= zb[0] and _bounds(o)[2] <= zb[2] and _bounds(o)[1] >= zb[1]
                          and _bounds(o)[3] <= zb[3]]
-                if inner:
+                def _in(t, b):
+                    tb = _bounds(t)
+                    return tb[0] >= b[0] and tb[2] <= b[2] and tb[1] >= b[1] and tb[3] <= b[3]
+                own_text = [t for t in self.els if t["type"] == "text" and t["fontSize"] >= 16 and _in(t, zb)
+                            and not any(_in(t, _bounds(o)) for o in inner)]
+                if inner and not own_text:          # a zone holding boxes, not a card holding its own text
                     z["fillStyle"] = "hachure"
                     z["backgroundColor"] = soft[z["backgroundColor"]]
         if STYLE["curved"]:

@@ -1,7 +1,7 @@
 {
   "$schema": "https://skillpack.app/schemas/companion-manifest.v2.schema.json",
   "name": "design-excalidraw-tools",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "title": "Excalidraw Diagram Designer",
   "description": "Design beautiful, readable Excalidraw diagrams of any kind, in six styles chosen from the request, from a Python generator, then lint, render, look and refine before delivery.",
   "notes": "## What it does\n\nTurns a request for a diagram into a beautiful Excalidraw scene: flows and processes, architectures, timelines and roadmaps, before/after comparisons, concept maps, layered stacks, posters with key figures, swimlanes and illustrated explainers with hand-drawn pictograms, in six styles chosen from the request and the audience: corporate (default), editorial, hand-drawn sketch, playful pastel, dark night and black-and-white mono. Colour is not the default; sober is. The diagram is generated from a short Python script built on a bundled kit, so it can be regenerated after every round of feedback.\n\n## Quality loop\n\nMessage first, then structure, generate, lint, render, look, refine. The lint catches overflowing text, overlaps, arrows crossing labels, crowded boxes and colour sprawl; the render is always checked before delivery. Important diagrams get a cold critique from independent reviewers with distinct personas, and their findings are sorted, not blindly applied.\n\n## Rendering and publishing\n\nRenders locally with headless Chromium when available, or through the Excalidraw+ API (EXCALIDRAW_API_KEY, optional). New versions go to new scenes; scenes are never deleted or shared without an explicit request, because share links are public.\n\n## Portability\n\nPython helpers use only the standard library; the local renderer needs Node and Playwright, the publishing helper needs an Excalidraw+ API key. Without either, the skill still produces the .excalidraw file to open on excalidraw.com.",
@@ -10,10 +10,18 @@
     "usage": {
       "schemaVersion": 1,
       "skillId": "f1567982-638a-46c1-9ab1-4379fa8eed44",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "origin": "https://skillpack.app"
     },
     "changelog": [
+      {
+        "version": "0.3.1",
+        "date": "2026-11-06",
+        "changes": [
+          "Style choice reads the audience first, then the tone: a general audience with a warm tone gets playful even when the request says hand-drawn; the soberer tie-break applies only to real ties.",
+          "Sketch hatching applies only to zones holding boxes, never to a card with its own text."
+        ]
+      },
       {
         "version": "0.3.0",
         "date": "2026-11-06",

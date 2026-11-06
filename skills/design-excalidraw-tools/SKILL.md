@@ -19,7 +19,7 @@ metadata: {}
 <!-- skillpack:usage:start -->
 ## Skillpack runtime
 
-Usage is observed locally by skillpack-runtime when installed through Skillpack. Package: f1567982-638a-46c1-9ab1-4379fa8eed44@0.3.0, origin: https://skillpack.app.
+Usage is observed locally by skillpack-runtime when installed through Skillpack. Package: f1567982-638a-46c1-9ab1-4379fa8eed44@0.3.1, origin: https://skillpack.app.
 Do not send activation reports, run tracking commands, or install hooks during this skill's execution. Setup and updates belong to Skillpack. Continue the task when collection is unavailable. SKILLPACK_TELEMETRY=0 disables collection for this session.
 <!-- skillpack:usage:end -->
 
@@ -54,11 +54,11 @@ A style is the whole look: palette, clean or hand-drawn rendering, corner radius
 | No signal; clients, management, slides, documentation | **corporate** (clean, cool greys, one violet accent) |
 | Poster, report, article, one-page summary | **editorial** (grotesk type, square corners, hairline ink, cobalt accent) |
 | Workshop, brainstorm, internal, "sketch", informal | **sketch** (hand-drawn on cream, pen lines, hachure, one terracotta accent) |
-| General public, blog, onboarding, "friendly / fun / colourful" | **playful** (display titles, pastel per step or zone, yellow sticker, pictograms) |
+| General or non-technical audience (blog, public, onboarding) + warm tone ("friendly / warm / not corporate / fun") | **playful** (display titles, pastel per step or zone, yellow sticker, pictograms) |
 | Dark slides, developer talk, dark mode | **night** (layered navy surfaces, monospace labels, cyan accent) |
 | Print, black and white, "sober / minimal / no colour" | **mono** (ink and greys only, emphasis by weight and fill) |
 
-When two fit, take the soberer one and offer the other in one line. When the user brings brand colours, keep the style and recolour its roles with `excalikit.set_palette`. Every example takes `--style <name>`; in your own generator call `palettes.setup(style="sketch")` before drawing and `S.header(title, message)` for the title block: the kit then applies the style's whole grammar (fonts, header, strokes, outlines, hachure, arched arrows, the loud element) to everything you draw. Use the spacing and type scales from `palettes.py` instead of ad-hoc numbers.
+Read the audience first, then the tone: a general or non-technical audience with a warm tone ("friendly", "warm", "not corporate", "fun") is playful even when the request says "hand-drawn"; sketch is for informal internal use. Only when signals really tie, take the soberer one and offer the other in one line. When the user brings brand colours, keep the style and recolour its roles with `excalikit.set_palette`. Every example takes `--style <name>`; in your own generator call `palettes.setup(style="sketch")` before drawing and `S.header(title, message)` for the title block: the kit then applies the style's whole grammar (fonts, header, strokes, outlines, hachure, arched arrows, the loud element) to everything you draw. Use the spacing and type scales from `palettes.py` instead of ad-hoc numbers.
 
 ## 4. Generate with a script
 

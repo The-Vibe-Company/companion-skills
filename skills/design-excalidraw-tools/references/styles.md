@@ -21,14 +21,18 @@ neutrals and one accent than with a rainbow, and a user who did not ask for colo
 | No signal; clients, management, slides, documentation, anything shared outside the team | **corporate** |
 | Poster, report, article, one-pager, "summary on one page" | **editorial** |
 | Workshop, brainstorm, internal explainer, "sketch", "whiteboard", informal | **sketch** |
-| General public, blog post, onboarding, "friendly", "fun", "colourful", "for kids" | **playful** |
+| General or non-technical audience (blog, public, onboarding) with a warm tone: "friendly", "warm", "fun", "not corporate", "colourful", "for kids" | **playful** |
 | "Dark", slides in dark mode, developer talk, dark-mode documentation | **night** |
 | "Print", "black and white", "sober", "minimal", "no colour", photocopied handout | **mono** |
 
-- **When two fit, pick the soberer one** (mono > editorial > corporate > sketch > night > playful in colour spent) and
-  offer the other in one line: "Made in corporate; say if you want the hand-drawn sketch version."
-- **A named style wins** over every signal. "Hand-drawn" alone means sketch, not playful: playful needs a general
-  audience or an explicit ask for colour or fun.
+- **Audience first, then tone.** A general or non-technical audience (blog readers, the public, new customers,
+  kids) *plus* a warm tone in the request ("friendly", "warm", "fun", "not corporate", "playful", "colourful") means
+  **playful**, even when the request also says "hand-drawn": playful is hand-drawn too. Sketch is for informal
+  *internal* use (workshop, team channel, brainstorm) or when "hand-drawn" comes with no audience or tone.
+- **Only when the signals really tie, pick the soberer one** (mono > editorial > corporate > sketch > night >
+  playful in colour spent) and offer the other in one line: "Made in corporate; say if you want the hand-drawn
+  sketch version." Do not use this rule to override an explicit warm tone for a general audience.
+- **A named style wins** over every signal.
 - **Brand palette**: keep the style's structure (rendering, radius, mood) and swap palette roles; see
   "Brand colours" below. Never invent a seventh style for a brand.
 

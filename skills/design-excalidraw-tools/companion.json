@@ -1,7 +1,7 @@
 {
   "$schema": "https://skillpack.app/schemas/companion-manifest.v2.schema.json",
   "name": "design-excalidraw-tools",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "title": "Excalidraw Diagram Designer",
   "description": "Design beautiful, readable Excalidraw diagrams of any kind, in seven styles chosen from the request, from a Python generator, then lint, render, look and refine before delivery.",
   "notes": "## What it does\n\nTurns a request for a diagram into a beautiful Excalidraw scene: flows and processes, architectures, timelines and roadmaps, before/after comparisons, concept maps, layered stacks, posters with key figures, swimlanes, illustrated explainers with hand-drawn pictograms and decks of portrait study flashcards (pocket guides, one idea per card, each card exported alone at 1200 x 1500), in six styles chosen from the request and the audience: corporate (default), editorial, hand-drawn sketch, playful pastel, whiteboard with line icons, dark night and black-and-white mono. Colour is not the default; sober is. The diagram is generated from a short Python script built on a bundled kit, so it can be regenerated after every round of feedback.\n\n## Quality loop\n\nMessage first, then structure, generate, lint, render, look, refine. The lint catches overflowing text, overlaps, arrows crossing labels, crowded boxes and colour sprawl; the render is always checked before delivery. Important diagrams get a cold critique from independent reviewers with distinct personas, and their findings are sorted, not blindly applied.\n\n## Rendering and publishing\n\nRenders locally with headless Chromium when available, or through the Excalidraw+ API (EXCALIDRAW_API_KEY, optional). New versions go to new scenes; scenes are never deleted or shared without an explicit request, because share links are public.\n\n## Portability\n\nPython helpers use only the standard library; the local renderer needs Node and Playwright, the publishing helper needs an Excalidraw+ API key. Without either, the skill still produces the .excalidraw file to open on excalidraw.com.",
@@ -10,10 +10,20 @@
     "usage": {
       "schemaVersion": 1,
       "skillId": "f1567982-638a-46c1-9ab1-4379fa8eed44",
-      "version": "0.5.0",
+      "version": "0.6.0",
       "origin": "https://skillpack.app"
     },
     "changelog": [
+      {
+        "version": "0.6.0",
+        "date": "2026-11-09",
+        "changes": [
+          "Free composition: references/composition.md (compose from the content's shape: layouts per shape, devices to borrow, combining, inventing safely) and SKILL.md step 2 rewritten: examples and gallery are references for finish and devices, not templates.",
+          "assets/gallery/: 13 reference pictures across shapes and styles, including three compositions invented by test agents (ring loop, permissions map, 3 x 3 grid).",
+          "Layouts beyond a row: ring(), grid(), cycle(), arc_arrow(), matrix(); new example_cycle.py.",
+          "fan_out() corners are true quarter circles; readability rule for wide canvases."
+        ]
+      },
       {
         "version": "0.5.0",
         "date": "2026-11-09",

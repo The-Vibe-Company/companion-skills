@@ -4,6 +4,7 @@ Primitives: text, rect, ellipse, line, arrow, chip.
 Generic components: node, group, connect, labelled_arrow, stat, edge_rect, timeline.
 Small marks: step (numbered marker), dot (status dot + label), divider, callout (annotation with a leader line).
 System maps: icon_card, list_card, window_card, feature_box, icon_list, fan_out, curve (icons from icons.py).
+Layouts beyond a row: ring() and grid() positions, cycle() and arc_arrow() around a circle, matrix() 2 x 2.
 Flow and document components: card, out_chip, status_chip, badges, cartouche, legend, section_block, lane, hero_bar,
 rows, questions_box.
 Dense process maps: banner (TODAY / GOAL band), checklist (filled = live, hollow = to build), badge_legend (lettered
@@ -216,6 +217,22 @@ def corner_radius(w, h, radius=None):
     if v is None:
         v = 32
     return m * 0.25 if m <= v * 4 else v
+
+
+def ring(cx, cy, r, n, w=0, h=0, start=-90):
+    """Top-left corners of n boxes (w x h) centred on a circle of radius r around (cx, cy), the first at `start`
+    degrees (-90 = top), going clockwise. For cycles, hubs with spokes, around-a-core layouts."""
+    import math
+    out = []
+    for i in range(n):
+        a = math.radians(start + 360 * i / n)
+        out.append((cx + r * math.cos(a) - w / 2, cy + r * math.sin(a) - h / 2))
+    return out
+
+
+def grid(x, y, cols, n, w, h, gx=32, gy=32):
+    """Top-left corners of n cells (w x h) in rows of `cols`, gaps gx / gy: matrices, galleries, catalogues."""
+    return [(x + (i % cols) * (w + gx), y + (i // cols) * (h + gy)) for i in range(n)]
 
 
 def warn(msg):
@@ -1167,19 +1184,93 @@ class Scene:
         ys = sorted([t[1] for t in targets] + ([more] if more is not None else []))
         top, bot = ys[0], ys[-1]
         self.line(xs, top + r, [[0, 0], [0, bot - top - 2 * r]], color, sw)
+        def corner(sy, ty, tail):
+            """Quarter circle from the spine at (xs, sy) into a horizontal at (xs + r, ty), then `tail` px on."""
+            import math
+            sign = 1 if ty > sy else -1
+            pts = [(r - r * math.cos(math.radians(90 * i / 8)), sign * r * math.sin(math.radians(90 * i / 8)))
+                   for i in range(9)]
+            if tail:
+                pts.append((r + tail, ty - sy))
+            c = self.line(xs, sy, [[px, py] for px, py in pts], color, sw)
+            c["roundness"] = {"type": 2}
+
         for tx, ty in targets:
             if ty in (top, bot) and bot - top > 2 * r:
                 sy = top + r if ty == top else bot - r
-                a = self.arrow(xs, sy, tx, ty, color, sw, via=[(xs, sy + (ty - sy) * 0.55), (xs + r * 0.45, ty),
-                                                             (xs + r, ty)])
-                a["roundness"] = {"type": 2}
+                corner(sy, ty, 0)
+                self.arrow(xs + r, ty, tx, ty, color, sw)
             else:
                 self.arrow(xs, ty, tx, ty, color, sw)
         if more is not None:
-            e = self.line(xs, more - r if more == bot else more, [[0, 0], [0, r * 0.55], [r * 0.45, r], [24, r]]
-                          if more == bot else [[0, 0], [24, 0]], color, sw)
-            e["roundness"] = {"type": 2}
+            if more == bot and bot - top > 2 * r:
+                corner(bot - r, bot, 24 - r)
+            else:
+                self.line(xs, more, [[0, 0], [24, 0]], color, sw)
         return xs
+
+    # ------------------------------------------------------------ circular and matrix layouts
+    def arc_arrow(self, cx, cy, r, a0, a1, color=None, sw=2, head=True, style="solid", step=6):
+        """Arrow along a circle of radius r around (cx, cy), from angle a0 to a1 in degrees (clockwise on screen
+        when a1 > a0). For cycles and loops drawn around a core."""
+        import math
+        n = max(3, int(abs(a1 - a0) / step))
+        pts = [(cx + r * math.cos(math.radians(a0 + (a1 - a0) * i / n)),
+                cy + r * math.sin(math.radians(a0 + (a1 - a0) * i / n))) for i in range(n + 1)]
+        x1, y1 = pts[0]
+        if head:
+            e = self.arrow(x1, y1, pts[-1][0], pts[-1][1], color, sw, style, via=pts[1:-1])
+        else:
+            e = self.line(x1, y1, [[px - x1, py - y1] for px, py in pts], _c(color, "INK"), sw, style)
+        e["roundness"] = {"type": 2}
+        return e
+
+    def cycle(self, cx, cy, r, boxes, color=None, sw=2, gap=ARROW_GAP + 4, style="solid", closed=True):
+        """Arc arrows between successive boxes (x, y, w, h) placed on a circle (see ring()), each arrow leaving one
+        box and stopping `gap` px before the next along the circle; closed=False leaves the last-to-first arc
+        out. Returns the arrows."""
+        import math
+
+        def ang(b):
+            return math.degrees(math.atan2(b[1] + b[3] / 2 - cy, b[0] + b[2] / 2 - cx))
+
+        def exit_offset(b, a, sign):
+            x, y, w, h = b
+            t = 0.0
+            while t < 170:
+                px = cx + r * math.cos(math.radians(a + sign * t))
+                py = cy + r * math.sin(math.radians(a + sign * t))
+                if not (x - gap <= px <= x + w + gap and y - gap <= py <= y + h + gap):
+                    return t
+                t += 0.5
+            return t
+        out = []
+        pairs = list(zip(boxes, boxes[1:] + (boxes[:1] if closed else [])))
+        for b0, b1 in pairs:
+            a0, a1 = ang(b0), ang(b1)
+            while a1 <= a0:
+                a1 += 360
+            s0, e1 = a0 + exit_offset(b0, a0, 1), a1 - exit_offset(b1, a1 % 360 if a1 > 180 else a1, -1)
+            if e1 - s0 > 4:
+                out.append(self.arc_arrow(cx, cy, r, s0, e1, color, sw, True, style))
+        return out
+
+    def matrix(self, x, y, w, h, x_axis, y_axis, quads=(), *, fill=None, stroke=None, size=15):
+        """2 x 2 matrix: four quadrants (top-left, top-right, bottom-left, bottom-right) with optional titles,
+        axis arrows along the left and bottom edges and their labels ("low → high" reads left to right and bottom
+        to top). Returns the four quadrant boxes (x, y, w, h) in that order, for placing items."""
+        qw, qh = w / 2, h / 2
+        boxes = [(x, y, qw, qh), (x + qw, y, qw, qh), (x, y + qh, qw, qh), (x + qw, y + qh, qw, qh)]
+        for i, (bx, by, bw, bh) in enumerate(boxes):
+            self.rect(bx, by, bw, bh, _c(fill, "WHITE"), _c(stroke, "LINE"), 1, rounded=False)
+            if i < len(quads) and quads[i]:
+                self.text(bx + PAD, by + 12, quads[i], size, Palette.MID)
+        self.arrow(x - 18, y + h + 18, x + w + 8, y + h + 18, Palette.INK, 2)
+        self.arrow(x - 18, y + h + 18, x - 18, y - 8, Palette.INK, 2)
+        self.text(x + w / 2, y + h + 30, x_axis, 14, Palette.INK, align="center")
+        lw, lh = self._ts(y_axis, 14)
+        self.text(x - 30 - lw, y + h / 2 - lh / 2, y_axis, 14, Palette.INK)
+        return boxes
 
 def hand_drawn(scene):
     """Switch a scene to the hand-drawn look (Excalifont, roughness 1). Call right after Scene(), before building.

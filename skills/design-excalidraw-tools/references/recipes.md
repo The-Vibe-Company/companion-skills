@@ -1,7 +1,7 @@
 # Recipes by diagram type
 
-Pick the type whose shape matches the idea, then copy its example from `assets/` and change the content, keeping the
-grid constants. Every example takes `--out` and `--style corporate|editorial|sketch|playful|night|mono` (see `references/styles.md`), and
+These are validated rules for recurring types, not templates: read `composition.md` first, compose for your content,
+and use a recipe's rules when your diagram is of that type. Every example takes `--out` and `--style corporate|editorial|sketch|playful|night|mono` (see `references/styles.md`), and
 uses the tokens of `references/design-principles.md` through `assets/palettes.py`.
 
 Contents: flow · swimlanes and tracks · architecture · layered stack · timeline / roadmap · before / after · hub
@@ -19,6 +19,7 @@ Contents: flow · swimlanes and tracks · architecture · layered stack · timel
 | Illustrated explainer | `assets/example_explainer.py` | 1600 |
 | Flashcards (deck of study cards) | `assets/example_flashcards.py` | 600 per card |
 | Agent / system map | `assets/example_agent_system.py` | 1850 |
+| Cycle around a core | `assets/example_cycle.py` | 1100 |
 | Dense process map (lifecycle, tracks, gate) | `assets/example_process_map.py` | 2856 |
 
 All share the header block (title 36 at y 0, message 20 at y 56, content from y ≈ 148) and the footer line (legend

@@ -292,8 +292,8 @@ def example(default_out, doc="", default_style=None):
 TINTS = {
     "playful": [("#fff3bf", "#ffd43b"), ("#d3f9d8", "#69db7c"), ("#e5dbff", "#b197fc"), ("#ffdeeb", "#faa2c1"),
                 ("#d0ebff", "#74c0fc"), ("#c3fae8", "#63e6be"), ("#ffe8cc", "#ffa94d")],
-    "whiteboard": [("#ece6ff", "#9f8fd9"), ("#e1edff", "#86a9dc"), ("#e2f6e6", "#86c49a"), ("#fff4d1", "#d8b85a"),
-                   ("#ffe6ea", "#e09aa8"), ("#dff5f2", "#7cbfb5"), ("#ffead8", "#e0a173")],
+    "whiteboard": [("#ece6ff", "#9f8fd9"), ("#e2f6e6", "#86c49a"), ("#fff4d1", "#d8b85a"), ("#ffe6ea", "#e09aa8"),
+                   ("#dff5f2", "#7cbfb5"), ("#ffead8", "#e0a173"), ("#e1edff", "#86a9dc")],   # blue last: the loud card is blue
     "warm": [("#faefd9", "#e9c46a"), ("#f9e3d3", "#e5986b"), ("#e6efdf", "#9cc18b"), ("#ebe4f1", "#b5a2cf"),
              ("#f6e1e3", "#d99aa3"), ("#e1ebf3", "#8fb3d3"), ("#e0f0ec", "#86c2b2")],
 }

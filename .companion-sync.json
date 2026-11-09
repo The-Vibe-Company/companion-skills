@@ -28,8 +28,8 @@
     },
     {
       "slug": "design-excalidraw-tools",
-      "version": "0.5.0",
-      "checksum": "sha256:abd65a0f96882634b5a65e82ba034a5ef96d78c1600f13e68f1d41e619932d53"
+      "version": "0.6.0",
+      "checksum": "sha256:3e30c26896704349429706b871799e8b5d33654327d44e716acb242e5b0c6e6e"
     },
     {
       "slug": "design-frontend-dev",
@@ -79,7 +79,7 @@
   ],
   "companion_ownership": {
     "app_id": "4353406",
-    "previous_commit_sha": "4f67450ba05f28a26e01bc9b05834f1af442186f",
-    "signature": "iuTG1cR_02OOSkiz8_esOqcKLKCZmm-1_vTNwGZbI4XfjZPhhs8mZZSxcDaQrTfSoVQO9qmrcCbaXZRadv6PyLCI3hy2xhox9kra0OT1naPiI3_jIcAhBYADQiGIY0f8vmGmfJrZ0KIumsq8j1K8LrJaHZnhQrOVzTZpylkAJp4SAGK0G5tQ7HwlMIPRtGppXhK3cwTrCpjN4GPCw-GDEIl9isRCt2xkmPS9XYt3Ea6jDbSU2LaCT6f9vJp92pwUFyF6wPbra9HAofksmQ7yxp5Fwbg7ZKfQk6wRhgIOfP1LhZRcoqU7xx9ksjFdOV8FhBxBJ7P4dbz85GsKWCUdvQ"
+    "previous_commit_sha": "dc20acbba972e9adee962ec81cf3d658446ca618",
+    "signature": "WZaY2BriaVZ9H0VBL1yMtQOnZ3adDwX7lCwrwo1UpWF_LrpRe35SXvsyOFPXsTHjfY5ynrhS0iu5R8StKXQAc9iRBD3gqQtF5XIrcKYtUHu35pHnXWljkViHNcCCEerdxNmvclPrsKr7jtkDSuuqkQSZBPBk2_881QTuYqMOH0eqHRlZtT-ZhFuvrCvnZe-uUD6QWuSDJgFX3673ZJFZPKYw4iHG9jlJwShvcaPayoeihPU_cAb953wOPyabFJHDtQcscxFeeR8_5s8DCveD4Wx8eAZzO9ZZ50APNfgIu_7ePntVz1qOxizBlVSXk2WX9H3aeAloMJyJMNZmm3lX9A"
   }
 }

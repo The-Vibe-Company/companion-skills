@@ -3,6 +3,7 @@
 Primitives: text, rect, ellipse, line, arrow, chip.
 Generic components: node, group, connect, labelled_arrow, stat, edge_rect, timeline.
 Small marks: step (numbered marker), dot (status dot + label), divider, callout (annotation with a leader line).
+System maps: icon_card, list_card, window_card, feature_box, icon_list, fan_out, curve (icons from icons.py).
 Flow and document components: card, out_chip, status_chip, badges, cartouche, legend, section_block, lane, hero_bar,
 rows, questions_box.
 Dense process maps: banner (TODAY / GOAL band), checklist (filled = live, hollow = to build), badge_legend (lettered
@@ -983,6 +984,202 @@ class Scene:
         self.text((x_from + x_to) / 2, ly, label, size, color, align="center")
         return ly + th if below else ly
 
+
+    # ------------------------------------------------------------ system maps (agents, services, people)
+    def _icon(self, name, cx, cy, size, color=None):
+        """Draw a line icon from icons.py (same folder) centred on (cx, cy)."""
+        import os as _os
+        here = _os.path.dirname(_os.path.abspath(__file__))
+        if here not in sys.path:
+            sys.path.insert(0, here)
+        import icons
+        return icons.icon(self, name, cx, cy, size, color)
+
+    def _tag_since(self, n0, keep=(), tag="widget"):
+        """Mark elements added since index n0 (except `keep`) as parts of a widget, so lint skips layout checks
+        inside it (rows, tiles and bars nest and overlap on purpose)."""
+        for e in self.els[n0:]:
+            if e not in keep and not (e.get("customData") or {}).get("doodle"):
+                e["customData"] = dict(e.get("customData") or {}, doodle=tag)
+
+    def icon_card(self, x, y, w, h, label, icon=None, *, sub=None, fill=None, stroke=None, size=17, layout="row",
+                  icon_size=None, color=None, sw=2, radius=None):
+        """Card with a line icon and a label. layout='row': icon then label on the card's middle line (role cards:
+        "Product Lead", an idea bubble with a bulb); layout='stack': icon above a centred label and an optional sub
+        line (people, gates, outcomes: "You" / "(the reviewer)"). fill / stroke default WHITE / INK.
+        Returns (x, y, w, h)."""
+        fill, stroke = _c(fill, "WHITE"), _c(stroke, "INK")
+        loud = str(fill).lower() == str(Palette.LOUD).lower()
+        col = _c(color, "LOUD_TXT" if loud else "INK")
+        sub_col = Palette.LOUD_SUB if loud else Palette.MID
+        self.rect(x, y, w, h, fill, stroke, sw, radius=radius)
+        if layout == "row":
+            isz = icon_size or round(size * 1.4)
+            cy = y + h / 2
+            tx = x + PAD
+            if icon:
+                self._icon(icon, tx + isz / 2, cy, isz, col)
+                tx += isz + 12
+            self.text_mid(tx, cy, label, size, col)
+            used = tx - x + self._ts(label, size)[0] + PAD
+            tall = self._ts(label, size)[1] + 16
+        else:
+            isz = icon_size or round(size * 1.9)
+            lh = self._ts(label, size)[1]
+            sh = self._ts(sub, size - 2)[1] + 2 if sub else 0
+            top = y + (h - ((isz + 10) if icon else 0) - lh - sh) / 2
+            if icon:
+                self._icon(icon, x + w / 2, top + isz / 2, isz, col)
+                top += isz + 10
+            self.text(x + w / 2, top, label, size, col, align="center")
+            if sub:
+                self.text(x + w / 2, top + lh + 2, sub, size - 2, sub_col, align="center")
+            used = max(self._ts(label, size)[0], self._ts(sub or "", size - 2)[0]) + 2 * PAD
+            tall = (isz + 10 if icon else 0) + lh + sh + 16
+        if used > w or tall > h:
+            warn(f"OVERFLOW in icon_card '{label.splitlines()[0][:30]}': needs {used:.0f} x {tall:.0f}")
+        return (x, y, w, h)
+
+    def icon_list(self, x, y, items, size=15, icon_size=None, step=None, icon_color=None, color=None):
+        """Rows of (icon, text) with no box: notes under a node, ticks in a feature box. Text may hold two lines.
+        Rows are `step` apart (default: row height + 10). Returns the y under the last row."""
+        isz = icon_size or round(size * 1.3)
+        cy = y
+        for ic, t in items:
+            th = self._ts(t, size)[1]
+            rh = max(isz, th)
+            self._icon(ic, x + isz / 2, cy + min(rh, self._ts("X", size)[1]) / 2, isz, icon_color)
+            self.text(x + isz + 12, cy + (min(rh, self._ts("X", size)[1]) - self._ts("X", size)[1]) / 2, t, size,
+                      _c(color, "INK"))
+            cy += step if step else rh + 10
+        return cy
+
+    def list_card(self, x, y, w, h, title, items, *, note=None, fill=None, stroke=None, size=15, title_size=17,
+                  icon_size=None):
+        """What a role does: a header (title + optional small note) over a divider, then rows of (icon, text),
+        spread evenly in the rest of the box. Returns (x, y, w, h)."""
+        fill, stroke = _c(fill, "PAPER"), _c(stroke, "INK")
+        self.rect(x, y, w, h, fill, stroke, 2)
+        hh = self._ts(title, title_size)[1] + 24
+        self.text_mid(x + PAD, y + hh / 2, title, title_size, Palette.INK)
+        if note:
+            self.text_mid(x + PAD + self._ts(title, title_size)[0] + 6, y + hh / 2 + 2, note, 12, Palette.MID)
+        n0 = len(self.els)
+        self.line(x + 1, y + hh, [[0, 0], [w - 2, 0]], stroke, 1)
+        isz = icon_size or round(size * 1.3)
+        cap = self._ts("X", size)[1]
+        rows = [max(isz, self._ts(t, size)[1]) for _, t in items]
+        top, bottom = y + hh + 16, y + h - 16
+        gap = (bottom - top - sum(rows)) / max(len(items) - 1, 1)
+        if gap < 6:
+            warn(f"OVERFLOW in list_card '{title[:30]}': rows need {sum(rows) + 6 * (len(items) - 1):.0f}px")
+        cy = top
+        for (ic, t), rh in zip(items, rows):
+            self._icon(ic, x + PAD + isz / 2, cy + cap / 2, isz, Palette.INK)
+            self.text(x + PAD + isz + 12, cy, t, size, Palette.INK)
+            if PAD + isz + 12 + self._ts(t, size)[0] > w - 10:
+                warn(f"OVERFLOW (width) in list_card '{title[:30]}': '{t.splitlines()[0][:30]}'")
+            cy += rh + gap
+        self._tag_since(n0, tag="list_card")
+        return (x, y, w, h)
+
+    def window_card(self, x, y, w, h, title, rows, *, title_icon="list", fill=None, stroke=None, size=18,
+                    row_fill=None):
+        """App, inbox or queue mock-up: a window with a title bar (three dots), a title with its icon, and rows.
+        rows: (icon names, status colour or None) — icons sit in small tiles, the content is two grey bars, the
+        status is a dot on the right. Returns (x, y, w, h)."""
+        fill, stroke = _c(fill, "WHITE"), _c(stroke, "INK")
+        frame = self.rect(x, y, w, h, fill, stroke, 2)
+        n0 = len(self.els)
+        bar = 32
+        for i in range(3):
+            self.ellipse(x + 16 + i * 16, y + bar / 2 - 4, 8, 8, "transparent", stroke, 1.5)
+        self.line(x + 1, y + bar, [[0, 0], [w - 2, 0]], stroke, 1.5)
+        th = self._ts(title, size)[1]
+        isz = round(size * 1.2)
+        ty = y + bar + 14 + th / 2
+        self._icon(title_icon, x + PAD + 4 + isz / 2, ty, isz, Palette.INK)
+        self.text_mid(x + PAD + 4 + isz + 12, ty, title, size, Palette.INK)
+        top = ty + th / 2 + 14
+        n = len(rows)
+        rh = min(64, (y + h - 14 - top - (n - 1) * 10) / max(n, 1))
+        if rh < 36:
+            warn(f"OVERFLOW in window_card '{title[:30]}': rows only {rh:.0f}px high")
+        for i, (icons_, status) in enumerate(rows):
+            ry = top + i * (rh + 10)
+            self.rect(x + 14, ry, w - 28, rh, _c(row_fill, "PAPER"), Palette.LINE, 1, radius=8)
+            tx = x + 26
+            t = rh * 0.56
+            for ic in icons_:
+                self.rect(tx, ry + (rh - t) / 2, t, t, Palette.LANE, Palette.LINE, 1, radius=5)
+                self._icon(ic, tx + t / 2, ry + rh / 2, t * 0.64, Palette.MID)
+                tx += t + 8
+            lw = (x + w - 14 - 44) - (tx + 8)
+            self.line(tx + 8, ry + rh / 2 - 5, [[0, 0], [lw * 0.8, 0]], Palette.STONE, 2)
+            self.line(tx + 8, ry + rh / 2 + 5, [[0, 0], [lw * 0.5, 0]], Palette.LINE, 2)
+            if status:
+                self.ellipse(x + w - 14 - 30, ry + rh / 2 - 7, 14, 14, status, status, 1)
+        self._tag_since(n0, keep=(frame,), tag="window")
+        return (x, y, w, h)
+
+    def feature_box(self, x, y, w, h, title, icon, items, *, fill=None, stroke=None, size=16, title_size=20,
+                    tick=None):
+        """A capability in a box: icon + title, then a list of ticked points (what it does).
+        Returns (x, y, w, h)."""
+        self.rect(x, y, w, h, _c(fill, "ACCENT_BG"), _c(stroke, "INK"), 2)
+        isz = round(title_size * 1.6)
+        cy = y + PAD + isz / 2 + 4
+        self._icon(icon, x + PAD + 6 + isz / 2, cy, isz, Palette.ACCENT)
+        self.text_mid(x + PAD + 6 + isz + 14, cy, title, title_size, Palette.INK)
+        end = self.icon_list(x + PAD + 22, cy + isz / 2 + 14, [("check", t) for t in items], size,
+                             icon_color=_c(tick, "GREEN"))
+        if end > y + h - 8:
+            warn(f"OVERFLOW in feature_box '{title[:30]}': content ends {end - y:.0f}px, box {h:.0f}px")
+        return (x, y, w, h)
+
+    def curve(self, x1, y1, x2, y2, start="v", color=None, sw=2, head=True, style="solid", n=10):
+        """Smooth quarter-turn link from (x1, y1) to (x2, y2): leaves vertically (start='v') and arrives
+        horizontally, or the reverse (start='h'). For links that go over or under the main row (an idea feeding a
+        later step, a feedback loop back to the start). Arrowhead at the end unless head=False; callers keep
+        ARROW_GAP to the boxes."""
+        cx, cy = (x1, y2) if start == "v" else (x2, y1)
+        pts = []
+        for i in range(n + 1):
+            t = i / n
+            px = (1 - t) ** 2 * x1 + 2 * (1 - t) * t * cx + t * t * x2
+            py = (1 - t) ** 2 * y1 + 2 * (1 - t) * t * cy + t * t * y2
+            pts.append((px, py))
+        rel = [[px - x1, py - y1] for px, py in pts]
+        if head:
+            e = self.arrow(x1, y1, x2, y2, color, sw, style, via=pts[1:-1])
+        else:
+            e = self.line(x1, y1, rel, _c(color, "INK"), sw, style)
+        e["roundness"] = {"type": 2}
+        return e
+
+    def fan_out(self, x_from, y_from, targets, x_spine=None, color=None, sw=2, more=None, r=12):
+        """One-to-many bracket: a line from (x_from, y_from) to a vertical spine, the spine spanning the targets
+        with rounded ends, and an arrow from the spine to each target point (x, y) — a box's left edge minus
+        ARROW_GAP. more = y of an extra open stub (no arrowhead) for "… and more". Returns x_spine."""
+        color = _c(color, "INK")
+        xs = x_spine if x_spine is not None else x_from + (min(t[0] for t in targets) - x_from) * 0.45
+        self.line(x_from, y_from, [[0, 0], [xs - x_from, 0]], color, sw)
+        ys = sorted([t[1] for t in targets] + ([more] if more is not None else []))
+        top, bot = ys[0], ys[-1]
+        self.line(xs, top + r, [[0, 0], [0, bot - top - 2 * r]], color, sw)
+        for tx, ty in targets:
+            if ty in (top, bot) and bot - top > 2 * r:
+                sy = top + r if ty == top else bot - r
+                a = self.arrow(xs, sy, tx, ty, color, sw, via=[(xs, sy + (ty - sy) * 0.55), (xs + r * 0.45, ty),
+                                                             (xs + r, ty)])
+                a["roundness"] = {"type": 2}
+            else:
+                self.arrow(xs, ty, tx, ty, color, sw)
+        if more is not None:
+            e = self.line(xs, more - r if more == bot else more, [[0, 0], [0, r * 0.55], [r * 0.45, r], [24, r]]
+                          if more == bot else [[0, 0], [24, 0]], color, sw)
+            e["roundness"] = {"type": 2}
+        return xs
 
 def hand_drawn(scene):
     """Switch a scene to the hand-drawn look (Excalifont, roughness 1). Call right after Scene(), before building.

@@ -548,7 +548,8 @@ def main():
         if words > a.max_words:
             warnings.append(f"{words} words in one box (max {a.max_words}) at x={b['x']:.0f}, y={b['y']:.0f}")
 
-    strokes = {e["strokeColor"].lower() for e in els if e["type"] != "text" and e.get("strokeColor")}
+    strokes = {e["strokeColor"].lower() for e in els if e["type"] != "text" and e.get("strokeColor")
+               and not is_doodle(e)}                     # icons, pictograms and widget parts are not "meanings"
     if len(strokes) > a.max_colors:
         warnings.append(f"{len(strokes)} stroke colours (max {a.max_colors}): does each colour still mean one thing?")
     fams = {}

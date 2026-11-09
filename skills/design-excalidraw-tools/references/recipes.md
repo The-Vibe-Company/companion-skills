@@ -18,6 +18,7 @@ Contents: flow · swimlanes and tracks · architecture · layered stack · timel
 | Poster with key figures | `assets/example_poster.py` | 1440 |
 | Illustrated explainer | `assets/example_explainer.py` | 1600 |
 | Flashcards (deck of study cards) | `assets/example_flashcards.py` | 600 per card |
+| Agent / system map | `assets/example_agent_system.py` | 1850 |
 | Dense process map (lifecycle, tracks, gate) | `assets/example_process_map.py` | 2856 |
 
 All share the header block (title 36 at y 0, message 20 at y 56, content from y ≈ 148) and the footer line (legend
@@ -238,6 +239,31 @@ for what disappears (bad tint, no border); `questions_box(...)`.
 lands; a tall card with nothing at a track's height (put the fork chip, a note or an inner box there); figures in
 the GOAL banner without "illustrative" in the footer; client names, product names or tool brands left on a generic
 map.
+
+## Agent / system map (who does what, where work waits, where a human decides)
+
+**Example**: `example_agent_system.py` — a coordinator fans out to four lead agents, their helpers write code and run
+tests, everything lands in one prioritised queue, one person reviews it, a gate checks, the change ships; an idea
+arcs over the row into the queue and the reviewer's feedback feeds a team memory that loops back to the leads.
+Default style **whiteboard**; every style works.
+**Shape**: one main row left to right, actors as cards, the human as the single loud card; things that are not steps
+(an idea source, notes on how the human works, a learning component) sit above or below the row and join it with
+smooth `curve()` links, never with straight arrows crossing the row.
+**Kit**: `icon_card(..., layout="row")` for roles (icon before the label: `layers`, `robot`, `database`),
+`icon_card(..., layout="stack")` for people, gates and outcomes (`user`, `shield_check`, `check`), `fan_out()` for one
+to many (with `more=` for "· · ·"), `list_card()` for what a role does (icon bullets), `window_card()` for a queue,
+inbox or dashboard, `icon_list()` for notes under a node, `feature_box()` for a capability with ticks, `curve()` for
+over and under links; icons from `scripts/icons.py`.
+**Validated rules**:
+- Role cards share one size and one icon; in the pastel mood each takes the next tint (fill + same-hue border), in
+  sober styles they stay white with ink borders and only the human card is loud.
+- Icons sit 12 px before their label, at 1.3–1.4x the text size; stack icons at about 1.9x above the label.
+- The fan-out spine sits 25–30 px left of the targets with rounded ends; the "· · ·" stub says the list goes on.
+- Curves leave a box vertically and arrive horizontally (or the reverse), ARROW_GAP from both boxes; the feedback
+  curve runs under the row, the idea curve over it.
+- Window rows carry status dots only when the colours mean something (priority, state); keep three to five rows.
+**Traps**: an icon on every word (only on actors, checks and outcomes); arrows criss-crossing the row instead of
+curves around it; more than one loud card; a queue window with real-looking content that nobody asked for.
 
 ## Lifecycle around a core
 

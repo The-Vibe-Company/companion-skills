@@ -3,11 +3,11 @@
 A style is the whole look of a diagram, a grammar rather than a palette: fonts (body, titles, small labels), header
 (sizes, alignment, rule), corner radius, stroke weights (quiet / key), outline colour, zone fills (solid or hachure),
 arrows (straight or arched), the loud element (ink block, raised neutral, yellow sticker with shadow) and how colour
-is spent (its mood). The six styles live in `assets/palettes.py` (`STYLES`); every example takes `--style <name>`,
+is spent (its mood). The seven styles live in `assets/palettes.py` (`STYLES`); every example takes `--style <name>`,
 and your own generator calls `palettes.setup(style="<name>")` before drawing and `S.header(title, message)` for the
 title block, so the kit applies the grammar everywhere (`excalikit.STYLE`, `font_for`, `Scene._finish`).
 
-Contents: choosing a style · corporate · editorial · sketch · playful · night · mono · colour moods · brand colours ·
+Contents: choosing a style · corporate · editorial · sketch · playful · whiteboard · night · mono · colour moods · brand colours ·
 make it superb in any style.
 
 Pick the style from the request and the audience, before any coordinate. One style per diagram: never mix fonts,
@@ -22,6 +22,7 @@ neutrals and one accent than with a rainbow, and a user who did not ask for colo
 | Poster, report, article, one-pager, "summary on one page" | **editorial** |
 | Workshop, brainstorm, internal explainer, "sketch", "whiteboard", informal | **sketch** |
 | General or non-technical audience (blog, public, onboarding) with a warm tone: "friendly", "warm", "fun", "not corporate", "colourful", "for kids" | **playful** |
+| Agent or system map, product or tech post, team talk, "the Excalidraw look" with icons | **whiteboard** |
 | "Dark", slides in dark mode, developer talk, dark-mode documentation | **night** |
 | "Print", "black and white", "sober", "minimal", "no colour", photocopied handout | **mono** |
 
@@ -101,6 +102,23 @@ legend for the tints; dense technical content (move to sketch or corporate).
 
 ```bash
 python assets/example_explainer.py --style playful
+```
+
+## whiteboard
+
+**When**: agent and system maps, product or tech posts, a team talk, "the Excalidraw look": diagrams that should feel
+hand-made but tidy, with icons that name the kinds of things (people, roles, checks, queues).
+**Signature**: Excalifont lettering on **crisp lines** (roughness 0), radius 14, white board, soft ink (`#2b2f36`),
+line icons from `scripts/icons.py` before labels, straight connectors plus smooth `curve()` links over and under
+the row.
+**Colour**: mood pastel. Each role or actor card takes the next pastel with a border of the same hue
+(`palettes.tints(n, "whiteboard")`: lavender, blue, green, yellow, pink, teal, peach); the person who decides is the
+loud card (pale blue, heavy outline); outcomes in the good tint; a learning or idea component in the violet accent
+tint. Status dots in a queue only when their colours mean something.
+**Avoid**: roughness on the shapes (that is sketch); a pastel on every box including neutral steps; icons as decoration.
+
+```bash
+python assets/example_agent_system.py --style whiteboard
 ```
 
 ## night

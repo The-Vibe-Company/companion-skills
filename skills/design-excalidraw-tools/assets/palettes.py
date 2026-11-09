@@ -131,6 +131,20 @@ PALETTES = {
         "loud_sub": "#cfcfcf",
         "badge": "#111111",
         "badge_txt": "#ffffff",},
+    # Whiteboard: white board, soft ink, hand lettering on crisp lines, one pastel family per role or actor.
+    # Agent systems, product and tech posts, "how our setup works" for a team or a talk.
+    "whiteboard": {
+        "canvas": "#ffffff", "white": "#ffffff", "paper": "#f8f9fa", "lane": "#f6f6f8", "line": "#d7d9de",
+        "stone": "#a9adb5", "grey": "#666b73", "mid": "#4a4f57", "ink": "#2b2f36", "on_dark": "#e9ecef",
+        "accent": "#6741d9", "accent_bg": "#f1edff", "accent_soft": "#c9bdf7",
+        "bad": "#c92a2a", "bad_bg": "#fff5f5", "bad_soft": "#ffc9c9",
+        "good": "#1f6f31", "good_bg": "#e6f8e9", "good_soft": "#a9dcb4",
+        "wait": "#b8470a", "wait_bg": "#fff4e6", "wait_soft": "#ffd8a8",
+        "open": "#c99700", "open_bg": "#fff8db", "open_txt": "#7a5d00",
+        "cat1": "#1864ab", "cat1_bg": "#e3eeff", "cat1_soft": "#9fc1ef",
+        "cat2": "#0b7285", "cat2_bg": "#e3f8f6", "cat2_soft": "#97d9cf",
+        "loud": "#e3eeff", "loud_txt": "#2b2f36", "loud_sub": "#4a4f57", "badge": "#2b2f36", "badge_txt": "#ffffff",
+    },
 }
 
 # role -> kit attribute names it drives
@@ -214,6 +228,12 @@ STYLES = {
                 "font": 5, "title_font": 7, "label_font": 5, "title": 40, "sub": 20, "align": "center", "rule": False,
                 "sw": 2, "sw_key": 3, "outline": "ink", "zone_fill": "solid", "curved": True, "shadow": True,
                 "use": "blog posts, onboarding, general public, when asked for friendly / fun / colourful"},
+    "whiteboard": {"palette": "whiteboard", "hand": True, "roughness": 0, "radius": 14, "mood": "pastel",
+                   "font": 5, "title_font": 5, "label_font": 5, "title": 36, "sub": 20, "align": "left",
+                   "rule": False, "sw": 2, "sw_key": 3, "outline": "ink", "zone_fill": "solid", "curved": False,
+                   "shadow": False,
+                   "use": "agent and system maps, product or tech posts and talks: hand lettering, crisp lines, "
+                          "line icons, one pastel per role"},
     "night": {"palette": "night", "hand": False, "radius": 12, "mood": "sober",
               "font": 6, "title_font": 6, "label_font": 3, "title": 36, "sub": 20, "align": "left", "rule": False,
               "sw": 1.5, "sw_key": 3, "outline": None, "zone_fill": "solid", "curved": False, "shadow": False,
@@ -245,6 +265,8 @@ def setup(args_hand=False, palette=None, style=None):
     S = excalikit.Scene()
     if spec["hand"]:
         excalikit.hand_drawn(S)
+    if "roughness" in spec:                          # hand lettering on crisp lines (whiteboard)
+        S.roughness = spec["roughness"]
     return S, pal
 
 
@@ -270,6 +292,8 @@ def example(default_out, doc="", default_style=None):
 TINTS = {
     "playful": [("#fff3bf", "#ffd43b"), ("#d3f9d8", "#69db7c"), ("#e5dbff", "#b197fc"), ("#ffdeeb", "#faa2c1"),
                 ("#d0ebff", "#74c0fc"), ("#c3fae8", "#63e6be"), ("#ffe8cc", "#ffa94d")],
+    "whiteboard": [("#ece6ff", "#9f8fd9"), ("#e1edff", "#86a9dc"), ("#e2f6e6", "#86c49a"), ("#fff4d1", "#d8b85a"),
+                   ("#ffe6ea", "#e09aa8"), ("#dff5f2", "#7cbfb5"), ("#ffead8", "#e0a173")],
     "warm": [("#faefd9", "#e9c46a"), ("#f9e3d3", "#e5986b"), ("#e6efdf", "#9cc18b"), ("#ebe4f1", "#b5a2cf"),
              ("#f6e1e3", "#d99aa3"), ("#e1ebf3", "#8fb3d3"), ("#e0f0ec", "#86c2b2")],
 }

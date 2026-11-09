@@ -135,7 +135,7 @@ _current_font = [FONT_CLEAN]
 # Style grammar (set by palettes.setup(style=...) through set_style). None = leave the scene's own choice.
 STYLE = {"font": None, "title_font": None, "label_font": None, "title": 36, "sub": 20, "align": "left",
          "rule": False, "sw": None, "sw_key": None, "outline": None, "zone_fill": "solid", "curved": False,
-         "shadow": False, "tints": None}
+         "shadow": False, "tints": None, "title_min": 28}
 
 
 def set_style(spec):
@@ -150,7 +150,7 @@ def font_for(size, default=None):
     """Font id a text of this size gets under the current style: titles (>= 28) take title_font, small labels
     (<= 12) take label_font, the rest the body font."""
     body = STYLE["font"] or default or _current_font[0]
-    if size >= 28 and STYLE["title_font"]:
+    if size >= STYLE.get("title_min", 28) and STYLE["title_font"]:
         return STYLE["title_font"]
     if size <= 12 and STYLE["label_font"]:
         return STYLE["label_font"]

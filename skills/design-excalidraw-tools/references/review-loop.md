@@ -1,5 +1,7 @@
 # Review loop
 
+Run the taste judge first (`references/art-direction.md`: five questions scored /2, ship at 8/10); the cold critiques below are for content and audience, after the picture already works.
+
 Run reviews after the first clean screenshot, in parallel, read-only. One or two reviewers are enough for most diagrams; use more only for an important, first-time deliverable. Give each reviewer the render (PNG path), a text dump of every text element (one per line, sorted by position), the brief, and the source files. Never give them your conclusions or your own critique: you want readings that are not anchored on yours.
 
 ## Text dump helper

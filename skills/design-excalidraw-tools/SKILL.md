@@ -1,109 +1,112 @@
 ---
 name: design-excalidraw-tools
-description: Design beautiful, readable Excalidraw diagrams of any kind — flows
-  and processes, architectures, timelines and roadmaps, before/after
-  comparisons, concept maps, layered stacks, posters with key figures,
-  swimlanes, illustrated explainers, decks of study flashcards, agent and system
-  maps with line icons — in seven styles chosen from the request (corporate,
-  editorial, hand-drawn sketch, playful pastel, whiteboard, dark,
-  black-and-white), generated from a Python script, linted, rendered and looked
-  at before delivery. Use this skill whenever someone asks for an Excalidraw
-  diagram, a schéma, a canevas, a whiteboard-style drawing, a visual
-  explanation, "make this diagram prettier / cleaner / less verbose", or any
-  diagram they will show to someone, even if they never say "design" or
-  "Excalidraw" but want a drawing in that style. Prefer it over hand-writing
-  Excalidraw JSON. Not for slide decks, Mermaid in markdown, numeric charts, or
-  UI mockups.
+description: Design beautiful, art-directed Excalidraw diagrams that explain
+  anything — flows, architectures, timelines, before/after, concept maps, loops,
+  posters, illustrated explainers, agent and system maps, flashcards, LinkedIn
+  or slide visuals — with taste by default (a claim title with a highlighter,
+  one hero, grey context, hand margin notes, fixed formats like 16:9 or 4:5) in
+  eight styles (signature house look by default, corporate, editorial, sketch,
+  playful, whiteboard, dark, mono), from a Python script, linted for layout and
+  taste, rendered, judged and delivered with alt text. Use it whenever someone
+  asks for an Excalidraw diagram, a schéma, a whiteboard drawing, a visual
+  explanation or a visual for a post or slide, or wants a diagram prettier or
+  more striking, even without saying "Excalidraw". Prefer it over hand-writing
+  Excalidraw JSON. Not for slide decks, Mermaid, numeric charts or UI mockups.
 metadata: {}
 ---
 
 <!-- skillpack:usage:start -->
 ## Skillpack runtime
 
-Usage is observed locally by skillpack-runtime when installed through Skillpack. Package: f1567982-638a-46c1-9ab1-4379fa8eed44@0.6.0, origin: https://skillpack.app.
+Usage is observed locally by skillpack-runtime when installed through Skillpack. Package: f1567982-638a-46c1-9ab1-4379fa8eed44@0.7.0, origin: https://skillpack.app.
 Do not send activation reports, run tracking commands, or install hooks during this skill's execution. Setup and updates belong to Skillpack. Continue the task when collection is unavailable. SKILLPACK_TELEMETRY=0 disables collection for this session.
 <!-- skillpack:usage:end -->
 
 # Design beautiful Excalidraw diagrams
 
-A beautiful diagram is one people understand in thirty seconds and enjoy looking at: one clear message, a strong hierarchy, generous space, colour that means something, very few words, and nothing that fights for attention. Beauty here is mostly subtraction and alignment, not decoration.
+A beautiful diagram is understood in three seconds and rewards three minutes: a claim, one hero that carries it, a calm path through the rest, a person's voice pointing at what matters, and nothing that fights for attention. Agents already know how to draw boxes; this skill brings the taste — decisions taken before any coordinate and held to the end. By default it imposes them; the user can always ask for something else.
 
-Work in a short loop: **message → structure → generate → lint → render → look → refine.** Every diagram goes through a real render before you call it done, because text widths, overlaps and visual weight only show on the picture.
+Work in a short loop: **brief → compose → generate → lint → render → look → judge → refine.** Every diagram goes through a real render before you call it done.
 
-## 1. Find the message first
+## 1. Write the brief
 
-Before any coordinate, write two or three lines (in the generator's docstring is fine):
+Before any coordinate, write the art-direction brief in the generator's docstring (template and examples in `references/art-direction.md`):
 
-- **Who looks at it, where, and for how long** — a workshop wall, a link in Slack, a slide, a README.
-- **The one thing they must remember.** Put it in the subtitle. Every element either supports it or goes.
-- **The words to keep.** Use the user's own terms for steps, systems and roles. Do not rename them for clarity; explain an obscure term once in the legend instead.
+```
+Claim · Hero · Device · Voice · Format and plan · Depths (3 s / 30 s / 3 min) · Colour (what each hue means)
+```
 
-If the user gave numbers, keep their unit and statistic attached (`2.1 working days, median`). Never invent figures to make a diagram look richer; an empty space is better than a made-up metric.
+- **Who looks at it, where, for how long** decides the format: `slide` 16:9 by default, `social` 4:5 for LinkedIn and phones (text 30 px and up, few words), `square`, `doc` portrait, `wide` for a README.
+- **The claim** is the one thing they must remember, as a sentence that says something ("Failed jobs never disappear"), not a topic ("Job architecture"). It becomes the title, with the highlighter on its key words.
+- **The hero** is the one block that carries the claim: the goal, the key figure, the moment that matters. It is 3-4x bigger than anything else and sits on a third of the frame.
+- **The words to keep.** Use the user's own terms for steps, systems and roles, verbatim. Explain an obscure term once on the canvas; never rename.
+- If the user gave numbers, keep their unit and statistic attached. Never invent figures; an empty space is better than a made-up metric. A hero that would need an invented number is the wrong hero.
 
-## 2. Compose the structure from the message
+If you cannot name a hero, the content probably holds two messages: make two diagrams, or draw a calm catalogue and say so.
 
-Name the shape of the content (a sequence, a split, a loop, a centre with parts, a hierarchy, a comparison, two axes, time, a journey, a system of actors, key figures, a catalogue), then compose a layout for it. Read `references/composition.md`: it lists layouts per shape, the devices you can borrow (one loud element, links over and under, fan-out, mock-ups, icons on actors, pictograms, notes, badges, chips, callouts, bands, checklists) and how to invent a layout safely when none fits.
+## 2. Compose from the content's shape
 
-You have freedom here. The examples and the pictures in `assets/gallery/` are references for the level of finish and for devices, not templates: borrow what serves the message, arrange it your own way, and copy an example's layout only when the content has exactly its shape. Look at two gallery pictures before and after you build, and hold your render to the same calm. `references/recipes.md` gives validated rules for the recurring types (flow, tracks, architecture, stack, timeline, before / after, hub, poster, explainer, flashcards, process map, agent system, cycle). Mixing several main shapes on one canvas is the most common reason a diagram feels messy; when two ideas compete, make two diagrams.
+Name the shape of the content (a sequence, a split, a loop, a centre with parts, a hierarchy, a comparison, two axes, time, a journey, a system of actors, key figures, a catalogue), then pick a page plan (`hero-right`, `hero-left`, `hero-top`, `path`, `split`, `ring`, `zoom`, `stack`, in `references/art-direction.md`) and the devices that make the shape visible (`references/composition.md`: lines merging, a numbered path, twin panels, a zoom inset, over-and-under links, fan-out, mock-ups, icons on actors, pictograms...). At most three devices.
 
-Read `references/design-principles.md` for the rules that make any of them look good: grid and spacing, hierarchy, typography, colour, arrows, density.
+You have freedom here. The plans are starting grids, the examples and `assets/gallery/` are the bar for finish, not templates: compose for your content, and copy a layout only when the content has exactly its shape. `references/recipes.md` holds validated rules for recurring types (flow, tracks, architecture, stack, timeline, before / after, hub, poster, explainer, flashcards, process map, agent system, cycle). `references/design-principles.md` holds grid, spacing, type, colour and arrow rules.
 
-## 3. Choose a style
+## 3. Keep the house look unless asked otherwise
 
-A style is the whole look: palette, clean or hand-drawn rendering, corner radius, and how colour is spent. The skill has seven, defined in `assets/palettes.py` (`STYLES`) and described in `references/styles.md`. Pick one from the request and the audience, never mix two in one diagram, and remember that colour is not the default: most diagrams are better sober.
+The default is the **signature** style: warm paper, a hand-lettered claim with a yellow highlighter, sans body text, grey context, one yellow hero, a burnt-orange voice for notes and the reading path. It is the skill's taste; use it whenever the request names no style and gives no strong signal.
 
-| Signal in the request or audience | Style |
-|---|---|
-| No signal; clients, management, slides, documentation | **corporate** (clean, cool greys, one violet accent) |
-| Poster, report, article, one-page summary | **editorial** (grotesk type, square corners, hairline ink, cobalt accent) |
-| Workshop, brainstorm, internal, "sketch", informal | **sketch** (hand-drawn on cream, pen lines, hachure, one terracotta accent) |
-| General or non-technical audience (blog, public, onboarding) + warm tone ("friendly / warm / not corporate / fun") | **playful** (display titles, pastel per step or zone, yellow sticker, pictograms) |
-| Agent or system map, product or tech post, team talk, "Excalidraw look" with icons | **whiteboard** (hand lettering on crisp lines, line icons, one pastel per role) |
-| Dark slides, developer talk, dark mode | **night** (layered navy surfaces, monospace labels, cyan accent) |
-| Print, black and white, "sober / minimal / no colour" | **mono** (ink and greys only, emphasis by weight and fill) |
+Switch only on a signal (`references/styles.md`): **corporate** for a client or management deck that must look formal, **editorial** for posters and reports, **sketch** for workshops and informal internal drawings, **playful** for a general audience with a warm tone, **whiteboard** for agent and system maps in the classic Excalidraw look, **night** for dark slides, **mono** for print or "no colour". A named style always wins. Brand colours recolour the style's roles (`excalikit.set_palette`). The signature blocks work in every style, so changing style never means losing the composition.
 
-Read the audience first, then the tone: a general or non-technical audience with a warm tone ("friendly", "warm", "not corporate", "fun") is playful even when the request says "hand-drawn"; sketch is for informal internal use. Only when signals really tie, take the soberer one and offer the other in one line. When the user brings brand colours, keep the style and recolour its roles with `excalikit.set_palette`. Every example takes `--style <name>`; in your own generator call `palettes.setup(style="sketch")` before drawing and `S.header(title, message)` for the title block: the kit then applies the style's whole grammar (fonts, header, strokes, outlines, hachure, arched arrows, the loud element) to everything you draw. Use the spacing and type scales from `palettes.py` instead of ad-hoc numbers.
+## 4. Generate with the signature layer
 
-## 4. Generate with a script
+```python
+import signature as G                       # scripts/signature.py (put scripts/ and assets/ on sys.path)
+S, F, pal = G.setup("slide")                 # style="signature" by default; any style works
+Z = G.plan(F, "hero-right")                  # zones: title, main, hero, notes, footer
+G.claim_title(S, F, "A new hire ships in week two, never alone", mark="week two", sub="...")
+G.hero(S, *Z["hero"], "Week 2", kicker="the goal", body="a first real change", drawing=...)
+G.line_of_stops(...); G.merge(...); G.step_card(...); G.path_badge(...); G.zoom_inset(...); G.twins(...)
+G.margin_note(S, x, y, "the first small win, on day one", tx, ty)     # one or two, never more
+G.whisper(S, F, "Illustrative example"); G.finish(S, F, out, alt="...", long="...")
+```
 
-Build with the kit; when an example is close, start from its code for the mechanics, then change the layout to fit your content. The examples in `assets/` — `example_flow_tracks.py` (flow with tracks), `example_architecture.py`, `example_timeline.py`, `example_before_after.py`, `example_hub.py` (concept map), `example_stack.py` (layers), `example_poster.py` (key figures), `example_explainer.py` (illustrated), `example_flashcards.py` (deck of portrait study cards: cover with contents, then one idea per card with poster title, short text, a small diagram and a rule-of-thumb box; built with `scripts/cards.py`, each card exported alone at 1200 x 1500), `example_cycle.py` (stages on a circle around a core, arc arrows, one callout), `example_agent_system.py` (agent or system map: orchestrator fanning out to role cards, a helpers list with icon bullets, a queue window, the human as the loud card, a gate and the outcome, notes under the human, an idea arcing over the row, a feedback loop into a learning box), `example_process_map.py` (dense process map: lifecycle frame, two entrances, two tracks, a gate with its checklist, skill badges, inputs / outputs, tools per step, failure and improvement loops, who-does-what and open questions); each runs with `--out` and `--style` — and build with `scripts/excalikit.py`: primitives (text, rect, ellipse, line, arrow, chip) and components (node, group, card, labelled arrow, badge, stat tile, timeline, hero bar, rows, legend, cartouche, questions box). For explainers, `scripts/doodles.py` adds pictograms (bubble, page, magnifier, robot, person, database, cloud, answer with sources…), number badges, arched arrows and a hand underline: draw the thing each step talks about, it does more than any sentence. For system maps, `scripts/icons.py` gives 52 line icons (user, users, layers, code, flask, chat, bulb, list, image, play, mic, check, shield_check, brain, database, cloud, robot, rocket…) sized to sit next to text, and the kit adds `icon_card`, `list_card`, `window_card`, `feature_box`, `icon_list`, `fan_out` and `curve`: put an icon on a node when it names a kind of thing (a person, a role, a check), not as decoration. The kit estimates text widths and prints `OVERFLOW` warnings to stderr; fix each one. Keep every content change in the generator so the diagram can be regenerated after each round of feedback.
+Start from the closest signature example — `example_signature_hub.py` (convergence into a goal), `example_signature_path.py` (numbered explainer with a hero step), `example_signature_split.py` (before / after twins), `example_signature_social.py` (LinkedIn 4:5), `example_signature_zoom.py` (overview + zoom inset) — then change the layout to fit your content. Everything in `scripts/excalikit.py` remains available (cards, icon cards, window mock-ups, rings, cycles, matrices, timelines, lanes, legends), with `scripts/icons.py` (52 line icons for actors and checks), `scripts/doodles.py` (pictograms to draw what a step talks about) and `scripts/cards.py` (flashcard decks). The older examples in `assets/` (`example_agent_system.py`, `example_process_map.py`, `example_explainer.py`, `example_flow_tracks.py`, `example_cycle.py`, `example_timeline.py`, `example_architecture.py`...) show those components; each runs with `--out` and `--style`. The kit prints `OVERFLOW` warnings to stderr; fix each one. Keep every content change in the generator so the diagram can be regenerated after feedback.
 
 ## 5. Lint, render, look
 
 ```bash
-python scripts/lint_scene.py diagram.excalidraw
+python scripts/lint_scene.py diagram.excalidraw --taste        # add --strict for the final pass
+node scripts/render_scene.mjs --in diagram.excalidraw --out diagram.png --padding 0
 ```
 
-Lint catches text overflowing its box, overlapping texts, text crossing a box edge, shapes poking out of rounded corners, arrows landing in labels or across borders, low contrast, orphans, crowded boxes and colour sprawl; `--strict` adds near-misses, uneven rhythm and tight padding for the final pass. Then render locally with `node scripts/render_scene.mjs --in diagram.excalidraw --out diagram.png` (official Excalidraw export in headless Chromium, no account; `--crop x,y,w,h --scale 2` to zoom), or with Excalidraw+ through `scripts/excalidraw_plus.py` or the MCP `take_screenshot` (`references/excalidraw-plus.md`). `references/validation.md` gives the one-time setup, the order of checks and where to zoom.
+Lint catches overflow, overlaps, poking corners, arrows in labels, low contrast and colour sprawl; `--taste` adds the art-direction checks (hero 2.5x the next block, type scale, claim size, text under the format's minimum, margins, dead bands, hue budget); `--strict` adds near-misses, rhythm and padding. Render locally (headless Excalidraw export; setup in `references/validation.md`) or through Excalidraw+ (`references/excalidraw-plus.md`).
 
-Look at the render as a stranger would: where does the eye land first — is it the message? Is anything touching, cramped or floating? Is there an empty band or a corner nobody reads? Fix, regenerate, look again.
+Look at the render as a stranger would, at the size it will be seen (a phone for `social`): does the eye land on the hero, then the claim? Is anything touching, cramped or floating? Is a fifth of the frame empty? Fix, regenerate, look again.
 
-## 6. Refine with a cold eye when it matters
+## 6. Judge, then refine with a cold eye
 
-For a diagram that will be presented or published, ask one or two subagents for a cold critique (a 30-second reader and a demanding designer; add a fact-checker when there are numbers). Give them the render and a dump of the texts, not your opinion. Apply what converges, set aside with a reason what contradicts the user's choices or rewords their terms. Briefs are in `references/review-loop.md`.
-
-When the diagram is for a client, a manager or a public audience, also read `references/audience-rules.md` (cartouche, provenance of numbers, tone, what to keep off the canvas).
+For anything that will be presented or published, run the **taste judge** (`references/art-direction.md`): a subagent scores the PNG on focal point, claim, calm, colour, voice and depth, /10; ship at 8 or more, otherwise apply its three changes. For a hero piece, build two compositions with different plans and keep the better one. Add cold critiques when it matters (`references/review-loop.md`: a 30-second reader, a demanding designer, a fact-checker when there are numbers), giving them the render and the texts, never your opinion. When the diagram leaves the team, read `references/audience-rules.md`.
 
 ## Output
 
-Deliver the `.excalidraw` file, the generator script beside it, and the render (scene URL and/or PNG). Close with one or two sentences on what the diagram says and what you changed after looking at it.
+Deliver the `.excalidraw` file, the generator script beside it, the render (scene URL and/or PNG) and the alt text file (`<name>.alt.md` from `finish()`: alt text and long description, to paste as the image description). Close with one or two sentences on what the diagram says and what you changed after looking at it.
 
 ## Protected invariants
 
 - The render is checked before delivery; lint alone is not enough.
-- One colour, one meaning, stated in a legend when colours carry meaning.
+- One colour, one meaning, stated on the canvas (a direct label, or a legend when direct labels do not fit).
 - The user's words for things are kept verbatim on the canvas.
 - No invented numbers; every number carries its unit.
 - Publishing goes to a new scene per version; deleting or sharing scenes only on explicit request (share links are public).
 
 ## References
 
-- `references/composition.md` — compose from the content's shape: layouts, devices, combining, inventing safely; `assets/gallery/` pictures as the bar.
-- `references/styles.md` — the six styles, how to choose, colour moods (sober, pastel, mono).
+- `references/art-direction.md` — the brief, ten moves, formats, page plans, three reading depths, accessibility pass, the taste judge.
+- `references/composition.md` — compose from the content's shape: layouts, devices, combining, inventing safely; `assets/gallery/` as the bar.
+- `references/styles.md` — the eight styles, how to choose, colour moods, brand colours.
 - `references/design-principles.md` — grid, spacing, hierarchy, typography, colour, arrows, density, the beauty checklist.
-- `references/recipes.md` — layouts for each diagram type and the kit calls that build them.
+- `references/recipes.md` — rules for recurring diagram types and the kit calls that build them.
 - `references/review-loop.md` — cold critique briefs and how to sort feedback.
-- `references/validation.md` — order of checks, lint findings and fixes, local renderer setup, what to look at in thumbnail, at 100 % and zoomed.
+- `references/validation.md` — order of checks, lint findings and fixes, local renderer setup, where to zoom.
 - `references/audience-rules.md` — when the diagram leaves the team: cartouche, numbers, provenance, tone.
 - `references/excalidraw-plus.md` — publishing, screenshots, HTTP fallback, pitfalls.
-- `scripts/excalikit.py`, `scripts/doodles.py` (pictograms for explainers), `scripts/icons.py` (line icons for system maps), `scripts/cards.py` (flashcard decks), `scripts/lint_scene.py`, `scripts/render_scene.mjs`, `scripts/excalidraw_plus.py`; `assets/palettes.py` (palettes, spacing and type scales); `assets/example_*.py` to copy.
+- `scripts/signature.py` (frames, plans, signature blocks, alt text), `scripts/excalikit.py`, `scripts/icons.py`, `scripts/doodles.py`, `scripts/cards.py`, `scripts/lint_scene.py`, `scripts/render_scene.mjs`, `scripts/excalidraw_plus.py`; `assets/palettes.py`; `assets/example_*.py`.

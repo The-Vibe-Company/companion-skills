@@ -1,6 +1,6 @@
 """lint_scene — static checks on an .excalidraw file before publishing.
 
-    python lint_scene.py diagram.excalidraw [--max-words 40] [--max-colors 12] [--strict] [--json]
+    python lint_scene.py diagram.excalidraw [--max-words 40] [--max-colors 12] [--strict] [--taste] [--json]
 
 Errors (exit 1): text overflowing the smallest box that contains its top-left corner; two texts overlapping;
 text crossing a box edge; a square (or less rounded) shape poking out of a rounded corner by 2 px or more.
@@ -21,18 +21,40 @@ Strict-only checks (--strict, noisier, for a final polish pass):
   rhythm     uneven gaps between siblings of a row or column; same-style boxes of slightly different sizes
   padding    text closer than 8 px to the edge of its box
   touch      an arrowhead tip touching a box border with no gap
+Taste checks (--taste, art direction; page checks need the signature page rect, customData.decor = "page"):
+  hero, type-scale, title, min-text, margin, balance, dead band, colour budget, legend (soft note).
 
 Each geometry finding ends with a crop hint ("crop x,y,w,h") to pass to render_scene.mjs --crop for a zoomed look.
 Widths come from the file (estimated by the generator), so a pass is necessary, not sufficient: always look at a
 real render too.
 """
 import argparse
+import colorsys
 import json
 import math
+import statistics
 import sys
 
 SHAPES = ("rectangle", "ellipse", "diamond", "image")
 HEAD_LEN = 24          # how far back an Excalidraw arrowhead reaches from its tip
+
+# taste thresholds (--taste)
+HERO_RATIO = 2.5       # a tagged hero is at least this many times the largest other block
+FOCAL_RATIO = 2.0      # untagged: the largest block is at least this many times the median block
+BADGE_MAX = 60         # shapes this small (badges, dots, swatches) are not blocks
+MAX_TYPE_SIZES = 5     # distinct font sizes (voice excluded)
+TITLE_RATIO = 2.0      # largest text vs median text size
+MARGIN_SLACK = 0.6     # content closer than margin * this to the page edge is flagged
+BALANCE_RATIO = 2.2    # opposite margins differing by more than this ratio...
+BALANCE_PX = 60        # ...and by more than this many px
+BAND_CELL = 10         # grid cell (px) for the dead-band and fill-share rasters
+BAND_INFLATE = 12      # content boxes are inflated by this before rasterising
+BAND_SHARE = 0.22      # an empty full-width / full-height band larger than this share of the content area
+SAT_MIN, LIGHT_MIN, LIGHT_MAX = 0.35, 0.2, 0.85      # a "saturated" colour (HSL)
+HUE_STEP = 30          # hue family width in degrees
+MAX_HUES = 4           # saturated hue families allowed
+SAT_FILL_SHARE = 0.18  # share of the page covered by saturated fills (hero excluded)
+SWATCH_MAX = 28        # legend swatch size
 
 
 def is_decor(e):
@@ -482,6 +504,227 @@ class Geo:
         return self.errors, self.warnings, (self.strict if strict else [])
 
 
+# ------------------------------------------------------------------ taste checks (--taste)
+def is_voice(e):
+    """Hand annotations (signature.hand / margin_note): a deliberate second font and size, outside the type scale."""
+    return bool((e.get("customData") or {}).get("voice"))
+
+
+def is_whisper(e):
+    """Footer provenance (signature.whisper): small on purpose, allowed down to 80 % of the format's minimum."""
+    return bool((e.get("customData") or {}).get("whisper"))
+
+
+def hue_family(c):
+    """Hue family index of a saturated colour, None for greys, tints and near-blacks."""
+    rgb = hex_rgb(c)
+    if not rgb:
+        return None
+    h, l, s = colorsys.rgb_to_hls(*(v / 255 for v in rgb))
+    if s <= SAT_MIN or not LIGHT_MIN <= l <= LIGHT_MAX:
+        return None
+    return int(h * 360 // HUE_STEP) % (360 // HUE_STEP)
+
+
+def raster(region, items, cell=BAND_CELL):
+    """Coarse occupancy grid over region (x0, y0, x1, y1): items are boxes, or (box, test(x, y)) for exact shapes."""
+    x0, y0, x1, y1 = region
+    nc, nr = max(1, math.ceil((x1 - x0) / cell)), max(1, math.ceil((y1 - y0) / cell))
+    grid = [[False] * nc for _ in range(nr)]
+    for it in items:
+        b, test = it if len(it) == 2 else (it, None)
+        c0, c1 = max(0, int((b[0] - x0) // cell)), min(nc - 1, int((b[2] - x0) // cell))
+        r0, r1 = max(0, int((b[1] - y0) // cell)), min(nr - 1, int((b[3] - y0) // cell))
+        for r in range(r0, r1 + 1):
+            for c in range(c0, c1 + 1):
+                if not grid[r][c] and (test is None or test(x0 + (c + 0.5) * cell, y0 + (r + 0.5) * cell)):
+                    grid[r][c] = True
+    return grid
+
+
+def longest_run(flags):
+    """(start, length) of the longest run of True."""
+    best, cur, start = (0, 0), 0, 0
+    for i, f in enumerate(flags):
+        if f:
+            if cur == 0:
+                start = i
+            cur += 1
+            if cur > best[1]:
+                best = (start, cur)
+        else:
+            cur = 0
+    return best
+
+
+def taste(raw, els, texts, boxes, geo):
+    """Art-direction checks: one focal point, a short type scale, a real title, text readable at the format's size,
+    margins, no dead band, a small colour budget. Returns warnings."""
+    out = []
+
+    def lab(e):
+        if e["type"] == "text":
+            return f"'{e['text'].splitlines()[0][:30]}'"
+        return geo.name(e) if e["id"] in geo.by_id else f"{e['type']} at {bbox(e)[0]:.0f},{bbox(e)[1]:.0f}"
+
+    page = next((e for e in raw if (e.get("customData") or {}).get("decor") == "page"), None)
+    pcd = (page or {}).get("customData") or {}
+    pb = bbox(page) if page else None
+    m = pcd.get("margin") or 0
+    fmt = pcd.get("format", "?")
+
+    # 1. hero / focal point
+    blocks = [b for b in boxes if not is_doodle(b) and max(abs(b["width"]), abs(b["height"])) > BADGE_MAX]
+
+    def holds(a, b):
+        ab, bb = bbox(a), bbox(b)
+        return a is not b and area(ab) > area(bb) and inside(bb[:2], ab, 0.5) and inside(bb[2:], ab, 0.5)
+    leaves = [b for b in blocks if not any(holds(b, o) for o in blocks)]
+    heroes = [b for b in blocks if (b.get("customData") or {}).get("hero")]
+    if heroes:
+        hero = max(heroes, key=lambda b: area(bbox(b)))
+        others = [b for b in leaves if b not in heroes]
+        if others:
+            big = max(others, key=lambda b: area(bbox(b)))
+            k = area(bbox(hero)) / max(area(bbox(big)), 1)
+            if k < HERO_RATIO:
+                out.append(f"hero: the hero {geo.name(hero)} is only {k:.1f}x the largest other block {geo.name(big)} "
+                           f"(aim for {HERO_RATIO:g}x+, 3-4x reads best) — grow it or shrink the others "
+                           f"({crop_hint(bbox(hero), bbox(big), pad=20)})")
+    elif len(leaves) >= 3:
+        big = max(leaves, key=lambda b: area(bbox(b)))
+        med = statistics.median(area(bbox(b)) for b in leaves)
+        k = area(bbox(big)) / max(med, 1)
+        if k < FOCAL_RATIO:
+            out.append(f"hero: no focal point, the largest block {geo.name(big)} is {k:.1f}x the median block — make "
+                       f"one block 3-4x the others, or tag the hero (customData.hero)")
+
+    # 2-3. type scale and title
+    body = [t for t in texts if not is_voice(t) and not is_doodle(t) and not is_whisper(t)]
+    sizes = sorted({round(t.get("fontSize", 20)) for t in body})
+    if len(sizes) > MAX_TYPE_SIZES:
+        out.append(f"type-scale: {len(sizes)} font sizes ({', '.join(str(z) for z in sizes)} px; max "
+                   f"{MAX_TYPE_SIZES}) — keep about 4 sizes: title, hero word, label, detail")
+    if len(body) >= 3:
+        top = max(body, key=lambda t: t.get("fontSize", 20))
+        med = statistics.median(t.get("fontSize", 20) for t in body)
+        if top.get("fontSize", 20) < TITLE_RATIO * med:
+            out.append(f"title: the largest text {lab(top)} is {top.get('fontSize', 20):g} px, only "
+                       f"{top.get('fontSize', 20) / med:.1f}x the median text ({med:g} px) — set the title at "
+                       f"{TITLE_RATIO:g}x+ the body")
+
+    # 4. smallest readable text for the format
+    if page and pcd.get("min_text"):
+        mt = pcd["min_text"]
+        small = sorted((t for t in texts if t.get("fontSize", 20) < (mt * 0.8 if is_whisper(t) else mt)), key=lambda t: t.get("fontSize", 20))
+        if small:
+            ex = ", ".join(f"{lab(t)} ({t.get('fontSize', 20):g} px)" for t in small[:3])
+            more = f" and {len(small) - 3} more" if len(small) > 3 else ""
+            out.append(f"min-text: {len(small)} text(s) under {mt} px, too small for the {fmt} format once it is shown "
+                       f"scaled down: {ex}{more} — raise them to {mt} px+ or cut them")
+
+    # 5. margins and balance
+    if page and els:
+        slack = m * MARGIN_SLACK
+        outside, near = [], []
+        for e in els:
+            b = bbox(e)
+            if b[0] < pb[0] - 0.5 or b[1] < pb[1] - 0.5 or b[2] > pb[2] + 0.5 or b[3] > pb[3] + 0.5:
+                outside.append(e)
+            elif b[0] < pb[0] + slack or b[1] < pb[1] + slack or b[2] > pb[2] - slack or b[3] > pb[3] - slack:
+                near.append(e)
+        for what, items, fix in (("outside the page", outside, "bring them inside the margin"),
+                                 (f"within {slack:.0f} px of the page edge (margin {m} px)", near,
+                                  "keep content inside the margin")):
+            if items:
+                ex = ", ".join(lab(e) for e in items[:3])
+                more = f" and {len(items) - 3} more" if len(items) > 3 else ""
+                out.append(f"margin: {len(items)} element(s) {what}: {ex}{more} — {fix} "
+                           f"({crop_hint(*[bbox(e) for e in items[:6]], pad=20)})")
+        cb = (min(bbox(e)[0] for e in els), min(bbox(e)[1] for e in els),
+              max(bbox(e)[2] for e in els), max(bbox(e)[3] for e in els))
+        for (na, va), (nb, vb) in ((("left", cb[0] - pb[0]), ("right", pb[2] - cb[2])),
+                                   (("top", cb[1] - pb[1]), ("bottom", pb[3] - cb[3]))):
+            lo, hi = sorted((va, vb))
+            if hi - lo > BALANCE_PX and hi > BALANCE_RATIO * max(lo, 1):
+                out.append(f"balance: {na} margin {va:.0f} px vs {nb} {vb:.0f} px — re-centre the content or let a "
+                           f"block fill the wide side")
+
+    # 6. dead bands inside the margins
+    if page and els:
+        inner = (pb[0] + m, pb[1] + m, pb[2] - m, pb[3] - m)
+        iw, ih = inner[2] - inner[0], inner[3] - inner[1]
+        if iw > 0 and ih > 0:
+            grid = raster(inner, [(b[0] - BAND_INFLATE, b[1] - BAND_INFLATE, b[2] + BAND_INFLATE, b[3] + BAND_INFLATE)
+                                  for b in map(bbox, els)])
+            rows = [not any(r) for r in grid]
+            cols = [not any(r[c] for r in grid) for c in range(len(grid[0]))]
+            for kind, flags, span, o, axis in (("horizontal", rows, ih, inner[1], "height"),
+                                               ("vertical", cols, iw, inner[0], "width")):
+                s, n = longest_run(flags)
+                size = min(n * BAND_CELL, span - s * BAND_CELL)
+                if size > BAND_SHARE * span:
+                    a0 = o + s * BAND_CELL
+                    hint = (crop_hint((inner[0], a0, inner[2], a0 + size), pad=0) if kind == "horizontal"
+                            else crop_hint((a0, inner[1], a0 + size, inner[3]), pad=0))
+                    xy = "y" if kind == "horizontal" else "x"
+                    out.append(f"dead band: an empty {kind} band of {size:.0f} px ({xy} {a0:.0f}-{a0 + size:.0f}, "
+                               f"{100 * size / span:.0f} % of the content {axis}) — grow the hero, move notes there, "
+                               f"or crop the format ({hint})")
+
+    # 7. colour budget
+    fams = {}
+    for e in els:
+        if is_doodle(e):
+            continue
+        cols = []
+        if e["type"] == "text" or visible_stroke(e):
+            cols.append(e.get("strokeColor"))
+        if e["type"] != "text" and visible_fill(e):
+            cols.append(e.get("backgroundColor"))
+        for c in cols:
+            f = hue_family(c)
+            if f is not None:
+                fams.setdefault(f, set()).add(c.lower())
+    if len(fams) > MAX_HUES:
+        ex = ", ".join(sorted(v)[0] for _, v in sorted(fams.items()))
+        out.append(f"colour: {len(fams)} saturated hue families ({ex}; max {MAX_HUES}) — each hue needs a meaning; "
+                   f"grey the rest")
+    region = pb if page else ((min(bbox(e)[0] for e in els), min(bbox(e)[1] for e in els),
+                               max(bbox(e)[2] for e in els), max(bbox(e)[3] for e in els)) if els else None)
+    if region and area(region) > 0:
+        loud = [s for s in geo.shapes if s["type"] != "image" and not is_doodle(s) and visible_fill(s)
+                and hue_family(s["backgroundColor"]) is not None and not (s.get("customData") or {}).get("hero")]
+        if loud:
+            grid = raster(region, [(bbox(s), (lambda x, y, s=s: sd_shape(x, y, s) <= 0)) for s in loud])
+            share = sum(map(sum, grid)) / (len(grid) * len(grid[0]))
+            if share > SAT_FILL_SHARE:
+                out.append(f"colour: saturated fills cover {100 * share:.0f} % of the {'page' if page else 'drawing'} "
+                           f"(hero excluded; max {100 * SAT_FILL_SHARE:.0f} %) — use pale tints for areas and keep "
+                           f"saturated colour for lines, text and the hero")
+
+    # 8. legend where direct labels would do (soft)
+    has_legend = any(t["text"].strip().rstrip(":").strip().lower() == "legend" for t in texts)
+    if not has_legend and els:
+        cb = (min(bbox(e)[1] for e in els), max(bbox(e)[3] for e in els))
+        low = cb[0] + 0.75 * (cb[1] - cb[0])
+        swatches = 0
+        for s in geo.shapes:
+            sb = bbox(s)
+            if max(sb[2] - sb[0], sb[3] - sb[1]) > SWATCH_MAX or (sb[1] + sb[3]) / 2 < low:
+                continue
+            if not (visible_fill(s) or visible_stroke(s)):
+                continue
+            mid = (sb[1] + sb[3]) / 2
+            if any(0 <= bbox(t)[0] - sb[2] <= 16 and bbox(t)[1] - 6 <= mid <= bbox(t)[3] + 6 for t in texts):
+                swatches += 1
+        has_legend = swatches >= 2
+    if has_legend and len(fams) < MAX_HUES:
+        out.append(f"legend (soft): a legend for {len(fams)} colour famil{'y' if len(fams) == 1 else 'ies'} — label "
+                   f"each colour directly where it is used and drop the legend")
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("path")
@@ -489,6 +732,8 @@ def main():
     ap.add_argument("--max-colors", type=int, default=12)
     ap.add_argument("--strict", action="store_true", help="also report near-misses, uneven rhythm, tight padding and "
                                                            "arrow tips touching borders")
+    ap.add_argument("--taste", action="store_true", help="also report art-direction issues: hero, type scale, "
+                                                          "title, min text, margins, dead bands, colour budget")
     ap.add_argument("--json", action="store_true")
     a = ap.parse_args()
 
@@ -554,7 +799,8 @@ def main():
         warnings.append(f"{len(strokes)} stroke colours (max {a.max_colors}): does each colour still mean one thing?")
     fams = {}
     for t in texts:
-        if (t.get("customData") or {}).get("card"):   # flashcard type roles (display, body, hand) are deliberate
+        cd = t.get("customData") or {}
+        if cd.get("card") or cd.get("voice"):         # flashcard type roles and hand annotations are deliberate
             continue
         fams.setdefault(t.get("fontFamily"), []).append(t.get("fontSize", 20))
     if len(fams) > 1:
@@ -567,9 +813,14 @@ def main():
                             f"(>= 28 px) and a label font (<= 12 px)")
 
     bg = hex_rgb((doc.get("appState") or {}).get("viewBackgroundColor")) or (255, 255, 255)
-    g_err, g_warn, g_strict = Geo(els, texts, bg, overflowing).run(container, a.strict)
+    geo = Geo(els, texts, bg, overflowing)
+    g_err, g_warn, g_strict = geo.run(container, a.strict)
     errors += list(dict.fromkeys(g_err))
     warnings = sorted(set(warnings)) + list(dict.fromkeys(g_warn)) + list(dict.fromkeys(g_strict))
+    raw = [e for e in doc["elements"] if not e.get("isDeleted")]
+    if a.taste:
+        warnings += list(dict.fromkeys(taste(raw, els, texts, boxes, geo)))
+    page = next((e for e in raw if (e.get("customData") or {}).get("decor") == "page"), None)
     if a.json:
         print(json.dumps({"errors": errors, "warnings": warnings}, ensure_ascii=False, indent=2))
     else:
@@ -578,7 +829,9 @@ def main():
         for w in warnings:
             print("warning", w)
         print(f"{len(errors)} error(s), {len(warnings)} warning(s) — {len(texts)} texts, {len(boxes)} boxes, {len(arrows)} arrows"
-              + ("" if a.strict else " (--strict adds near-miss, rhythm, padding and touch checks)"))
+              + ("" if a.strict else " (--strict adds near-miss, rhythm, padding and touch checks)")
+              + ("" if not a.taste else f" [taste: {page['customData'].get('format', '?')} page]" if page
+                 else " [taste: no page rect, min-text, margin and band checks skipped]"))
     sys.exit(1 if errors else 0)
 
 

@@ -11,6 +11,7 @@ Run the generator and read stderr. Fix every `OVERFLOW` and `OUT CHIP TOO WIDE` 
 ```bash
 python scripts/lint_scene.py diagram.excalidraw            # errors + default warnings, exit 1 on any error
 python scripts/lint_scene.py diagram.excalidraw --strict   # final polish pass: adds near-miss, rhythm, padding, touch
+python scripts/lint_scene.py diagram.excalidraw --taste    # art direction: hero, type scale, claim, format minimum, margins, dead bands, hues
 python scripts/lint_scene.py diagram.excalidraw --json      # machine-readable, same content
 ```
 

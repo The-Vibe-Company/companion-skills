@@ -33,6 +33,23 @@ TYPE = {"display": 56, "title": 36, "subtitle": 20, "heading": 18, "label": 16, 
 
 # ---------------------------------------------------------------- palettes
 PALETTES = {
+    # Signature: the house look. Warm paper, near-black ink, warm greys for context, one burnt-orange voice
+    # (hand notes, the reading path), a yellow highlighter and a yellow hero. The default for anything new.
+    "signature": {
+        "canvas": "#fbf8f1", "white": "#ffffff", "paper": "#f4f0e6", "lane": "#f2ede2", "line": "#ddd6c8",
+        "stone": "#b9b1a2", "grey": "#716b61", "mid": "#57524a", "ink": "#1f1d1a", "on_dark": "#e9e4d8",
+        "accent": "#c2410c", "accent_bg": "#fff1e8", "accent_soft": "#ffc8a8",
+        "bad": "#c92a2a", "bad_bg": "#fff5f5", "bad_soft": "#ffc9c9",
+        "good": "#2b7a3d", "good_bg": "#ebfbee", "good_soft": "#b2f2bb",
+        "wait": "#9c5b00", "wait_bg": "#fff4e0", "wait_soft": "#ffd8a8",
+        "open": "#e0a800", "open_bg": "#fff8dc", "open_txt": "#7a5a00",
+        "cat1": "#1864ab", "cat1_bg": "#e7f5ff", "cat1_soft": "#a5d8ff",
+        "cat2": "#a61e4d", "cat2_bg": "#fff0f6", "cat2_soft": "#fcc2d7",
+        "loud": "#1f1d1a",
+        "loud_txt": "#ffffff",
+        "loud_sub": "#e9e4d8",
+        "badge": "#c2410c",
+        "badge_txt": "#ffffff",},
     # Clean: cool neutrals on white, one violet accent. Slides, documentation, anything shared outside the team.
     "clean": {
         "canvas": "#ffffff", "white": "#ffffff", "paper": "#f8f9fa", "lane": "#f1f3f5", "line": "#dee2e6",
@@ -108,7 +125,7 @@ PALETTES = {
         "wait": "#fbbf24", "wait_bg": "#382c12", "wait_soft": "#7a5f1f",
         "open": "#facc15", "open_bg": "#1a1f2c", "open_txt": "#fde68a",
         "cat1": "#a5b4fc", "cat1_bg": "#1d2140", "cat1_soft": "#4a538f",
-        "cat2": "#c4b5fd", "cat2_bg": "#272040", "cat2_soft": "#4c3f80",
+        "cat2": "#f9a8d4", "cat2_bg": "#3a1f33", "cat2_soft": "#8a4a74",
         "loud": "#2b3350",
         "loud_txt": "#eef1f7",
         "loud_sub": "#c3c9d8",
@@ -212,6 +229,12 @@ STYLES = {
     #   curved                          arch the straight step-to-step arrows
     #   shadow                          solid offset shadow behind the loud and key boxes (sticker look)
     #   mood                            how colour is spent: sober, pastel (one tint per step / family), mono
+    "signature": {"palette": "signature", "hand": False, "roughness": 0, "radius": 14, "mood": "sober",
+                  "font": 6, "title_font": 5, "label_font": 6, "title": 56, "sub": 20, "align": "left",
+                  "rule": False, "sw": 2, "sw_key": 3, "outline": None, "zone_fill": "solid", "curved": False,
+                  "shadow": False,
+                  "use": "DEFAULT house look for anything new: hand-lettered claim with a highlighter, sans body, "
+                         "warm paper, one yellow hero, a burnt-orange voice for notes and the path"},
     "corporate": {"palette": "clean", "hand": False, "radius": 12, "mood": "sober",
                   "font": 6, "title_font": 6, "label_font": 6, "title": 36, "sub": 20, "align": "left", "rule": False,
                   "sw": 1.5, "sw_key": 2.5, "outline": None, "zone_fill": "solid", "curved": False, "shadow": False,

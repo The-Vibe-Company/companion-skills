@@ -3,11 +3,11 @@
 A style is the whole look of a diagram, a grammar rather than a palette: fonts (body, titles, small labels), header
 (sizes, alignment, rule), corner radius, stroke weights (quiet / key), outline colour, zone fills (solid or hachure),
 arrows (straight or arched), the loud element (ink block, raised neutral, yellow sticker with shadow) and how colour
-is spent (its mood). The seven styles live in `assets/palettes.py` (`STYLES`); every example takes `--style <name>`,
+is spent (its mood). The eight styles live in `assets/palettes.py` (`STYLES`); every example takes `--style <name>`,
 and your own generator calls `palettes.setup(style="<name>")` before drawing and `S.header(title, message)` for the
 title block, so the kit applies the grammar everywhere (`excalikit.STYLE`, `font_for`, `Scene._finish`).
 
-Contents: choosing a style · corporate · editorial · sketch · playful · whiteboard · night · mono · colour moods · brand colours ·
+Contents: choosing a style · signature · corporate · editorial · sketch · playful · whiteboard · night · mono · colour moods · brand colours ·
 make it superb in any style.
 
 Pick the style from the request and the audience, before any coordinate. One style per diagram: never mix fonts,
@@ -18,7 +18,8 @@ neutrals and one accent than with a rainbow, and a user who did not ask for colo
 
 | Signal in the request or audience | Style |
 |---|---|
-| No signal; clients, management, slides, documentation, anything shared outside the team | **corporate** |
+| No signal: the default for anything new (explainers, posts, slides, docs) | **signature** |
+| A formal client or management deck, documentation that must look institutional | **corporate** |
 | Poster, report, article, one-pager, "summary on one page" | **editorial** |
 | Workshop, brainstorm, internal explainer, "sketch", "whiteboard", informal | **sketch** |
 | General or non-technical audience (blog, public, onboarding) with a warm tone: "friendly", "warm", "fun", "not corporate", "colourful", "for kids" | **playful** |
@@ -30,12 +31,25 @@ neutrals and one accent than with a rainbow, and a user who did not ask for colo
   kids) *plus* a warm tone in the request ("friendly", "warm", "fun", "not corporate", "playful", "colourful") means
   **playful**, even when the request also says "hand-drawn": playful is hand-drawn too. Sketch is for informal
   *internal* use (workshop, team channel, brainstorm) or when "hand-drawn" comes with no audience or tone.
-- **Only when the signals really tie, pick the soberer one** (mono > editorial > corporate > sketch > night >
+- **Only when the signals really tie, pick the soberer one** (mono > editorial > corporate > signature > sketch > night >
   playful in colour spent) and offer the other in one line: "Made in corporate; say if you want the hand-drawn
   sketch version." Do not use this rule to override an explicit warm tone for a general audience.
 - **A named style wins** over every signal.
 - **Brand palette**: keep the style's structure (rendering, radius, mood) and swap palette roles; see
-  "Brand colours" below. Never invent a seventh style for a brand.
+  "Brand colours" below. Never invent a ninth style for a brand.
+
+## signature
+
+The house look and the default. Warm paper (`#fbf8f1`), near-black ink, warm greys for everything that is context.
+Titles, the hero word and the voice are hand-lettered (Excalifont); labels and body are Nunito, so it reads like a
+person explaining over a clean document. Crisp lines (roughness 0), radius 14, strokes 2 / 3.
+Signature devices (`scripts/signature.py`, `references/art-direction.md`): the claim title with a yellow
+highlighter swipe on its key words; one yellow hero 3-4x bigger than the rest; families as coloured lines with
+white stations; numbered burnt-orange badges for the path; one or two burnt-orange hand notes with curved arrows;
+a grey whisper footer. Colour: yellow = the hero and the highlighter, burnt orange = the voice and the path, at most
+two meaning colours (cat1 blue, cat2 raspberry) for families, everything else grey.
+Use it for: anything without a strong style signal. Avoid it when the user wants something institutional
+(corporate) or printed in black and white (mono).
 
 ## corporate
 

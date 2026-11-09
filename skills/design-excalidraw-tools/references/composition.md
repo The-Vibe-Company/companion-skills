@@ -13,7 +13,8 @@ Contents: how to compose · layout shapes · devices · combining · inventing s
 2. **Name the shape of the content.** Is it a sequence, a split, a loop, a hierarchy, a comparison, a set of
    parts around a centre, a position on two axes, a journey with a person, a map of zones? Content often has one
    main shape and one secondary shape (a sequence with a feedback loop; a hub with one highlighted spoke).
-3. **Pick a layout for the main shape** from the list below, or invent one (see "Inventing safely").
+3. **Pick a layout for the main shape** from the list below, or invent one (see "Inventing safely"); place it in
+   a page plan of the frame (`signature.plan()`, `references/art-direction.md`) so the hero lands on a third.
 4. **Pick at most three devices** for the secondary shape and the emphasis. More devices make noise.
 5. **Sketch the grid in constants** (columns, rows, radius, gaps), then build. Look at the render, then at one or
    two pictures in `assets/gallery/` at the same zoom: is yours as calm, aligned and readable? Fix what is not.
@@ -22,6 +23,7 @@ Contents: how to compose · layout shapes · devices · combining · inventing s
 
 | Content shape | Layouts that carry it | Kit |
 |---|---|---|
+| Convergence | lines with stations merging into the hero (`hero-right`) | `line_of_stops`, `merge`, `hero` |
 | Sequence | one row; a column (top to bottom, good for phones and docs); two rows that read like text; a staircase for progress | `card`, `node`, `icon_card`, `connect`, `arrow` |
 | Split and merge | lanes (tracks); a fork into a column of branches; a fan-out bracket | `lane`, `fan_out`, `connect` |
 | Loop / cycle | boxes on a circle with arc arrows; a row with a return loop under it; a figure-eight for two coupled loops | `ring`, `cycle`, `arc_arrow`, `return_loop`, `curve` |
@@ -36,6 +38,9 @@ Contents: how to compose · layout shapes · devices · combining · inventing s
 | Catalogue | a grid of equal cards, one icon and two lines each | `grid`, `icon_card` |
 
 ## Devices (borrow freely, at most three per diagram)
+
+- **The signature blocks** (`scripts/signature.py`): claim title with highlighter, hero, lines of stations,
+  numbered step cards, margin notes (the voice), zoom inset, twin panels, takeaway, whisper.
 
 - **The loud element**: one block, card or figure carries the weight (`node(strong=True)`, the loud fill, a key
   card with a heavy outline). Never two.
@@ -86,17 +91,18 @@ Look at two of these at the size yours will be shown. They are the bar for calm 
 
 | Picture | Shape | What to notice |
 |---|---|---|
+| `signature_hub.png` | convergence (signature) | claim with highlighter, two lines of stations merging into a yellow hero on the right third, one hand note |
+| `signature_path.png` | sequence (signature) | numbered step cards, the answer as the hero, a bracket naming three steps, takeaway with highlighter |
+| `signature_split.png` | before / after (signature) | twin columns at identical positions, ghosts for what is gone, the payoff as a huge hero |
+| `signature_social.png` | loop, 4:5 for a phone (signature) | 30 px+ text, the closing moment as the hero on top, the loop as a track under it |
+| `signature_zoom.png` | architecture with one part that matters (signature) | overview small and grey, dashed ring, the inset as the hero, colour only on the failure path |
 | `agent_system-whiteboard.png` | system of actors | pastel per role, fan-out, queue mock-up, curves over and under the row |
-| `cycle-whiteboard.png` | loop around a core | ring of equal cards, arcs that stop short of each card, one callout |
 | `ring-loop-whiteboard.png` | loop that closes on the same actor | numbered markers on a circle, the closing arc in the accent |
 | `permissions-map-corporate.png` | centre with parts and a boundary | read on the left, write on the right, the forbidden zone as a dashed band |
 | `grid-3x3-corporate.png` | two axes, three levels | zones named in their own empty cells, one loud card |
 | `process_map-corporate.png` | dense process | lifecycle frame, two tracks, gate checklist, bottom band of who / what / questions |
 | `flow_tracks-sketch.png` | split and merge | lanes as tracks, one gate, rework loop under the lanes |
 | `explainer-playful.png` | sequence for a general audience | one pictogram per step, pastel per card, takeaway in the accent |
-| `hub-playful.png` | centre and parts | two families in columns, fanned connectors |
 | `architecture-night.png` | what talks to what | zones by role, the key zone in the accent, labelled transports |
 | `poster-editorial.png` | key figures | hero figure twice the size of the others, the "how" underneath |
-| `before_after-mono.png` | comparison | same rows on both sides, ghosts for what disappears, no hue |
-| `timeline-corporate.png` | time | milestones above an axis, phases as bands, today as a dashed line |
 

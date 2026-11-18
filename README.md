@@ -69,7 +69,7 @@ npx skills add The-Vibe-Company/companion-skills
 </tr>
 <tr>
 <td><strong><a href="./skills/review-code-dev/SKILL.md">Review Code — Alibaba</a></strong><br><sub>Alibaba Open Code Review delegation: deterministic file selection and rules, host-agent review, and automatic macOS/Linux CLI setup without additional LLM configuration.</sub></td>
-<td><code>2.1.1</code></td>
+<td><code>2.2.0</code></td>
 </tr>
 <tr>
 <td><strong><a href="./skills/setup-granite-tools/SKILL.md">Setup Granite Tools</a></strong><br><sub>Install and safely update Granite as an MCP-first knowledge system, keep its web dashboard healthy on port 4321, and prevent file-dump ingestion.</sub></td>
@@ -77,7 +77,7 @@ npx skills add The-Vibe-Company/companion-skills
 </tr>
 <tr>
 <td><strong><a href="./skills/ship-pr-dev/SKILL.md">Ship PR</a></strong><br><sub>Ship a verified PR from a branch or approved plan through one independent review, latest-SHA green CI and a report-only learning pass; never merge.</sub></td>
-<td><code>1.6.1</code></td>
+<td><code>1.6.2</code></td>
 </tr>
 <tr>
 <td><strong><a href="./skills/tdd/SKILL.md">Behavioral TDD</a></strong><br><sub>Portable behavioral TDD reference. The approved plan confirms named test boundaries; architecture vocabulary is inline and review belongs to the delivery owner.</sub></td>
